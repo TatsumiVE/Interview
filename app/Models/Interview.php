@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Interview extends Model
 {
     use HasFactory;
-    protected $fillable = ['interview_date', 'interview_time', 'interview_type', 'record_path', 'interviewer_id', 'candidate_id', 'remark_id'];
+    protected $fillable = ['interview_date', 'interview_time', 'interview_stage','location', 'record_path', 'candidate_id'];
 }

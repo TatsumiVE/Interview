@@ -9,9 +9,7 @@ class InterviewResult extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'type',
-        'interviewer_id',
-        'candidate_id',
+        'result',
         'interview_id'
 
     ];

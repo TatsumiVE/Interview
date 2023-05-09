@@ -11,6 +11,5 @@ class Interviewer extends Model
     protected $fillable = [
         'name',
         'position_id',
-        'deparment_id'
     ];
 }

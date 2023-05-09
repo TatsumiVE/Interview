@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Assessment extends Model
 {
     use HasFactory;
-    protected $fillable=['topic','comment'];
+    protected $fillable=['topic','rate','candidate_id','interviewer_id'];
 }
