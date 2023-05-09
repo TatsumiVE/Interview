@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class RemarkResult extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'grade',
+        'remark_id',
+    ];
 }
