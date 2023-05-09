@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('interview_has_assessments', function (Blueprint $table) {
+        Schema::create('specific_languages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('assessment_id');
-            $table->foreignId('interviewer_id');
+            $table->string('experience');
+            $table->foreignId('language_id');
+            $table->foreignId('candidate_id');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('interview_has_assessments');
+        Schema::dropIfExists('specific_languages');
     }
 };

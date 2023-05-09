@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('position_id');
-            $table->foreignId('deparment_id');
             $table->timestamps();
         });
     }

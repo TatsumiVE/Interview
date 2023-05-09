@@ -10,18 +10,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Candidate extends Model
 {
     use HasFactory;
-    protected $fillable=['name','email','degree','gender','phone_number','residentail_address','date_of_birth','cv_path','position_id','language_id'];
+
+    protected $fillable = [
+        'name',
+        'email',
+        'degree',
+        'gender',
+        'phone_number',
+        'residentail_address',
+        'date_of_birth',
+        'cv_path',
+        'position_id',
+        'language_id'
+
+    ];
 
 
-   
 
 
-    public function positions(){
-        return $this->hasMany(Position::class);
+
+
+    public function positions()
+    {
+        return $this->belongsTo(Position::class);
     }
 
-    public function languages(){
-        return $this->hasMany(Language::class);
-    }
 
 }

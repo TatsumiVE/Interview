@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RemarkResult extends Model
+class InterviewAssign extends Model
 {
     use HasFactory;
 }

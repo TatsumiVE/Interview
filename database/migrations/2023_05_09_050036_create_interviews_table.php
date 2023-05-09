@@ -17,11 +17,10 @@ return new class extends Migration
             $table->id();
             $table->date('interview_date');
             $table->time('interview_time');
-            $table->string('interview_type');
+            $table->string('interview_stage');
+            $table->string('location');
             $table->string('record_path')->nullable();
-            $table->foreignId('interviewer_id');
             $table->foreignId('candidate_id');
-            $table->foreignId('remark_id');
             $table->timestamps();
         });
     }

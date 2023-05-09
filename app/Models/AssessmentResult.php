@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class AssessmentResult extends Model
 {
     use HasFactory;
-    protected $fillable=['score','assessment_id','interview_id'];
-    public function assement(){
+    protected $fillable = ['score', 'assessment_id', 'interview_id'];
+    public function assement()
+    {
         return $this->belongsTo(Assessment::class);
     }
-    public function interview(){
+    public function interview()
+    {
         return $this->belongsTo(Interview::class);
     }
 }

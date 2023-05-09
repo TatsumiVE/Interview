@@ -15,9 +15,7 @@ return new class extends Migration
     {
         Schema::create('interview_results', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->foreignId('interviewer_id');
-            $table->foreignId('candidate_id');
+            $table->integer('result');
             $table->foreignId('interview_id');
             $table->timestamps();
         });

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('remark_results', function (Blueprint $table) {
+        Schema::create('interview_assigns', function (Blueprint $table) {
             $table->id();
-            $table->string('grade');
-            $table->foreignId('remark_id');
+            $table->foreignId('interview_id');
+            $table->foreignId('interviewer_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('remark_results');
+        Schema::dropIfExists('interview_assigns');
     }
 };
