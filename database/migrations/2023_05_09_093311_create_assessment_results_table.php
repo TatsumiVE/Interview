@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('assements', function (Blueprint $table) {
+        Schema::create('assessment_results', function (Blueprint $table) {
             $table->id();
-            $table->string('topic');
-            $table->string('comment');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assements');
+        Schema::dropIfExists('assessment_results');
     }
 };
