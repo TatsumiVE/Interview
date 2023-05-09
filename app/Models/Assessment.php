@@ -5,12 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InterviewHasAssement extends Model
+class Assessment extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'assement_id',
-        'interviewer_id'
-    ];
+    protected $fillable=['topic','comment'];
 }
