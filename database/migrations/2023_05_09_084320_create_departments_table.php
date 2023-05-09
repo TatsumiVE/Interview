@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('interviews', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->date('interview_date');
-            $table->time('interview_time');
-            $table->string('interview_type');
-            $table->string('record_path')->nullable();
-            $table->foreignId('interviewer_id');
-            $table->foreignId('candidate_id');
-            $table->foreignId('remark_id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('interviews');
+        Schema::dropIfExists('departments');
     }
 };
