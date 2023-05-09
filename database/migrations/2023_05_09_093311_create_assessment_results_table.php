@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('assessment_results', function (Blueprint $table) {
             $table->id();
+            
             $table->timestamps();
         });
     }
