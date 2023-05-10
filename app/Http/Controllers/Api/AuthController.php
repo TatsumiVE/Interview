@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
 
 
-    public function Register(Request $request)
+    public function register(Request $request)
     {
         try {
             //Validated

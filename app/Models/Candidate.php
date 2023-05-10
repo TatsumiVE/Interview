@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Language;
+
 use App\Models\Position;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,15 +25,9 @@ class Candidate extends Model
 
     ];
 
-
-
-
-
-
     public function positions()
     {
         return $this->belongsTo(Position::class);
     }
-
 
 }

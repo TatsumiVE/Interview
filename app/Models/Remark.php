@@ -11,4 +11,6 @@ class Remark extends Model
     protected $fillable = [
         'grade','interview_assign_id'
     ];
+
+    
 }

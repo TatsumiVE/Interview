@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Interview;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class InterviewResult extends Model
 {
@@ -13,4 +14,8 @@ class InterviewResult extends Model
         'interview_id'
 
     ];
+
+    public function interview(){
+        return $this->hasOne(Interview::class);
+    }
 }
