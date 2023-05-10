@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->date('interview_date');
             $table->time('interview_time');
-            $table->integer('interview_stage');
             $table->boolean('location');
             $table->string('record_path')->nullable();
             $table->foreignId('candidate_id');
