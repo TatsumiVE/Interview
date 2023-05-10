@@ -23,6 +23,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('auth/login', [AuthController::class, 'loginUser']);
-Route::post('auth/register', [AuthController::class, 'register']);
+Route::post('auth/login', [AuthController::class, 'UserLogin']);
+Route::post('auth/register', [AuthController::class, 'UserRegister']);
 Route::apiResource('candidates', CandidateController::class);

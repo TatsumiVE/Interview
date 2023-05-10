@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+
 use App\Http\Controllers\Controller;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,9 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-
-
-    public function register(Request $request)
+    public function UserRegister(Request $request)
     {
         try {
             //Validated
@@ -22,7 +22,8 @@ class AuthController extends Controller
                 [
                     'name' => 'required',
                     'email' => 'required|email|unique:users,email',
-                    'password' => 'required'
+                    'password' => 'required',
+                    'is_active' => ''
                 ]
             );
 
@@ -37,7 +38,8 @@ class AuthController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'is_active' => $request->has("is_active") ? 1 : 0
             ]);
 
             return response()->json([
@@ -52,26 +54,15 @@ class AuthController extends Controller
             ], 500);
         }
     }
-    /**
-     * Login The User
-     * @param Request $request
-     * @return User
-     */
-    public function loginUser(Request $request)
+
+
+    public function UserLogin(Request $request)
     {
-
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required' | 'confirmed',
-        //     'password' => 'required',
-        //     'is_active' => ''
-
-        // ]);
+        //    Auth::guard('mobileusers')->attempt()
         try {
             $validateUser = Validator::make(
                 $request->all(),
                 [
-
                     'email' => 'required|email',
                     'password' => 'required'
                 ]
@@ -85,7 +76,7 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            if (!Auth::guard('mobileusers')->attempt($request->only(['email', 'password']))) {
+            if (!Auth::attempt($request->only(['email', 'password']))) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Email & Password does not match with our record.',
