@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use Exception;
+use App\Models\Candidate;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CandidateController extends Controller
 {
@@ -14,7 +16,22 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        //
+        $data=Candidate::all();
+        // return response()->json($data);
+        try{
+            return response()->json([
+                'status'=>'success',
+                'message'=>'Candidate List',
+                'data'=>$data
+            ],200);
+        }
+        catch(Exception $e){
+            return response()->json([
+                'status'=>'error',
+                'message'=>$e->getMessage(),
+                'data'=>$data
+            ],500);
+        }
     }
 
     /**
