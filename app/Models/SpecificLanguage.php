@@ -9,4 +9,12 @@ class SpecificLanguage extends Model
 {
     use HasFactory;
     protected $fillable=['experience','language_id','candidate_id'];
+
+    public function language(){
+        return  $this->belongsTo(Language::class);
+     }
+
+     public function candidate(){
+        return  $this->hasOne(Language::class);
+     }
 }

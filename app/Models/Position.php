@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Position extends Model
 {
@@ -12,4 +13,8 @@ class Position extends Model
         'name',
         'department_id',
     ];
+
+    public function department(){
+        return $this->hasOne(Department::class);
+    }
 }
