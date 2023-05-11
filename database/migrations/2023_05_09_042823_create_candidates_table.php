@@ -17,17 +17,17 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->string('degree');
             $table->boolean('gender');
             $table->string('phone_number');
             $table->string('residentail_address');
             $table->string('date_of_birth');
             $table->string('cv_path');
             $table->boolean('willingness_to_travel');
-            $table->string('reason_for_leaving')->nullable();
             $table->integer('expected_salary');
+            $table->integer('last_salary');
             $table->date('earliest_starting_date');
-            $table->foreignId('position_id');
+            $table->foreignId('applied_position_id');
+            $table->foreignId('agencies_id');
             $table->timestamps();
         });
     }

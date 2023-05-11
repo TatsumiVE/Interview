@@ -16,9 +16,9 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        $super_Admin = Role::create(['name' => 'SuperAdmin']);
+        // $super_Admin = Role::create(['name' => 'SuperAdmin']);
 
-        $candidate = Permission::create(['name' => 'candidate']);
-        $super_Admin->givePermissionTo([$candidate]);
+        // $candidate = Permission::create(['name' => 'candidate']);
+        // $super_Admin->givePermissionTo([$candidate]);
     }
 }
