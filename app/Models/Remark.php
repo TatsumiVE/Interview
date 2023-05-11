@@ -9,7 +9,7 @@ class Remark extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'interview_stage','grade','interview_assign_id'
+        'interview_stage','comment','grade','interview_assign_id'
     ];
 
 

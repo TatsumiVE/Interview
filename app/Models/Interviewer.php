@@ -14,6 +14,6 @@ class Interviewer extends Model
         'position_id',
     ];
     public function position(){
-        return $this->hasOne(Position::class);
+        return $this->belongsTo(Position::class);
     }
 }
