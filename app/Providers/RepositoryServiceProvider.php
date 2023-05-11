@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Language\LanguageRepoInterface;
+use App\Repositories\Language\LanguageRepository;
+use App\Services\Language\LanguageServiceInterface;
+use App\Services\Language\LanguageService;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -25,5 +29,9 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         // $this->app->bind(BlogRepoInterFace::class, BlogRepository::class);
         // $this->app->bind(BlogServiceInterface::class, BlogService::class);
+        $this->app->bind(LanguageRepoInterFace::class, LanguageRepository::class);
+        $this->app->bind(LanguageServiceInterface::class, LanguageService::class);
+
+
     }
 }
