@@ -2,108 +2,60 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Exception;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
-
-
     public function register(Request $request)
     {
+
         try {
-            //Validated
-            $validateUser = Validator::make(
-                $request->all(),
-                [
-                    'name' => 'required',
-                    'email' => 'required|email|unique:users,email',
-                    'password' => 'required'
-                ]
-            );
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email',
+                'is_active' => 'required',
+                'password' => 'required',
+                'c_password' => 'required|same:password',
 
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
-
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
             ]);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'User Created Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
+
+            $input = $request->all();
+            $input['password'] = bcrypt($input['password']);
+            $user = User::create($input);
+            $success['token'] =  $user->createToken('App')->plainTextToken;
+            $success['name'] =  $user->name;
+
+            return $this->sendResponse($success, 'User register successfully.');
+        } catch (Exception $e) {
+            return $this->sendError('Internal Server Error', $e->getMessage(), 500);
         }
     }
-    /**
-     * Login The User
-     * @param Request $request
-     * @return User
-     */
-    public function loginUser(Request $request)
+
+    public function login(Request $request)
     {
-
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required' | 'confirmed',
-        //     'password' => 'required',
-        //     'is_active' => ''
-
-        // ]);
         try {
-            $validateUser = Validator::make(
-                $request->all(),
-                [
+            if (Auth::attempt(['email' => $request->email, 'passworddd' => $request->password])) {
+                $user = Auth::user();
+                $success['token'] =  $user->createToken('App')->plainTextToken;
+                $success['name'] =  $user->name;
 
-                    'email' => 'required|email',
-                    'password' => 'required'
-                ]
-            );
-
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
+                return $this->sendResponse($success, 'User login successfully.');
+            } else {
+                return $this->sendError('Unauthorised.', ['error' => 'Unauthorised']);
             }
-
-            if (!Auth::guard('mobileusers')->attempt($request->only(['email', 'password']))) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
-                ], 401);
-            }
-
-            $user = User::where('email', $request->email)->first();
-
-            return response()->json([
-                'status' => true,
-                'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
+        } catch (Exception $e) {
+            return $this->sendError('Internal Server Error', $e->getMessage(), 500);
         }
     }
+
 }
