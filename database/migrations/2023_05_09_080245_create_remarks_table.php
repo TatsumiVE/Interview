@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('remarks', function (Blueprint $table) {
             $table->id();
             $table->integer('interview_stage');
+            $table->integer('comment');
             $table->integer('grade');
             $table->foreignId('interview_assign_id');
             $table->timestamps();
