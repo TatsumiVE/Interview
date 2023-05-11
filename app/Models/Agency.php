@@ -5,10 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Remark extends Model
+class Agency extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'comment', 'grade', 'interview_stage_id', 'interview_assign_id'
+        'name'
     ];
+
+    public function agency()
+    {
+        return $this->belongTo(Candidate::class);
+    }
 }

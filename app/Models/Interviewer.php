@@ -13,7 +13,8 @@ class Interviewer extends Model
         'name',
         'position_id',
     ];
-    public function position(){
+    public function position()
+    {
         return $this->belongsTo(Position::class);
     }
 }
