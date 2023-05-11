@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('assessments', function (Blueprint $table) {
             $table->id();
-            $table->string('topic');
             $table->integer('rate');
             $table->foreignId('candidate_id');
             $table->foreignId('interviewer_id');
+            $table->foreignId('topic_id');
             $table->timestamps();
         });
     }

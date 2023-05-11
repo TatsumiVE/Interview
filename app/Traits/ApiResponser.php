@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Traits;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-class BaseController extends Controller
+trait ApiResponser
 {
-    public function sendResponse($result, $message)
+	
+	public function sendResponse($result, $message)
     {
         $response = [
             'success' => true,
@@ -17,8 +15,8 @@ class BaseController extends Controller
 
         return response()->json($response, 200);
     }
-   
-    public function sendError($error, $errorMessages = [], $code = 404)
+	
+	public function sendError($error, $errorMessages = [], $code = 404)
     {
         $response = [
             'success' => false,
@@ -31,4 +29,6 @@ class BaseController extends Controller
         return response()->json($response, $code);
 
     }
+	
+
 }
