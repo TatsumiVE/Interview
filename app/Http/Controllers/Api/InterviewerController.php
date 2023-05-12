@@ -33,9 +33,6 @@ class InterviewerController extends Controller
             return $this->success(200, InterviewerResource::collection($data));
 
 
-
-
-
     }
 
     /**
