@@ -2,36 +2,38 @@
 
 namespace App\Http\Controllers\Api;
 
-use Exception;
-use App\Models\Candidate;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\InterviewerResource;
+use App\Repositories\Interviewer\InterviewerRepoInterface;
 
-class CandidateController extends Controller
+class InterviewerController extends Controller
 {
+    use ApiResponser;
+    private InterviewerRepoInterface $interviewerRepo;
+
+     public function __construct(InterviewerRepoInterface $interviewerRepo)
+    {
+        $this->interviewerRepo = $interviewerRepo;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function index()
     {
-        $data=Candidate::all();
-        // return response()->json($data);
-        try{
-            return response()->json([
-                'status'=>'success',
-                'message'=>'Candidate List',
-                'data'=>$data
-            ],200);
-        }
-        catch(Exception $e){
-            return response()->json([
-                'status'=>'error',
-                'message'=>$e->getMessage(),
-                'data'=>$data
-            ],500);
-        }
+
+            $data=$this->interviewerRepo->get();
+            return $this->success(200, InterviewerResource::collection($data));
+
+
+
+
     }
 
     /**

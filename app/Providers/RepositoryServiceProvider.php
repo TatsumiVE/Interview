@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Interviewer\InterviewerRepository;
+use App\Repositories\Interviewer\InterviewerRepoInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -25,5 +27,9 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         // $this->app->bind(BlogRepoInterFace::class, BlogRepository::class);
         // $this->app->bind(BlogServiceInterface::class, BlogService::class);
+        $this->app->bind(
+            InterviewerRepoInterface::class,
+            InterviewerRepository::class
+        );
     }
 }
