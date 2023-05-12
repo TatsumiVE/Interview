@@ -23,7 +23,7 @@ class Candidate extends Model
         'expected_salary',
         'last_salary',
         'earliest_starting_date',
-        'applied_position_id',
+        'position_id',
         'agencies_id'
 
     ];

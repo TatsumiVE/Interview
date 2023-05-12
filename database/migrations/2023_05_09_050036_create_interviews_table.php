@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('interviews', function (Blueprint $table) {
             $table->id();
+
             $table->string('interview_summarize');
             $table->date('interview_result_date');
+            $table->string('interview_result');
             $table->foreignId('candidate_id');
-            $table->foreignId('remark_id');
             $table->foreignId('interview_stages_id');
             $table->timestamps();
         });
