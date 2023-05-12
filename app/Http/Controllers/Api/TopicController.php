@@ -45,7 +45,7 @@ class TopicController extends Controller
     public function store(TopicRequest $request)
     {
         $data = $this->topicService->store($request->validated());
-        return $this->success(200, TopicResource::collection($data));
+        return $this->success(200, new TopicResource($data));
     }
 
     /**
@@ -69,7 +69,7 @@ class TopicController extends Controller
     public function update(TopicRequest $request, $id)
     {
         $data = $this->topicService->update($request->validated(),$id);
-        return $this->success(200, TopicResource::collection($data));
+        return $this->success(200, new TopicResource($data));
 
     }
 
