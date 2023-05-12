@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories\Interviewer;
 
 use Exception;

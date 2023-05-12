@@ -24,9 +24,10 @@ class InterviewerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
-            'position'=>'required',
-            'department'=>'required'
+
+            'name' => 'required',
+            'position_id' => 'required',
+
         ];
     }
 }

@@ -16,6 +16,7 @@ class InterviewerController extends Controller
      public function __construct(InterviewerRepoInterface $interviewerRepo)
     {
         $this->interviewerRepo = $interviewerRepo;
+
     }
     /**
      * Display a listing of the resource.
@@ -34,6 +35,7 @@ class InterviewerController extends Controller
 
 
 
+
     }
 
     /**
@@ -42,9 +44,11 @@ class InterviewerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -65,9 +69,11 @@ class InterviewerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
         //
+
     }
 
     /**
