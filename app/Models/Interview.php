@@ -4,6 +4,8 @@ namespace App\Models;
 
 
 use App\Models\Candidate;
+use App\Models\InterviewStage;
+use App\Models\InterviewAssign;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -11,6 +13,11 @@ class Interview extends Model
 {
     use HasFactory;
     protected $fillable = ['interview_result','interview_summarize', 'interview_result_date', 'candidate_id',  'interview_stages_id'];
+
+    public function interviewassign()
+    {
+       return  $this->belongsTo(InterviewAssign::class);
+    }
     public function candidate()
     {
         return $this->belongsTo(Candidate::class);
