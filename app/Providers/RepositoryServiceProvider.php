@@ -12,6 +12,11 @@ use App\Repositories\Language\LanguageRepository;
 use App\Services\Language\LanguageServiceInterface;
 use App\Services\Language\LanguageService;
 
+use App\Repositories\Topic\TopicRepoInterface;
+use App\Repositories\Topic\TopicRepository;
+use App\Services\Topic\TopicServiceInterface;
+use App\Services\Topic\TopicService;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -39,5 +44,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(InterviewerRepoInterface::class, InterviewerRepository::class);
         $this->app->bind(InterviewerServiceInterface::class, InterviewerService::class);
 
+        $this->app->bind(TopicRepoInterface::class, TopicRepository::class);
+        $this->app->bind(TopicServiceInterface::class, TopicService::class);
     }
 }
