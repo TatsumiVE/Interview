@@ -14,14 +14,17 @@ class Candidate extends Model
     protected $fillable = [
         'name',
         'email',
-        'degree',
         'gender',
         'phone_number',
         'residentail_address',
         'date_of_birth',
         'cv_path',
-        'position_id',
-        'language_id'
+        'willingness_to_travel',
+        'expected_salary',
+        'last_salary',
+        'earliest_starting_date',
+        'applied_position_id',
+        'agencies_id'
 
     ];
 
@@ -30,4 +33,8 @@ class Candidate extends Model
         return $this->belongsTo(Position::class);
     }
 
+    public function assessment()
+    {
+        return $this->hasOne(Assessment::class);
+    }
 }

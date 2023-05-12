@@ -14,7 +14,8 @@ class Position extends Model
         'department_id',
     ];
 
-    public function department(){
+    public function department()
+    {
         return $this->belongsTo(Department::class);
     }
 }
