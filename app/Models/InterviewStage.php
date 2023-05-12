@@ -11,7 +11,6 @@ class InterviewStage extends Model
     protected $fillable = [
         'interview_date',
         'interview_time',
-        'stage_name',
         'location',
         'record_path'
 

@@ -19,7 +19,10 @@ class Candidate extends Model
         'residentail_address',
         'date_of_birth',
         'cv_path',
+        'willingness_to_travel',
         'expected_salary',
+        'last_salary',
+        'earliest_starting_date',
         'position_id',
         'agencies_id'
 
