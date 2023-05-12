@@ -32,10 +32,10 @@ class RepositoryServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        // $this->app->bind(BlogRepoInterFace::class, BlogRepository::class);
-        // $this->app->bind(BlogServiceInterface::class, BlogService::class);
+
         $this->app->bind(LanguageRepoInterFace::class, LanguageRepository::class);
         $this->app->bind(LanguageServiceInterface::class, LanguageService::class);
+
         $this->app->bind(InterviewerRepoInterface::class, InterviewerRepository::class);
         $this->app->bind(InterviewerServiceInterface::class, InterviewerService::class);
 

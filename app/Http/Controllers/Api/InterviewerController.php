@@ -2,49 +2,40 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\InterviewerRequest;
-use App\Repositories\Interviewer\InterviewerRepoInterface;
-use App\Services\Interviewer\InterviewerServiceInterface;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\TryCatch;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\InterviewerResource;
+use App\Repositories\Interviewer\InterviewerRepoInterface;
 
 class InterviewerController extends Controller
 {
+    use ApiResponser;
+    private InterviewerRepoInterface $interviewerRepo;
 
-    private $InterviewerRepo, $InterviewerService;
-
-    public function __construct(InterviewerRepoInterface $InterviewerRepo, InterviewerServiceInterface $InterviewerService)
+     public function __construct(InterviewerRepoInterface $interviewerRepo)
     {
-        $this->InterviewerRepo = $InterviewerRepo;
-        $this->InterviewerService = $InterviewerService;
-        // $this->middleware('auth');
+        $this->interviewerRepo = $interviewerRepo;
+
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function index()
     {
 
+            $data=$this->interviewerRepo->get();
+            return $this->success(200, InterviewerResource::collection($data));
 
-        try {
-            $data = $this->InterviewerRepo->get();
 
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'InterviwerList',
-                'data' => $data
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $th->getMessage(),
-                'data' => $data
-            ], 500);
-        }
+
+
     }
 
     /**
@@ -53,22 +44,11 @@ class InterviewerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(InterviewerRequest $request)
+
+    public function store(Request $request)
     {
-        try {
-            $data = $this->InterviewerService->store($request->validated());
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Interviewer Add list',
-                'data' => $data
-            ], 201);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $th->getMessage(),
-                'data' => $data
-            ], 500);
-        }
+        //
+
     }
 
     /**
@@ -89,23 +69,11 @@ class InterviewerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(InterviewerRequest $request, $id)
-    {
-        try {
-            $data = $this->InterviewerService->update($request->validated(), $id);
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Interviewer updated list',
-                'data' => $data
-            ], 200);
-        } catch (\Throwable $th) {
 
-            return response()->json([
-                'status' => 'error',
-                'message' => $th->getMessage(),
-                'data' =>  $data
-            ], 500);
-        }
+    public function update(Request $request, $id)
+    {
+        //
+
     }
 
     /**
