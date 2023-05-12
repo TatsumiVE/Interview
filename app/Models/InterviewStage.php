@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Remark;
+use App\Models\Assessment;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class InterviewStage extends Model
 {
@@ -15,4 +17,14 @@ class InterviewStage extends Model
         'record_path'
 
     ];
+
+    public function assessments()
+    {
+        return $this->belongsTo(Assessment::class);
+    }
+    public function remarks()
+    {
+        return $this->belongsTo(Remark::class);
+    }
+
 }
