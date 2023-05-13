@@ -3,7 +3,9 @@
 namespace App\Models;
 
 
+use App\Models\Agency;
 use App\Models\Position;
+use App\Models\Assessment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,14 +25,20 @@ class Candidate extends Model
         'expected_salary',
         'last_salary',
         'earliest_starting_date',
-        'position_id',
-        'agencies_id'
+        'positions_id',
+        'agencies_id',
+
 
     ];
 
-    public function positions()
+    public function position()
     {
-        return $this->belongsTo(Position::class);
+        return $this->belongsTo(Position::class, 'positions_id');
+    }
+
+    public function agency()
+    {
+        return $this->belongsTo(Agency::class, 'agencies_id');
     }
 
     public function assessment()
