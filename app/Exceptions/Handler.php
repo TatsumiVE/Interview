@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Exceptions;
+
 use App\Traits\ApiResponser;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -47,14 +50,53 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        $this->renderable(function (NotFoundHttpException $e) {
+            return $this->error(404, null, 'Object Not Found');
+        });
+    }
+    
+    public function render($request, Throwable $exception)
+    {
+        if($request->wantsJson())
+        {
+            return $this->handleApiException($request, $exception);
+        }else{
+            return parent::render($request, $exception);
+        }
+    }
+
+    public function handleApiException($request, Throwable $exception)
+    {
+        $exception = $this->prepareException($exception);
+
+        if ($exception instanceof HttpResponseException) {
+            $exception = $exception->getResponse();
+        }
+    
+        if ($exception instanceof \Illuminate\Auth\AuthenticationException) {
+            $exception = $this->unauthenticated($request, $exception);
+        }
+    
+        if ($exception instanceof \Illuminate\Validation\ValidationException) {
+            $exception = $this->convertValidationExceptionToResponse($exception, $request);
+        }
+
+        if(env('APP_ENV') != 'local')
+        {
+            return $this->error(500, [], "Server error!");
+        }
+    
+        return $this->customApiResponse($exception);
     }
 
     private function customApiResponse($exception)
     {
+
         if (method_exists($exception, 'getStatusCode')) {
             $statusCode = $exception->getStatusCode();
         } else {
-            $statusCode = 500;
+            $statusCode =300;
         }
 
         $response = [];
