@@ -1,12 +1,15 @@
 <?php
 
 
-use App\Http\Controllers\Api\AuthController;
 
-use App\Http\Controllers\Api\CandidateController;
-use App\Http\Controllers\Api\InterviewerController;
+
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\InterviewerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +26,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('auth/login', [AuthController::class, 'UserLogin']);
-Route::post('auth/register', [AuthController::class, 'UserRegister']);
-Route::apiResource('candidates', CandidateController::class);
-Route::apiResource('interviewers', InterviewerController::class)->middleware('auth:sanctum');
+Route::post('auth/login', [AuthController::class, 'userLogin']);
+
+Route::apiResource('user', UserController::class);
+
+Route::apiResource('interviewers', InterviewerController::class);
+
