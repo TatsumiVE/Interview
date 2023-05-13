@@ -28,7 +28,6 @@ return new class extends Migration
             $table->date('earliest_starting_date')->nullable();
             $table->foreignId('positions_id');
             $table->foreignId('agencies_id');
-            // $table->integer("del_flg")->default('0');
             $table->timestamps();
         });
     }
