@@ -7,16 +7,11 @@ use App\Models\Interviewer;
 
 class InterviewerRepository implements InterviewerRepoInterface{
     public function get(){
-    try{
-        return Interviewer::with('position.department')->orderBy('position_id', 'desc')->paginate(10);
-    }catch(Exception $exception){
-        throw new Exception($exception->getMessage());
-    }
-    }
 
+        return Interviewer::with('position.department')->orderBy('position_id', 'desc')->paginate(10);
+    }
 
     public function show($id){
-        // return Interviewer::where('id',$id)->first();
-
+        return Interviewer::where('id',$id)->first();
     }
 }

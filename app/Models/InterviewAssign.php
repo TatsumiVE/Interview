@@ -13,17 +13,10 @@ class InterviewAssign extends Model
    use HasFactory;
    protected $fillable = ['interview_id', 'interviewer_id'];
 
-   public function interview()
-   {
-      return  $this->belongsTo(Interview::class);
-   }
-   public function interviewer()
-   {
-      return  $this->belongsTo(Interviewer::class);
-   }
 
-   public function remark()
+
+   public function remarks()
    {
-      return  $this->hasMany(Remark::class);
+      return  $this->belongsTo(Remark::class);
    }
 }

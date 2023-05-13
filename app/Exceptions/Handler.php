@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
             return $this->error(404, null, 'Object Not Found');
         });
     }
-    
+
     public function render($request, Throwable $exception)
     {
         if($request->wantsJson())
@@ -73,11 +73,11 @@ class Handler extends ExceptionHandler
         if ($exception instanceof HttpResponseException) {
             $exception = $exception->getResponse();
         }
-    
+
         if ($exception instanceof \Illuminate\Auth\AuthenticationException) {
             $exception = $this->unauthenticated($request, $exception);
         }
-    
+
         if ($exception instanceof \Illuminate\Validation\ValidationException) {
             $exception = $this->convertValidationExceptionToResponse($exception, $request);
         }
@@ -86,7 +86,7 @@ class Handler extends ExceptionHandler
         {
             return $this->error(500, [], "Server error!");
         }
-    
+
         return $this->customApiResponse($exception);
     }
 
@@ -96,7 +96,7 @@ class Handler extends ExceptionHandler
         if (method_exists($exception, 'getStatusCode')) {
             $statusCode = $exception->getStatusCode();
         } else {
-            $statusCode =300;
+            $statusCode =500;
         }
 
         $response = [];

@@ -22,11 +22,11 @@ return new class extends Migration
             $table->string('residentail_address');
             $table->string('date_of_birth');
             $table->string('cv_path');
-            $table->boolean('willingness_to_travel');
-            $table->integer('expected_salary');
-            $table->integer('last_salary');
-            $table->date('earliest_starting_date');
-            $table->foreignId('applied_position_id');
+            $table->boolean('willingness_to_travel')->nullable();
+            $table->integer('expected_salary')->nullable();
+            $table->integer('last_salary')->nullable();
+            $table->date('earliest_starting_date')->nullable();
+            $table->foreignId('positions_id');
             $table->foreignId('agencies_id');
             $table->timestamps();
         });
