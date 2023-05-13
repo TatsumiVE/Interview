@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Language;
+use App\Models\Candidate;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SpecificLanguage extends Model
 {
@@ -15,8 +17,9 @@ class SpecificLanguage extends Model
       return  $this->belongsTo(Language::class);
    }
 
-   public function candidate()
-   {
-      return  $this->belongsTo(Candidate::class);
-   }
+
+     public function candidate(){
+        return  $this->belongsTo(Candidate::class);
+     }
+
 }
