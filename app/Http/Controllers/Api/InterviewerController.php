@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
 use App\Traits\ApiResponser;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InterviewerRequest;
 use App\Http\Resources\InterviewerResource;
+use App\Services\Interviewer\InterviewerServiceInterface;
 use App\Repositories\Interviewer\InterviewerRepoInterface;
 
 class InterviewerController extends Controller
 {
     use ApiResponser;
     private InterviewerRepoInterface $interviewerRepo;
+    private InterviewerServiceInterface $interviewerService;
 
-     public function __construct(InterviewerRepoInterface $interviewerRepo)
+     public function __construct(InterviewerRepoInterface $interviewerRepo,InterviewerServiceInterface $interviewerService)
     {
         $this->interviewerRepo = $interviewerRepo;
-
+        $this->interviewerService = $interviewerService;
     }
     /**
      * Display a listing of the resource.
@@ -28,9 +31,14 @@ class InterviewerController extends Controller
 
     public function index()
     {
-
+        try{
             $data=$this->interviewerRepo->get();
             return $this->success(200, InterviewerResource::collection($data));
+        } catch(Exception $exception){
+        return $this->error($exception->getCode(),[],$exception->getMessage());
+        // return $this->customApiResponse($exception);
+       }
+
 
 
     }
@@ -42,10 +50,15 @@ class InterviewerController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)
+    public function store(InterviewerRequest $request)
     {
-        //
-
+        try{
+        $data = $this->interviewerService->store($request->validated());
+        return $this->success(200,new InterviewerResource($data),"New Interviewer Created");
+       }
+       catch(Exception $exception){
+        return $this->error($exception->getCode(),[],$exception->getMessage());
+       }
     }
 
     /**
@@ -56,7 +69,14 @@ class InterviewerController extends Controller
      */
     public function show($id)
     {
-        //
+        try{
+            $data = $this->interviewerRepo->show($id);
+
+            return $this->success(200,new InterviewerResource($data));
+           }
+           catch(Exception $exception){
+            return $this->error($exception->getCode(),[],$exception->getMessage());
+           }
     }
 
     /**
@@ -67,9 +87,17 @@ class InterviewerController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request, $id)
+    public function update(InterviewerRequest $request, $id)
     {
-        //
+        try{
+
+            $data = $this->interviewerService->update($request->validated(),$id);
+            return $this->success(200,$data,"new interviewer update");
+
+
+        }catch(Exception $exception){
+            return $this->error($exception->getCode(),[],$exception->getMessage());
+        }
 
     }
 

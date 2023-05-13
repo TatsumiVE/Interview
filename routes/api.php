@@ -28,7 +28,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
 Route::post('auth/register', [AuthController::class, 'UserRegister']);
-Route::apiResource('candidates', CandidateController::class);
-
 Route::apiResource('interviewers', InterviewerController::class);
 
