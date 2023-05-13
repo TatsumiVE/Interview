@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Storage;
 
 class LanguageService implements LanguageServiceInterface{
     public function store($data){
-
-
         return Language::create($data);
     }
 

@@ -17,6 +17,11 @@ use App\Repositories\Topic\TopicRepository;
 use App\Services\Topic\TopicServiceInterface;
 use App\Services\Topic\TopicService;
 
+use App\Repositories\Rate\RateRepoInterface;
+use App\Repositories\Rate\RateRepository;
+use App\Services\Rate\RateServiceInterface;
+use App\Services\Rate\RateService;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -46,5 +51,8 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(TopicRepoInterface::class, TopicRepository::class);
         $this->app->bind(TopicServiceInterface::class, TopicService::class);
+
+        $this->app->bind(RateRepoInterface::class, RateRepository::class);
+        $this->app->bind(RateServiceInterface::class, RateService::class);
     }
 }

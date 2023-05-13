@@ -7,10 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TopicRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\TopicResource;
+use App\Models\Topic;
 use App\Repositories\Topic\TopicRepoInterface;
 use App\Services\Topic\TopicServiceInterface;
-
-
+use Exception;
 
 class TopicController extends Controller
 {
@@ -32,8 +32,15 @@ class TopicController extends Controller
     }
     public function index()
     {
-        $data=$this->topicRepo->get();
-        return $this->success(200, TopicResource::collection($data));
+
+
+        try{
+            $data=$this->topicRepo->get();
+            return $this->success(200, TopicResource::collection($data));
+        }
+        catch(Exception $e){
+            return $this->error($e->getCode(),[],$e->getMessage());
+        }
     }
 
     /**
@@ -44,8 +51,15 @@ class TopicController extends Controller
      */
     public function store(TopicRequest $request)
     {
-        $data = $this->topicService->store($request->validated());
-        return $this->success(200, new TopicResource($data));
+
+
+        try{
+            $data = $this->topicService->store($request->validated());
+            return $this->success(200, new TopicResource($data));
+        }
+        catch(Exception $e){
+            return $this->error($e->getCode(),[],$e->getMessage());
+        }
     }
 
     /**
@@ -56,7 +70,15 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        //
+
+
+        try{
+            $data = $this->topicRepo->show($id);
+            return $this->success(200, new TopicResource($data));
+        }
+        catch(Exception $e){
+            return $this->error($e->getCode(),[],$e->getMessage());
+        }
     }
 
     /**
@@ -68,8 +90,14 @@ class TopicController extends Controller
      */
     public function update(TopicRequest $request, $id)
     {
-        $data = $this->topicService->update($request->validated(),$id);
-        return $this->success(200, new TopicResource($data));
+
+        try{
+            $data = $this->topicService->update($request->validated(),$id);
+            return $this->success(200, $data,"Topic updated");
+        }
+        catch(Exception $e){
+            return $this->error($e->getCode(),[],$e->getMessage());
+        }
 
     }
 
@@ -81,6 +109,15 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+
+        try{
+            $data = Topic::where('id',$id)->first();
+            $data->delete();
+            return $this->success(200, $data,"Delete topic success");
+        }
+        catch(Exception $e){
+            return $this->error($e->getCode(),[],$e->getMessage());
+        }
     }
 }

@@ -12,6 +12,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\InterviewerController;
 use App\Http\Controllers\Api\TopicController;
+use App\Http\Controllers\Api\RateController;
+
 
 
 
@@ -38,5 +40,7 @@ Route::post('auth/register', [AuthController::class, 'UserRegister']);
 Route::apiResource('languages', LanguageController::class);
 Route::apiResource('interviewers', InterviewerController::class);
 Route::apiResource('topics', TopicController::class);
+Route::apiResource('rates', RateController::class);
+
 
 

@@ -15,13 +15,18 @@ class TopicService implements TopicServiceInterface
      }
     }
 
+    // public function update($request,$id){
+    //   try{
+    //     $result = Topic::where('id',$id)->first();
+    //     return $result->update($request);
+    //   }catch(Exception $exception){
+    //     throw new Exception($exception->getMessage());
+    //   }
+    // }
     public function update($data,$id){
-      try{
-        $result = Topic::where('id',$id)->first();
+
+        $result=Topic::where('id',$id)->first();
         return $result->update($data);
-      }catch(Exception $exception){
-        throw new Exception($exception->getMessage());
-      }
     }
 
 }
