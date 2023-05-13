@@ -8,9 +8,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
+
+
+use App\Http\Controllers\Api\LanguageController;
+
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CandidateController;
+
 use App\Http\Controllers\Api\InterviewerController;
+use App\Http\Controllers\Api\TopicController;
+use App\Http\Controllers\Api\RateController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +38,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('auth/login', [AuthController::class, 'UserLogin']);
+Route::post('auth/register', [AuthController::class, 'UserRegister']);
+
+
 Route::post('auth/login', [AuthController::class, 'userLogin']);
 
 Route::apiResource('user', UserController::class);
 
 
+
+
+Route::apiResource('languages', LanguageController::class);
 Route::apiResource('interviewers', InterviewerController::class);
+Route::apiResource('topics', TopicController::class);
+Route::apiResource('rates', RateController::class);
+
+
 
 Route::apiResource('candidates', CandidateController::class);
