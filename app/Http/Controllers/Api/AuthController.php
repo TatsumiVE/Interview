@@ -2,99 +2,36 @@
 
 namespace App\Http\Controllers\Api;
 
-
+use App\Exceptions\Handler;
 use App\Http\Controllers\Controller;
-
-use App\Models\User;
+use App\Http\Resources\UserResource;
+use App\Traits\ApiResponser;
+use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function UserRegister(Request $request)
+    use ApiResponser;
+    protected $exceptionHandler;
+    public function __construct(Handler $exceptionHandler)
     {
-        try {
-            //Validated
-            $validateUser = Validator::make(
-                $request->all(),
-                [
-                    'name' => 'required',
-                    'email' => 'required|email|unique:users,email',
-                    'password' => 'required',
-                    'is_active' => ''
-                ]
-            );
-
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
-
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'is_active' => $request->has("is_active") ? 1 : 0
-            ]);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'User Created Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
-        }
+        $this->exceptionHandler = $exceptionHandler;
     }
-
-
-    public function UserLogin(Request $request)
+    public function userLogin(Request $request)
     {
-        //    Auth::guard('mobileusers')->attempt()
         try {
-            $validateUser = Validator::make(
-                $request->all(),
-                [
-                    'email' => 'required|email',
-                    'password' => 'required'
-                ]
-            );
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                $user = Auth::user();
+                $success['token'] =  $user->createToken('User API')->plainTextToken;
+                $success['name'] =  $user->name;
 
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
+                return $this->success(200, $success, 'User login successfully.');
             }
-
-            if (!Auth::attempt($request->only(['email', 'password']))) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
-                ], 401);
-            }
-
-            $user = User::where('email', $request->email)->first();
-
-            return response()->json([
-                'status' => true,
-                'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
+        } catch (Exception $e) {
+            app(Handler::class)->report($e); // Report the exception to the handler
+            return app(Handler::class)->render($request, $e); // Render the exception response
         }
     }
 }

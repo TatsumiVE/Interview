@@ -2,10 +2,18 @@
 
 namespace App\Providers;
 
+use App\Repositories\Candidate\CandidateRepoInterface;
+use App\Repositories\Candidate\CandidateRepository;
 use App\Repositories\Interviewer\InterviewerRepoInterface;
 use App\Repositories\Interviewer\InterviewerRepository;
+use App\Repositories\User\UserRepoInterface;
+use App\Repositories\User\UserRepository;
+use App\Services\Candidate\CandidateService;
+use App\Services\Candidate\CandidateServiceInterface;
 use App\Services\Interviewer\InterviewerService;
 use App\Services\Interviewer\InterviewerServiceInterface;
+use App\Services\User\UserService;
+use App\Services\User\UserServiceInterface;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Language\LanguageRepoInterface;
 use App\Repositories\Language\LanguageRepository;
@@ -43,16 +51,26 @@ class RepositoryServiceProvider extends ServiceProvider
     {
 
 
+
         $this->app->bind(LanguageRepoInterFace::class, LanguageRepository::class);
         $this->app->bind(LanguageServiceInterface::class, LanguageService::class);
 
-        $this->app->bind(InterviewerRepoInterface::class, InterviewerRepository::class);
-        $this->app->bind(InterviewerServiceInterface::class, InterviewerService::class);
+       
 
         $this->app->bind(TopicRepoInterface::class, TopicRepository::class);
         $this->app->bind(TopicServiceInterface::class, TopicService::class);
 
         $this->app->bind(RateRepoInterface::class, RateRepository::class);
         $this->app->bind(RateServiceInterface::class, RateService::class);
+
+        $this->app->bind(UserRepoInterface::class, UserRepository::class);
+        $this->app->bind(UserServiceInterface::class, UserService::class);
+        $this->app->bind(InterviewerRepoInterface::class, InterviewerRepository::class);
+        $this->app->bind(InterviewerServiceInterface::class, InterviewerService::class);
+
+
+        $this->app->bind(CandidateRepoInterface::class, CandidateRepository::class);
+        $this->app->bind(CandidateServiceInterface::class, CandidateService::class);
+
     }
 }
