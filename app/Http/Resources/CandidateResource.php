@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\AgencyResource;
+use App\Http\Resources\PositionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CandidateResource extends JsonResource
@@ -23,12 +25,14 @@ class CandidateResource extends JsonResource
             'residentail_address' => $this->residentail_address,
             'date_of_birth' => $this->date_of_birth,
             'cv_path' => $this->cv_path,
+            'experience' => $this->experience,
             'willingness_to_travel' => $this->willingness_to_travel,
             'expected_salary' => $this->expected_salary,
             'last_salary' => $this->last_salary,
             'earliest_starting_date' => $this->earliest_starting_date,
             'positions_id' => new PositionResource($this->whenLoaded('position')),
             'agencies_id' => new AgencyResource($this->whenLoaded('agency')),
+            'languages' => $this->specificLanguage->pluck('language_id'),
 
 
         ];
