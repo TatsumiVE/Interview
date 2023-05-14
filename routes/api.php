@@ -1,8 +1,6 @@
 <?php
 
-
-
-
+use App\Http\Controllers\Api\AgencyController;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Route;
@@ -36,3 +34,5 @@ Route::apiResource('user', UserController::class);
 Route::apiResource('interviewers', InterviewerController::class);
 
 Route::apiResource('candidates', CandidateController::class);
+
+Route::apiResource('agency', AgencyController::class);
