@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SpecificLanguage extends Model
 {
    use HasFactory;
-   protected $fillable = ['experience', 'language_id', 'candidate_id'];
+   protected $fillable = ['language_id', 'candidate_id'];
 
    public function language()
    {
@@ -18,8 +18,8 @@ class SpecificLanguage extends Model
    }
 
 
-     public function candidate(){
-        return  $this->belongsTo(Candidate::class);
-     }
+   //   public function candidate(){
+   //      return  $this->belongsTo(Candidate::class);
+   //   }
 
 }

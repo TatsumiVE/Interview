@@ -2,11 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\LanguageResource;
-use App\Http\Resources\CandidateResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SpecificLanguageResource extends JsonResource
+class LanguageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,8 +16,8 @@ class SpecificLanguageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'language_id' => new LanguageResource($this->whenLoaded('language')),
-            'candidate_id' => new CandidateResource($this->whenLoaded('candidate')),
+            'name' => $this->name,
+
         ];
     }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
+use App\Models\Candidate;
+use App\Traits\ApiResponser;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CandidateRequest;
 use App\Http\Resources\CandidateResource;
-use App\Models\Candidate;
-use App\Repositories\Candidate\CandidateRepoInterface;
 use App\Services\Candidate\CandidateServiceInterface;
-use App\Traits\ApiResponser;
-use Exception;
+use App\Repositories\Candidate\CandidateRepoInterface;
 
 
 
@@ -47,11 +48,12 @@ class CandidateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CandidateRequest $request)
+    public function store(Request $request)
     {
         try {
 
-            $data = $this->candidateService->store($request->validated());
+
+            $data = $this->candidateService->store($request);
             return $this->success(200, new CandidateResource($data), "New Candidate Created");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

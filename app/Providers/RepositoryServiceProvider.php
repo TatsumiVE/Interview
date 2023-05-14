@@ -20,6 +20,8 @@ use App\Repositories\Candidate\CandidateRepoInterface;
 use App\Repositories\Interviewer\InterviewerRepository;
 use App\Services\Interviewer\InterviewerServiceInterface;
 use App\Repositories\Interviewer\InterviewerRepoInterface;
+use App\Repositories\SpecificLanguage\SpecificLanguageRepoInterface;
+use App\Repositories\SpecificLanguage\SpecificLanguageRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -51,5 +53,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(AgencyRepoInterface::class, AgencyRepository::class);
         $this->app->bind(AgencyServiceInterface::class, AgencyService::class);
+
+        $this->app->bind(SpecificLanguageRepoInterface::class, SpecificLanguageRepository::class);
     }
 }

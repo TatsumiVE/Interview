@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Api\AgencyController;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
+
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AgencyController;
+use App\Http\Controllers\Api\SpecificController;
 use App\Http\Controllers\Api\CandidateController;
 use App\Http\Controllers\Api\InterviewerController;
 
@@ -36,3 +37,4 @@ Route::apiResource('interviewers', InterviewerController::class);
 Route::apiResource('candidates', CandidateController::class);
 
 Route::apiResource('agency', AgencyController::class);
+Route::apiResource('specificLang', SpecificController::class);
