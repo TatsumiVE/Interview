@@ -18,13 +18,13 @@ class InterviewStage extends Model
 
     ];
 
-    public function assessments()
+    public function assessment()
     {
-        return $this->belongsTo(Assessment::class);
+        return $this->belongsTo(Assessment::class,'interview_stages_id');
     }
-    public function remarks()
+    public function remark()
     {
-        return $this->belongsTo(Remark::class);
+        return $this->belongsTo(Remark::class,'interview_stages_id');
     }
 
 }

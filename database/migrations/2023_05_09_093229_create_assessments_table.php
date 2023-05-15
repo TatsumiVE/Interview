@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('candidate_id');
             $table->foreignId('interviewer_id');
             $table->foreignId('topic_id');
-            $table->foreignId('interview_stages_id');
+            $table->foreignId('interview_stage_id');
             $table->timestamps();
         });
     }

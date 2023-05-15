@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Assessment extends Model
 {
     use HasFactory;
-    protected $fillable = ['rate_id', 'candidate_id', 'interviewer_id', 'topic_id', 'interview_stages_id'];
+    protected $fillable = ['rate_id', 'candidate_id', 'interviewer_id', 'topic_id', 'interview_stage_id'];
 
     public function topics()
     {

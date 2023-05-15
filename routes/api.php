@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\InterviewController;
 use App\Http\Controllers\Api\InterviewerController;
 
 /*
@@ -33,4 +34,4 @@ Route::apiResource('user', UserController::class);
 
 
 Route::apiResource('interviewers', InterviewerController::class);
-
+Route::apiResource('interviews', InterviewController::class);

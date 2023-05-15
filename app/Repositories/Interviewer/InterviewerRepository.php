@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interviewer;
 
-use Exception;
+
 use App\Models\Interviewer;
 
 class InterviewerRepository implements InterviewerRepoInterface{
