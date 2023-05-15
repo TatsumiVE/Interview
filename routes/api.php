@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\InterviewerController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +29,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('auth/login', [AuthController::class, 'userLogin']);
+Route::post('auth/login', [AuthController::class, 'UserLogin']);
 
 Route::apiResource('user', UserController::class);
 
-
 Route::apiResource('interviewers', InterviewerController::class);
+
+Route::apiResource('role',RoleController::class);
+
+Route::apiResource('permission',PermissionController::class);
 

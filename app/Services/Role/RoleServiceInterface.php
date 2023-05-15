@@ -1,10 +1,9 @@
-<?php
+<?php 
 
-namespace App\Services\User;
+namespace App\Services\Role;
 
-interface UserServiceInterface{
+interface RoleServiceInterface{
     public function store($request);
     public function update($request,$id);
-
     public function destroy($id);
 }

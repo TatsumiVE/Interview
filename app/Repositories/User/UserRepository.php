@@ -5,7 +5,12 @@ use App\Models\User;
 
 class UserRepository implements UserRepoInterface{
     public function get(){
-        $user=User::all();
-        return $user;        
+        return User::all();
+              
     }
+
+    public function show($id){
+       return User::where('id',$id)->first();
+    }
+        
 }
