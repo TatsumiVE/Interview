@@ -32,7 +32,6 @@ use App\Services\User\UserServiceInterface;
 use App\Services\Role\RoleService;
 use App\Services\Role\RoleServiceInterface;
 
-use Illuminate\Support\ServiceProvider;
 use App\Repositories\Language\LanguageRepoInterface;
 use App\Repositories\Language\LanguageRepository;
 use App\Services\Language\LanguageServiceInterface;
@@ -71,19 +70,15 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(UserRepoInterface::class, UserRepository::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
+
         $this->app->bind(RoleRepoInterface::class, RoleRepository::class);
         $this->app->bind(RoleServiceInterface::class, RoleService::class);
+
         $this->app->bind(PermissionRepoInterface::class, PermissionRepository::class);
-        $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
-       
-
-
-
+        $this->app->bind(PermissionServiceInterface::class, PermissionService::class);   
 
         $this->app->bind(LanguageRepoInterFace::class, LanguageRepository::class);
         $this->app->bind(LanguageServiceInterface::class, LanguageService::class);
-
-       
 
         $this->app->bind(TopicRepoInterface::class, TopicRepository::class);
         $this->app->bind(TopicServiceInterface::class, TopicService::class);
@@ -93,6 +88,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(UserRepoInterface::class, UserRepository::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
+
         $this->app->bind(InterviewerRepoInterface::class, InterviewerRepository::class);
         $this->app->bind(InterviewerServiceInterface::class, InterviewerService::class);
 
@@ -100,13 +96,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CandidateRepoInterface::class, CandidateRepository::class);
         $this->app->bind(CandidateServiceInterface::class, CandidateService::class);
 
-
         $this->app->bind(AgencyRepoInterface::class, AgencyRepository::class);
         $this->app->bind(AgencyServiceInterface::class, AgencyService::class);
 
-
         $this->app->bind(InterviewAssignRepoInterface::class, InterviewAssignRepository::class);
-
         $this->app->bind(InterviewAssignServiceInterface::class, InterviewAssignService::class);
 
     }
