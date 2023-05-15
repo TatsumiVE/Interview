@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AgencyResource extends JsonResource
+class InterviewAssignResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,10 @@ class AgencyResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'del_flg' => $this->del_flg
+            'interview_id' => new InterviewResource($this->whenLoaded('interviewassign')),
+            'interviewer_id' => new InterviewerResource($this->whenLoaded('interviewassign')),
+
+
         ];
     }
 }
