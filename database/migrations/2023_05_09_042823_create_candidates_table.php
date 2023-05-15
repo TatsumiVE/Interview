@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('residentail_address');
             $table->string('date_of_birth');
             $table->string('cv_path');
+            $table->integer('experience');
             $table->boolean('willingness_to_travel')->nullable();
             $table->integer('expected_salary')->nullable();
             $table->integer('last_salary')->nullable();

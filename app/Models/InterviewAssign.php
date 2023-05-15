@@ -15,8 +15,18 @@ class InterviewAssign extends Model
 
 
 
-   public function remarks()
+   // public function remarks()
+   // {
+   //    return  $this->belongsTo(Remark::class);
+   // }
+
+   public function interview()
    {
-      return  $this->belongsTo(Remark::class);
+      return  $this->belongsTo(Interview::class);
+   }
+
+   public function interviewer()
+   {
+      return  $this->belongsTo(Interviewer::class);
    }
 }

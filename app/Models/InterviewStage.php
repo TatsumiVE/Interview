@@ -11,6 +11,7 @@ class InterviewStage extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'stage_name',
         'interview_date',
         'interview_time',
         'location',
@@ -26,5 +27,4 @@ class InterviewStage extends Model
     {
         return $this->belongsTo(Remark::class,'interview_stages_id');
     }
-
 }

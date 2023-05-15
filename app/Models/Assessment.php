@@ -20,6 +20,4 @@ class Assessment extends Model
     {
         return $this->belongsTo(Rate::class);
     }
-
-
 }

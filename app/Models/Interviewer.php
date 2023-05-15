@@ -20,12 +20,8 @@ class Interviewer extends Model
     {
         return $this->belongsTo(Position::class);
     }
-    public function assessments()
+    public function assessment()
     {
         return $this->belongsTo(Assessment::class);
-    }
-    public function interviewassign()
-    {
-        return $this->belongsTo(InterviewAssign::class);
     }
 }

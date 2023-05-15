@@ -21,6 +21,7 @@ class Candidate extends Model
         'residentail_address',
         'date_of_birth',
         'cv_path',
+        'experience',
         'willingness_to_travel',
         'expected_salary',
         'last_salary',
@@ -39,6 +40,11 @@ class Candidate extends Model
     public function agency()
     {
         return $this->belongsTo(Agency::class, 'agencies_id');
+    }
+
+    public function specificLanguage()
+    {
+        return $this->hasMany(SpecificLanguage::class);
     }
 
     public function assessment()

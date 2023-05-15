@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('specific_languages', function (Blueprint $table) {
             $table->id();
-            $table->string('experience');
+
             $table->foreignId('language_id');
             $table->foreignId('candidate_id');
             $table->timestamps();

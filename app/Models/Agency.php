@@ -10,6 +10,6 @@ class Agency extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name', 'del_flg'
     ];
 }
