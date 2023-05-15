@@ -12,9 +12,4 @@ class Agency extends Model
     protected $fillable = [
         'name'
     ];
-
-    public function agency()
-    {
-        return $this->belongTo(Candidate::class);
-    }
 }
