@@ -2,16 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 use Exception;
-use App\Models\Rate;
-use App\Models\Topic;
-use App\Models\Remark;
-use App\Models\Interview;
-use App\Models\Assessment;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
-use App\Models\InterviewStage;
-use App\Models\InterviewAssign;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\InterviewResource;
 use App\Services\Interview\InterviewServiceInterface;
@@ -52,30 +44,9 @@ class InterviewController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-         DB::transaction(function() use ($request){
+    $this->interviewService->store($request);
+     return $this->success(200, 'Done',"New Assement Form Created");
 
-        Remark::create([
-                'interview_stage_id' => $request->interview_stage_id,
-                'comment'=>$request->comment,
-                'grade'=>$request->grade,
-                'interview_assign_id'=>$request->interview_assign_id]);
-                $data = $request->input('data');
-            // dd($data);
-        foreach($data as $data){
-
-            Assessment::create([
-                'topic_id' => $data["'topic'"],
-                'rate_id'=>$data["'rate_id'"],
-                'candidate_id'=>$request->candidate_id,
-                'interviewer_id' => $request->interviewer_id,
-                'interview_stage_id' => $request->interview_stage_id,
-
-
-            ]);
-        }
-
-
- });
 
   }
 
@@ -87,7 +58,7 @@ class InterviewController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

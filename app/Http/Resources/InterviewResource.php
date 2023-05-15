@@ -15,12 +15,14 @@ class InterviewResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'=>$this->id,
-            'date'=>$this->date,
-            'time'=>$this->time,
-            'interviewer_id'=>$this->interviewer_id,
-            'candidate_id'=>$this->candidate_id,
-            
+                'candidate_id'=>$this->candidate_id,
+                'interviewer_id'=>$this->interviewer_id,
+                'remark_id' => $this->remark->id,
+                'interview_stage_id' => $this->remark->interview_stage_id,
+                'comment' => $this->remark->comment,
+                'grade' => $this->remark->grade,
+                'interview_assign_id' => $this->remark->interview_assign_id,
+
 
         ];
     }
