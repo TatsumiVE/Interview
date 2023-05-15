@@ -16,12 +16,13 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run()
     {
-        $superAdmin = Role::create(['name' => 'SuperAdmin']);
+        $hrAdmin = Role::create(['name' => 'Admin']);
         $managementUser=Role::create(['name'=>'ManagementUser']);
+        $interviewer=Role::create(['name'=>'Interviewer']);
 
-        $interview = Permission::create(['name' => 'interview']);
+        // $interview = Permission::create(['name' => 'interview']);
         
-        $superAdmin->givePermissionTo([$interview]);
-        $managementUser->givePermissionTo([$interview]);
+        // $hrAdmin->givePermissionTo([$interview]);
+        // $managementUser->givePermissionTo([$interview]);
     }
 }

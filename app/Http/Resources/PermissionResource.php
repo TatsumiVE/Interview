@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\PositionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class InterviewerResource extends JsonResource
+class PermissionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +15,8 @@ class InterviewerResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'position' => new PositionResource($this->whenLoaded('position_id')),
-
+            'id'=>$this->id,
+            'name'=>$this->name,
         ];
     }
 }
