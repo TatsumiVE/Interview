@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\AgencyController;
 use App\Http\Controllers\Api\SpecificController;
 use App\Http\Controllers\Api\CandidateController;
 use App\Http\Controllers\Api\InterviewerController;
+use App\Http\Controllers\Api\InterviewAssignController;
+use App\Http\Controllers\Api\InterviewCreateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +39,6 @@ Route::apiResource('interviewers', InterviewerController::class);
 Route::apiResource('candidates', CandidateController::class);
 
 Route::apiResource('agency', AgencyController::class);
-Route::apiResource('specificLang', SpecificController::class);
+
+
+Route::apiResource('interviewAssign', InterviewAssignController::class);
