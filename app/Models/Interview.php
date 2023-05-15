@@ -12,18 +12,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Interview extends Model
 {
     use HasFactory;
-    protected $fillable = ['interview_result','interview_summarize', 'interview_result_date', 'candidate_id',  'interview_stages_id'];
+    protected $fillable = [
+        'interview_result',
+        'interview_summarize', 'interview_result_date',
+        'candidate_id',
+        'interview_stages_id'
+    ];
 
-    public function interviewassign()
-    {
-       return  $this->belongsTo(InterviewAssign::class);
-    }
+
     public function candidate()
     {
         return $this->belongsTo(Candidate::class);
     }
     public function intervieStages()
     {
-        return $this->hasMany(InterviewStage::class);
+        return $this->belongsTo(InterviewStage::class, 'interview_stages_id');
     }
 }
