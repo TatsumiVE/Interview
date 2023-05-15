@@ -29,6 +29,7 @@ class UserRequest extends FormRequest
             'password' => 'required|confirmed',
             'password_confirmation' => 'required',
             'is_active' => 'nullable',
+            'role'=>'required',
         ];
     }
 }

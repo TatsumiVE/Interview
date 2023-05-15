@@ -5,6 +5,7 @@ namespace App\Repositories\Interviewer;
 
 use App\Models\Interviewer;
 
+
 class InterviewerRepository implements InterviewerRepoInterface{
     public function get(){
 
@@ -14,4 +15,5 @@ class InterviewerRepository implements InterviewerRepoInterface{
     public function show($id){
         return Interviewer::where('id',$id)->first();
     }
+
 }

@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -39,33 +40,42 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         try {
-            $validateData = $request->validated();                
-
             $data = [];
-            $data = $this->userService->store($validateData); 
-
-            $data['token'] =  $data->createToken('App')->plainTextToken;           
+            $validateData = $request->validated();
           
+            $data = $this->userService->store($validateData);
+
+            $data['token'] =  $data->createToken('App')->plainTextToken;
+
             return $this->success(200, new UserResource($data), 'User created successfully.');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
 
-
     public function show($id)
     {
-        //
+        try {
+            $user = $this->userRepo->show($id);
+            return $this->success(200, new UserResource($user), 'User showed successfully.');
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+        }
     }
 
 
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try {
-            $validateData = $request->validated();
+            $validateData = $request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email,' . $id,
+                'is_active' => '',
+                'role'=>'required'
+            ]);
 
             $data = $this->userService->update($validateData, $id);
-
+        
             return $this->success(200, new UserResource($data), 'User updated successfully.');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
@@ -75,6 +85,12 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        //
+        try {
+            $data = $this->userService->destroy($id);
+            
+            return $this->success(200, $data, 'User deleted successfully.');
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+        }
     }
 }
