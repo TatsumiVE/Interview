@@ -38,10 +38,10 @@ class PositionController extends Controller
     {
         try {
             $validateData = $request->validated();  
-         
+    
             $data = $this->positionService->store($validateData);
           
-            return $this->success(200, new PositionResource($data), "Position created successfully.");
+            return $this->success(200, $data, "Position created successfully.");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
@@ -63,7 +63,7 @@ class PositionController extends Controller
         try {
             $validateData = $request->validate([
                 'name' => 'required|string|unique:positions,name,'.$id,
-                'department_id' => 'required'
+                'department_id' => 'required|exists:departments,id'
             ]);
 
             $data = $this->positionService->update($validateData, $id);

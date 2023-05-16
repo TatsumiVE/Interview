@@ -25,7 +25,7 @@ class PositionRequest extends FormRequest
     {
         return [
             'name'=>'required|string|unique:positions,name',
-            'department_id'=>'required',
+            'department_id'=>'required|exists:departments,id',
         ];
     }
 }
