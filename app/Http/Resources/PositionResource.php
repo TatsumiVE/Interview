@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\DepartmentResource;
+use App\Models\Department;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PositionResource extends JsonResource
@@ -16,9 +17,9 @@ class PositionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'=>$this->id,
-            'name'=>$this->name,
+            'id' => $this->id,
+            'name' => $this->name,
             'department' => new DepartmentResource($this->whenLoaded('department')),
-               ];
+        ];
     }
 }

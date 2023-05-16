@@ -5,24 +5,18 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
 
-
 use App\Http\Controllers\Api\LanguageController;
-
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AgencyController;
-use App\Http\Controllers\Api\SpecificController;
 use App\Http\Controllers\Api\CandidateController;
-
-use App\Http\Controllers\Api\InterviewerController;
+use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\InterviewAssignController;
-use App\Http\Controllers\Api\InterviewCreateController;
-
+use App\Http\Controllers\Api\InterviewerController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\PermissionController;
-
 use App\Http\Controllers\Api\TopicController;
 use App\Http\Controllers\Api\RateController;
-
+use App\Http\Controllers\Api\PositionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,9 +47,8 @@ Route::apiResource('interviewers', InterviewerController::class);
 Route::apiResource('topics', TopicController::class);
 Route::apiResource('rates', RateController::class);
 Route::apiResource('candidates', CandidateController::class);
-
 Route::apiResource('agency', AgencyController::class);
-
-
 Route::apiResource('interviewAssign', InterviewAssignController::class);
+Route::apiResource('department', DepartmentController::class);
+Route::apiResource('position', PositionController::class);
 

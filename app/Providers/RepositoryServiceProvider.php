@@ -25,12 +25,19 @@ use App\Services\InterviewAssign\InterviewAssignService;
 
 use App\Services\Permission\PermissionService;
 use App\Services\Permission\PermissionServiceInterface;
+use App\Repositories\Permission\PermissionRepoInterface;
+use App\Repositories\Permission\PermissionRepository;
 
 
 use App\Services\User\UserService;
 use App\Services\User\UserServiceInterface;
+use App\Repositories\User\UserRepoInterface;
+use App\Repositories\User\UserRepository;
+
 use App\Services\Role\RoleService;
 use App\Services\Role\RoleServiceInterface;
+use App\Repositories\Role\RoleRepoInterface;
+use App\Repositories\Role\RoleRepository;
 
 use App\Repositories\Language\LanguageRepoInterface;
 use App\Repositories\Language\LanguageRepository;
@@ -47,6 +54,15 @@ use App\Repositories\Rate\RateRepository;
 use App\Services\Rate\RateServiceInterface;
 use App\Services\Rate\RateService;
 
+use App\Services\Department\DepartmentService;
+use App\Services\Department\DepartmentServiceInterface;
+use App\Repositories\Department\DepartmentRepoInterface;
+use App\Repositories\Department\DepartmentRepository;
+
+use App\Repositories\Position\PositionRepoInterface;
+use App\Repositories\Position\PositionRepository;
+use App\Services\Position\PositionService;
+use App\Services\Position\PositionServiceInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -101,6 +117,12 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(InterviewAssignRepoInterface::class, InterviewAssignRepository::class);
         $this->app->bind(InterviewAssignServiceInterface::class, InterviewAssignService::class);
+
+        $this->app->bind(DepartmentRepoInterface::class,DepartmentRepository::class);
+        $this->app->bind(DepartmentServiceInterface::class,DepartmentService::class);
+
+        $this->app->bind(PositionRepoInterface::class,PositionRepository::class);
+        $this->app->bind(PositionServiceInterface::class,PositionService::class);
 
     }
 }
