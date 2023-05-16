@@ -48,8 +48,12 @@ class Candidate extends Model
         return $this->hasMany(SpecificLanguage::class);
     }
 
-    public function assessment()
+    // public function assessment()
+    // {
+    //     return $this->belongsTo(Assessment::class);
+    // }
+    public function assessments()
     {
-        return $this->belongsTo(Assessment::class);
+        return $this->hasMany(Assessment::class);
     }
 }
