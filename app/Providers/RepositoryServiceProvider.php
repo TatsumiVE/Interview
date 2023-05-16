@@ -91,7 +91,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RoleServiceInterface::class, RoleService::class);
 
         $this->app->bind(PermissionRepoInterface::class, PermissionRepository::class);
+
         $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
+
 
         $this->app->bind(LanguageRepoInterFace::class, LanguageRepository::class);
         $this->app->bind(LanguageServiceInterface::class, LanguageService::class);
@@ -117,13 +119,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CandidateRepoInterface::class, CandidateRepository::class);
         $this->app->bind(CandidateServiceInterface::class, CandidateService::class);
 
-
         $this->app->bind(AgencyRepoInterface::class, AgencyRepository::class);
         $this->app->bind(AgencyServiceInterface::class, AgencyService::class);
 
-
         $this->app->bind(InterviewAssignRepoInterface::class, InterviewAssignRepository::class);
-
         $this->app->bind(InterviewAssignServiceInterface::class, InterviewAssignService::class);
 
     }
