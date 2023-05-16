@@ -7,7 +7,12 @@ use App\Http\Controllers\Api\AuthController;
 
 use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\UserController;
+
+
+use App\Http\Controllers\Api\InterviewController;
+
 use App\Http\Controllers\Api\AgencyController;
+use App\Http\Controllers\Api\SpecificController;
 use App\Http\Controllers\Api\CandidateController;
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\InterviewAssignController;
@@ -44,6 +49,7 @@ Route::apiResource('permission',PermissionController::class);
 
 Route::apiResource('languages', LanguageController::class);
 Route::apiResource('interviewers', InterviewerController::class);
+Route::apiResource('interviews', InterviewController::class);
 Route::apiResource('topics', TopicController::class);
 Route::apiResource('rates', RateController::class);
 Route::apiResource('candidates', CandidateController::class);
