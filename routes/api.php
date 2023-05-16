@@ -15,6 +15,8 @@ use App\Http\Controllers\Api\CandidateController;
 
 use App\Http\Controllers\Api\InterviewerController;
 use App\Http\Controllers\Api\InterviewAssignController;
+use App\Http\Controllers\Api\InterviewdetailController;
+
 use App\Http\Controllers\Api\InterviewCreateController;
 
 use App\Http\Controllers\Api\RoleController;
@@ -58,4 +60,6 @@ Route::apiResource('agency', AgencyController::class);
 
 
 Route::apiResource('interviewAssign', InterviewAssignController::class);
+Route::apiResource('interviewDetail', InterviewDetailController::class);
+
 

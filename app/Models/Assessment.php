@@ -9,13 +9,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Assessment extends Model
 {
     use HasFactory;
-    protected $fillable = ['rate_id', 'candidate_id', 'interviewer_id', 'topic_id', 'interview_stage_id'];
+    protected $fillable = [
+        'rate_id',
+        'candidate_id',
+        'interviewer_id',
+        'topic_id',
+        'interview_stage_id'
+    ];
 
     public function topics()
     {
         return $this->belongsTo(Topic::class);
     }
-
+    // public function interviewer()
+    // {
+    //     return $this->belongsTo(Interviewer::class);
+    // }
+    // public function interviewstage()
+    // {
+    //     return $this->belongsTo(InterviewStage::class);
+    // }
     public function rates()
     {
         return $this->belongsTo(Rate::class);
