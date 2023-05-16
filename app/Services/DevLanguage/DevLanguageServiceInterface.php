@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services\Language;
+namespace App\Services\DevLanguage;
 
-interface LanguageServiceInterface{
+interface DevLanguageServiceInterface
+{
     public function store($data);
     public function update($request, $id);
 }

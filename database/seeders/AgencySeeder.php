@@ -15,16 +15,16 @@ class AgencySeeder extends Seeder
      */
     public function run()
     {
-        $hrAdmin = Agency::create([
+        Agency::create([
             'name' => 'Ace'
         ]);
-        $hrAdmin = Agency::create([
+        Agency::create([
             'name' => 'Mahar'
         ]);
-        $hrAdmin = Agency::create([
+        Agency::create([
             'name' => 'JobNet'
         ]);
-        $hrAdmin = Agency::create([
+        Agency::create([
             'name' => 'JobSearch'
         ]);
     }

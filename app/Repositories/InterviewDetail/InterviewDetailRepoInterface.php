@@ -1,4 +1,8 @@
- {
+<?php
 
- public function get();
- }
+namespace App\Repositories\InterviewDetail;
+
+interface InterviewDetailRepoInterface
+{
+  public function get();
+}

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+
 use App\Services\Rate\RateService;
 use App\Services\Role\RoleService;
 use App\Services\User\UserService;
@@ -77,14 +78,19 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+
+
         $this->app->bind(UserRepoInterface::class, UserRepository::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
+
 
         $this->app->bind(RoleRepoInterface::class, RoleRepository::class);
         $this->app->bind(RoleServiceInterface::class, RoleService::class);
 
         $this->app->bind(PermissionRepoInterface::class, PermissionRepository::class);
         $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
+
 
 
         $this->app->bind(DevLanguageRepoInterface::class, DevLanguageRepository::class);
@@ -96,6 +102,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(RateRepoInterface::class, RateRepository::class);
         $this->app->bind(RateServiceInterface::class, RateService::class);
+
 
 
         $this->app->bind(InterviewerRepoInterface::class, InterviewerRepository::class);
