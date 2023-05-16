@@ -7,9 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LanguageRequest;
 use App\Http\Resources\LanguageResource;
 use App\Models\Devlanguage;
-use App\Models\Language;
-use App\Services\Language\LanguageServiceInterface;
-use App\Repositories\Language\LanguageRepoInterface;
+use App\Repositories\DevLanguage\DevLanguageRepoInterface;
+use App\Services\DevLanguage\DevLanguageServiceInterface;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -21,14 +20,14 @@ class LanguageController extends Controller
      * @return \Illuminate\Http\Response
      */
     use ApiResponser;
-    private LanguageRepoInterface $languageRepo;
-    private LanguageServiceInterface $languageService;
+    private DevLanguageRepoInterface $DevLanguageRepo;
+    private DevLanguageServiceInterface $DevLanguageService;
 
 
-    public function __construct(LanguageRepoInterface $languageRepo, LanguageServiceInterface $languageService)
+    public function __construct(DevLanguageRepoInterface $DevLanguageRepo,  DevLanguageServiceInterface $DevLanguageService)
     {
-        $this->languageRepo = $languageRepo;
-        $this->languageService = $languageService;
+        $this->DevLanguageRepo = $DevLanguageRepo;
+        $this->DevLanguageService = $DevLanguageService;
     }
     public function index()
     {
@@ -51,7 +50,7 @@ class LanguageController extends Controller
     public function store(LanguageRequest $request)
     {
         try {
-            $data = $this->languageService->store($request->validated());
+            $data = $this->DevLanguageService->store($request->validated());
             return $this->success(200, new LanguageResource($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -68,7 +67,7 @@ class LanguageController extends Controller
     {
 
         try {
-            $data = $this->languageRepo->show($id);
+            $data = $this->DevLanguageRepo->show($id);
             return $this->success(200, new LanguageResource($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -85,7 +84,7 @@ class LanguageController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $data = $this->languageService->update($request->all(), $id);
+            $data = $this->DevLanguageService->update($request->all(), $id);
             return $this->success(200, $data, "Language updated");
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
