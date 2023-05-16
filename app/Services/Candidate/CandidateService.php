@@ -4,42 +4,56 @@ namespace App\Services\Candidate;
 
 use App\Models\Candidate;
 use App\Models\SpecificLanguage;
+use Illuminate\Support\Facades\DB;
 
 class CandidateService implements CandidateServiceInterface
 {
 
 
-  public function store($data)
+  public function store($request)
   {
 
-    $candidate = Candidate::create($data->only([
-      'name',
-      'email',
-      'gender',
-      'phone_number',
-      'residentail_address',
-      'date_of_birth',
-      'cv_path',
-      'experience',
-      'willingness_to_travel',
-      'expected_salary',
-      'last_salary',
-      'earliest_starting_date',
-      'positions_id',
-      'agencies_id',
-    ]));
+    DB::transaction(function () use ($request) {
+      $candidate = Candidate::create($request->only([
+        'name',
+        'email',
+        'gender',
+        'phone_number',
+        'residentail_address',
+        'date_of_birth',
+        'cv_path',
+        'experience',
+        'willingness_to_travel',
+        'expected_salary',
+        'last_salary',
+        'earliest_starting_date',
+        'position_id',
+        'agency_id',
+      ]));
+      // $candidate = Candidate::create($request);
+      // $experience= $request->input('experiences',[]);
+      // $languages = $request->input('languages', []);
+
+      $requestDatas = $request->input('data');
 
 
-    $languages = $data->input('languages', []);
 
-    foreach ($languages as $languageId) {
+      foreach ($requestDatas as $requestData) {
+        $experience = $requestData["'experience'"]["'month'"] + $requestData["'experience'"]["'year'"] * 12;
+        SpecificLanguage::create([
 
-      $specificLanguage = new SpecificLanguage();
-      $specificLanguage->language_id = $languageId;
+          'experience' => $experience,
+          'devlanguage_id' => $requestData["'devlanguage_id'"],
+          'candidate_id' => $candidate->id
+        ]);
 
-      $specificLanguage->candidate_id =  $candidate->id;
-      $specificLanguage->save();
-    }
+        // $specificLanguage = new SpecificLanguage();
+        // $specificLanguage->language_id = $languageId;
+
+        // $specificLanguage->candidate_id =  $candidate->id;
+        // $specificLanguage->save();
+      }
+    });
   }
   public function update($data, $id)
   {

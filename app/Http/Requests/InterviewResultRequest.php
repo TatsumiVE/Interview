@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AgencyRequest extends FormRequest
+class InterviewResultRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class AgencyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'interview_summarize' => 'required',
+            'interview_result_date' => 'required',
+            'interview_result' => 'required',
         ];
     }
 }

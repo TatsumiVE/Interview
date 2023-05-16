@@ -16,7 +16,7 @@ use App\Http\Controllers\Api\CandidateController;
 use App\Http\Controllers\Api\InterviewerController;
 use App\Http\Controllers\Api\InterviewAssignController;
 use App\Http\Controllers\Api\InterviewCreateController;
-
+use App\Http\Controllers\Api\InterviewDetailController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\PermissionController;
 
@@ -44,9 +44,9 @@ Route::post('auth/login', [AuthController::class, 'UserLogin']);
 
 Route::apiResource('user', UserController::class);
 
-Route::apiResource('role',RoleController::class);
+Route::apiResource('role', RoleController::class);
 
-Route::apiResource('permission',PermissionController::class);
+Route::apiResource('permission', PermissionController::class);
 
 Route::apiResource('languages', LanguageController::class);
 Route::apiResource('interviewers', InterviewerController::class);
@@ -58,4 +58,4 @@ Route::apiResource('agency', AgencyController::class);
 
 
 Route::apiResource('interviewAssign', InterviewAssignController::class);
-
+Route::apiResource('interviewDetail', InterviewDetailController::class);

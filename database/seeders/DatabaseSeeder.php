@@ -13,9 +13,10 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {        
+    {
         $this->call(RoleAndPermissionSeeder::class);
         $this->call(AdminSeeder::class);
-        
+        $this->call(AgencySeeder::class);
+        $this->call(LanguageSeeder::class);
     }
 }

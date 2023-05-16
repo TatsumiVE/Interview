@@ -6,6 +6,7 @@ use App\Traits\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LanguageRequest;
 use App\Http\Resources\LanguageResource;
+use App\Models\Devlanguage;
 use App\Models\Language;
 use App\Services\Language\LanguageServiceInterface;
 use App\Repositories\Language\LanguageRepoInterface;
@@ -24,22 +25,20 @@ class LanguageController extends Controller
     private LanguageServiceInterface $languageService;
 
 
-    public function __construct(LanguageRepoInterface $languageRepo,LanguageServiceInterface $languageService)
+    public function __construct(LanguageRepoInterface $languageRepo, LanguageServiceInterface $languageService)
     {
         $this->languageRepo = $languageRepo;
         $this->languageService = $languageService;
-
     }
     public function index()
     {
 
         // return response()->json($data);
-        try{
-            $data=Language::all();
+        try {
+            $data = Devlanguage::all();
             return $this->success(200, LanguageResource::collection($data));
-        }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 
@@ -51,12 +50,11 @@ class LanguageController extends Controller
      */
     public function store(LanguageRequest $request)
     {
-        try{
+        try {
             $data = $this->languageService->store($request->validated());
             return $this->success(200, new LanguageResource($data));
-
-        }catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 
@@ -69,12 +67,11 @@ class LanguageController extends Controller
     public function show($id)
     {
 
-        try{
+        try {
             $data = $this->languageRepo->show($id);
             return $this->success(200, new LanguageResource($data));
-
-        }catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 
@@ -87,12 +84,12 @@ class LanguageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
-            $data = $this->languageService->update($request->all(),$id);
-            return $this->success(200, $data,"Language updated");
-          }catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
-          }
+        try {
+            $data = $this->languageService->update($request->all(), $id);
+            return $this->success(200, $data, "Language updated");
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
+        }
     }
 
     /**
@@ -103,14 +100,12 @@ class LanguageController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $data = Language::where('id',$id)->first();
+        try {
+            $data = Devlanguage::where('id', $id)->first();
             $data->delete();
-            return $this->success(200, $data,"Delete topic success");
-          }catch(Exception $e)
-          {
-            return $this->error($e->getCode(),[],$e->getMessage());
-          }
+            return $this->success(200, $data, "Delete topic success");
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
+        }
     }
 }
-

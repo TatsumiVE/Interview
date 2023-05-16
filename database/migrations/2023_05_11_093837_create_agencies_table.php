@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('agencies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('del_flg')->default('1');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
