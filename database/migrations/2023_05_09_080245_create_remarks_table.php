@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('remarks', function (Blueprint $table) {
             $table->id();
-            $table->integer('comment');
+            $table->string('comment');
             $table->integer('grade');
             $table->foreignId('interview_stage_id');
             $table->foreignId('interview_assign_id');
