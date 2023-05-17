@@ -91,14 +91,12 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RoleServiceInterface::class, RoleService::class);
 
         $this->app->bind(PermissionRepoInterface::class, PermissionRepository::class);
-
         $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
 
 
 
         $this->app->bind(DevLanguageRepoInterface::class, DevLanguageRepository::class);
         $this->app->bind(DevLanguageServiceInterface::class, DevLanguageService::class);
-
 
 
         $this->app->bind(TopicRepoInterface::class, TopicRepository::class);

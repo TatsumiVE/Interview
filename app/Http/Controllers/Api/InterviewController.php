@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use Exception;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
@@ -21,20 +22,20 @@ class InterviewController extends Controller
     private InterviewRepoInterface $interviewRepo;
     private InterviewServiceInterface $interviewService;
 
-     public function __construct(InterviewRepoInterface $interviewRepo,InterviewServiceInterface $interviewerService)
+    public function __construct(InterviewRepoInterface $interviewRepo, InterviewServiceInterface $interviewerService)
     {
-        $this->interviewRepo=$interviewRepo;
-        $this->interviewService=$interviewerService;
+        $this->interviewRepo = $interviewRepo;
+        $this->interviewService = $interviewerService;
     }
     public function index()
     {
-        try{
-            $data=$this->interviewRepo->get();
+        try {
+            $data = $this->interviewRepo->get();
             // return $this->success(200, InterviewResource::collection($data));
-        } catch(Exception $exception){
-        return $this->error($exception->getCode(),[],$exception->getMessage());
-        // return $this->customApiResponse($exception);
-       }
+        } catch (Exception $exception) {
+            return $this->error($exception->getCode(), [], $exception->getMessage());
+            // return $this->customApiResponse($exception);
+        }
     }
 
     /**
@@ -43,12 +44,11 @@ class InterviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
-    $this->interviewService->store($request);
-     return $this->success(200, 'Done',"New Assement Form Created");
-
-
-  }
+    public function store(Request $request)
+    {
+        $this->interviewService->store($request);
+        return $this->success(200, 'Done', "New Assement Form Created");
+    }
 
     /**
      * Display the specified resource.
@@ -58,7 +58,6 @@ class InterviewController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
