@@ -19,7 +19,7 @@ class InterviewStage extends Model
 
     ];
 
-    public function Interview()
+    public function interview()
     {
         return $this->hasMany(Interview::class);
     }

@@ -21,7 +21,6 @@ use App\Http\Controllers\Api\InterviewDetailController;
 
 use App\Http\Controllers\Api\InterviewerController;
 
-
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\TopicController;
