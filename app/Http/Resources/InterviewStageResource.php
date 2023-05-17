@@ -16,6 +16,7 @@ class InterviewStageResource extends JsonResource
     {
 
         return [
+            'stage_name' => $this->stage_name,
             'interview_date' => $this->id,
             'interview_time' => $this->interview_time,
             'location' => $this->location,

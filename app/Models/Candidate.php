@@ -8,10 +8,12 @@ use App\Models\Position;
 use App\Models\Assessment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Candidate extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -26,20 +28,20 @@ class Candidate extends Model
         'expected_salary',
         'last_salary',
         'earliest_starting_date',
-        'positions_id',
-        'agencies_id',
+        'position_id',
+        'agency_id',
 
 
     ];
 
     public function position()
     {
-        return $this->belongsTo(Position::class, 'positions_id');
+        return $this->belongsTo(Position::class);
     }
 
     public function agency()
     {
-        return $this->belongsTo(Agency::class, 'agencies_id');
+        return $this->belongsTo(Agency::class);
     }
 
     public function specificLanguage()
@@ -47,8 +49,17 @@ class Candidate extends Model
         return $this->hasMany(SpecificLanguage::class);
     }
 
-    public function assessment()
+    // public function assessment()
+    // {
+    //     return $this->belongsTo(Assessment::class);
+    // }
+    public function assessments()
     {
-        return $this->belongsTo(Assessment::class);
+        return $this->hasMany(Assessment::class);
+    }
+
+    public function Interview()
+    {
+        return $this->hasMany(Candidate::class);
     }
 }
