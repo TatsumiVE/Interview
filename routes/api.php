@@ -41,10 +41,12 @@ use App\Http\Controllers\Api\PositionController;
 
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
 
+
+
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('user', UserController::class);
-    Route::apiResource('role', RoleController::class);
-    Route::apiResource('permission', PermissionController::class);
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('roles', RoleController::class);
+    Route::apiResource('permissions', PermissionController::class);
     Route::apiResource('languages', LanguageController::class);
     Route::apiResource('interviewers', InterviewerController::class);
     Route::apiResource('interviews', InterviewController::class);
@@ -56,3 +58,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('departments', DepartmentController::class);
     Route::apiResource('positions', PositionController::class);
 });
+
+Route::apiResource('candidateDetails', CandidateDetailController::class);
