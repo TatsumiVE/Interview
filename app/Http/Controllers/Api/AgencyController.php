@@ -101,8 +101,8 @@ class AgencyController extends Controller
     public function destroy($id)
     {
         try {
-            $result = $this->agencyRepo->destroy($id);
-            return $this->success(200, new AgencyResource($result), 'success');
+            $result = $this->agencyService->destroy($id);
+            return $this->success(200, $result, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

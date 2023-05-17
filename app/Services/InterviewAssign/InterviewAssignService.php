@@ -3,7 +3,7 @@
 namespace App\Services\InterviewAssign;
 
 use App\Models\Interview;
-use App\Models\Interviewer;
+
 use App\Models\InterviewStage;
 use App\Models\InterviewAssign;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +39,9 @@ class InterviewAssignService implements InterviewAssignServiceInterface
     });
   }
 
-  public function update($data, $id)
+  public function update($request, $id)
   {
+    $data = Interview::where('id', $id)->first();
+    return $data->update($request);
   }
 }

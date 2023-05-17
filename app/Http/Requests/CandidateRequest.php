@@ -29,15 +29,16 @@ class CandidateRequest extends FormRequest
             'gender' => 'required',
             'phone_number' => 'required',
             'residentail_address' => 'required',
-            'date_of_birth' => 'required',
+            'date_of_birth' => 'required|date_format:m/d/Y',
             'cv_path' => 'required',
             'willingness_to_travel' => '',
             'expected_salary' => '',
             'last_salary' => '',
             'earliest_starting_date' => '',
-            'positions_id' => 'required',
-            'agencies_id' => 'required',
-
+            'experience' => 'required | integer',
+            'position_id' => 'required | exists:positions,id',
+            'agency_id' => 'required | exists:agencies,id',
+            'languages' => 'required'
         ];
     }
 }

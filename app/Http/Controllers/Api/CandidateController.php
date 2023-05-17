@@ -51,10 +51,8 @@ class CandidateController extends Controller
     public function store(Request $request)
     {
         try {
-
-
             $data = $this->candidateService->store($request);
-            return $this->success(200, new CandidateResource($data), "New Candidate Created");
+            return $this->success(200, "success", "New Candidate Created");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

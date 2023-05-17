@@ -25,7 +25,6 @@ class AgencyRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'del_flg' => ''
         ];
     }
 }

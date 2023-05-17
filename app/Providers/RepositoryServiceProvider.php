@@ -1,23 +1,25 @@
 <?php
 
 namespace App\Providers;
+
+
 use Illuminate\Support\ServiceProvider;
-
-use App\Repositories\Agency\AgencyRepository;
-use App\Services\Agency\AgencyServiceInterface;
-use App\Repositories\Agency\AgencyRepoInterface;
-use App\Services\Agency\AgencyService;
-
 
 use App\Services\Interview\InterviewService;
 use App\Repositories\Interview\InterviewRepository;
 use App\Services\Interview\InterviewServiceInterface;
 use App\Repositories\Interview\InterviewRepoInterface;
 
+
+use App\Services\Agency\AgencyService;
+use App\Repositories\Agency\AgencyRepository;
+use App\Services\Agency\AgencyServiceInterface;
+use App\Repositories\Agency\AgencyRepoInterface;
+
 use App\Repositories\Candidate\CandidateRepository;
-use App\Services\Candidate\CandidateServiceInterface;
-use App\Services\Candidate\CandidateService;
 use App\Repositories\Candidate\CandidateRepoInterface;
+use App\Services\Candidate\CandidateService;
+use App\Services\Candidate\CandidateServiceInterface;
 
 
 use App\Services\Interviewer\InterviewerServiceInterface;
@@ -25,24 +27,23 @@ use App\Services\Interviewer\InterviewerService;
 use App\Repositories\Interviewer\InterviewerRepository;
 use App\Repositories\Interviewer\InterviewerRepoInterface;
 
+use App\Services\InterviewAssign\InterviewAssignService;
 use App\Repositories\InterviewAssign\InterviewAssignRepository;
 use App\Services\InterviewAssign\InterviewAssignServiceInterface;
 use App\Repositories\InterviewAssign\InterviewAssignRepoInterface;
+
 use App\Repositories\InterviewDetail\InterviewDetailRepoInterface;
 use App\Repositories\InterviewDetail\InterviewDetailRepository;
-use App\Services\InterviewAssign\InterviewAssignService;
 
 use App\Repositories\Permission\PermissionRepoInterface;
 use App\Repositories\Permission\PermissionRepository;
 use App\Services\Permission\PermissionService;
 use App\Services\Permission\PermissionServiceInterface;
 
-
 use App\Repositories\User\UserRepoInterface;
 use App\Repositories\User\UserRepository;
 use App\Services\User\UserService;
 use App\Services\User\UserServiceInterface;
-
 
 use App\Services\Role\RoleService;
 use App\Services\Role\RoleServiceInterface;
@@ -73,7 +74,6 @@ use App\Repositories\Position\PositionRepoInterface;
 use App\Repositories\Position\PositionRepository;
 use App\Services\Position\PositionService;
 use App\Services\Position\PositionServiceInterface;
-
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -107,6 +107,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
 
 
+
+
         $this->app->bind(LanguageRepoInterFace::class, LanguageRepository::class);
         $this->app->bind(LanguageServiceInterface::class, LanguageService::class);
 
@@ -136,13 +138,16 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(InterviewAssignRepoInterface::class, InterviewAssignRepository::class);
         $this->app->bind(InterviewAssignServiceInterface::class, InterviewAssignService::class);
 
+
         $this->app->bind(InterviewDetailRepoInterface::class, InterviewDetailRepository::class);
+
 
         $this->app->bind(DepartmentRepoInterface::class,DepartmentRepository::class);
         $this->app->bind(DepartmentServiceInterface::class,DepartmentService::class);
 
         $this->app->bind(PositionRepoInterface::class,PositionRepository::class);
         $this->app->bind(PositionServiceInterface::class,PositionService::class);
+
 
     }
 }

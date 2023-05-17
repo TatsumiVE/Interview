@@ -15,7 +15,6 @@ class InterviewAssignResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'interview_id' => new InterviewResource($this->whenLoaded('interviewassign')),
             'interviewer_id' => new InterviewerResource($this->whenLoaded('interviewassign')),
 

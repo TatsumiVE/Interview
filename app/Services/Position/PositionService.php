@@ -6,16 +6,9 @@ use App\Models\Position;
 use Illuminate\Support\Facades\DB;
 
 class PositionService implements PositionServiceInterface{
-    public function store($request){
-        return DB::transaction(function () use ($request) {
-            $department_id = $request['department_id'];
-            $department = Department::where('id', $department_id)->first();
-            
-            if(isset($department)){
-                return Position::create($request);
-            }            
-          
-        });
+    public function store($request){      
+         return Position::create($request);               
+    
        
     }
     public function update($request,$id){

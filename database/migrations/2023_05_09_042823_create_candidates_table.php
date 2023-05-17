@@ -17,19 +17,19 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->boolean('gender');
+            $table->integer('gender');
             $table->string('phone_number');
             $table->string('residentail_address');
             $table->string('date_of_birth');
             $table->string('cv_path');
-            $table->integer('experience');
             $table->boolean('willingness_to_travel')->nullable();
             $table->integer('expected_salary')->nullable();
             $table->integer('last_salary')->nullable();
             $table->date('earliest_starting_date')->nullable();
-            $table->foreignId('positions_id');
-            $table->foreignId('agencies_id');
+            $table->foreignId('position_id');
+            $table->foreignId('agency_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

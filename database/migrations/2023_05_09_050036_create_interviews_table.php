@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('interview_result_date')->nullable();
             $table->string('interview_result')->nullable();
             $table->foreignId('candidate_id');
-            $table->foreignId('interview_stages_id');
+            $table->foreignId('interview_stage_id');
             $table->timestamps();
         });
     }
