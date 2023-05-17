@@ -40,6 +40,8 @@ use App\Repositories\Permission\PermissionRepository;
 use App\Services\Candidate\CandidateServiceInterface;
 use App\Services\Interview\InterviewServiceInterface;
 use App\Repositories\Candidate\CandidateRepoInterface;
+use App\Repositories\CandidateDetail\CandidateDetailRepoInterface;
+use App\Repositories\CandidateDetail\CandidateDetailRepository;
 use App\Repositories\Interview\InterviewRepoInterface;
 use App\Repositories\Interviewer\InterviewerRepository;
 use App\Services\Department\DepartmentServiceInterface;
@@ -124,7 +126,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(InterviewAssignServiceInterface::class, InterviewAssignService::class);
 
 
-        $this->app->bind(InterviewDetailRepoInterface::class, InterviewDetailRepository::class);
+        $this->app->bind(CandidateDetailRepoInterface::class, CandidateDetailRepository::class);
 
         $this->app->bind(DepartmentRepoInterface::class, DepartmentRepository::class);
         $this->app->bind(DepartmentServiceInterface::class, DepartmentService::class);

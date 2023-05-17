@@ -19,12 +19,17 @@ class InterviewStage extends Model
 
     ];
 
+    public function Interview()
+    {
+        return $this->hasMany(Interview::class);
+    }
+
     public function assessment()
     {
-        return $this->belongsTo(Assessment::class,'interview_stages_id');
+        return $this->belongsTo(Assessment::class);
     }
     public function remark()
     {
-        return $this->belongsTo(Remark::class,'interview_stages_id');
+        return $this->belongsTo(Remark::class);
     }
 }

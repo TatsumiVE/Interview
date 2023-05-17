@@ -8,6 +8,7 @@ use App\Models\Position;
 use App\Models\Assessment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Candidate extends Model
@@ -55,5 +56,10 @@ class Candidate extends Model
     public function assessments()
     {
         return $this->hasMany(Assessment::class);
+    }
+
+    public function Interview()
+    {
+        return $this->hasMany(Candidate::class);
     }
 }

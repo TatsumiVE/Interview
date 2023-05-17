@@ -3,10 +3,23 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CandidateDetailResource;
+use App\Http\Resources\InterviewResource;
+use App\Repositories\CandidateDetail\CandidateDetailRepoInterface;
+use App\Traits\ApiResponser;
+use Exception;
 use Illuminate\Http\Request;
 
-class InterviewDetailController extends Controller
+class CandidateDetailController extends Controller
 {
+    use ApiResponser;
+    private CandidateDetailRepoInterface $candidateDetailRepo;
+
+    public function __construct(CandidateDetailRepoInterface $candidateDetailRepo)
+    {
+        $this->candidateDetailRepo = $candidateDetailRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,14 @@ class InterviewDetailController extends Controller
      */
     public function index()
     {
-        //
+        try {
+
+            $data = $this->candidateDetailRepo->get();
+
+            return $this->success(200, CandidateDetailResource::collection($data), 'success');
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        };
     }
 
     /**
