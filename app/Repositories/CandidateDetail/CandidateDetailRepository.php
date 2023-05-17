@@ -3,8 +3,7 @@
 namespace App\Repositories\CandidateDetail;
 
 use App\Models\Assessment;
-use App\Models\Interview;
-use App\Models\InterviewStage;
+
 
 class CandidateDetailRepository implements CandidateDetailRepoInterface
 {

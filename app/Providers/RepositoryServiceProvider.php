@@ -50,8 +50,7 @@ use App\Services\Role\RoleServiceInterface;
 use App\Repositories\Role\RoleRepoInterface;
 use App\Repositories\Role\RoleRepository;
 
-use App\Repositories\Language\LanguageRepoInterface;
-use App\Repositories\Language\LanguageRepository;
+
 use App\Services\Language\LanguageServiceInterface;
 use App\Services\Language\LanguageService;
 
@@ -75,8 +74,13 @@ use App\Repositories\Position\PositionRepository;
 use App\Services\Position\PositionService;
 use App\Services\Position\PositionServiceInterface;
 
+use App\Repositories\DevLanguage\DevLanguageRepoInterface;
+use App\Repositories\DevLanguage\DevLanguageRepository;
 use App\Services\DevLanguage\DevLanguageService;
 use App\Services\DevLanguage\DevLanguageServiceInterface;
+
+use App\Repositories\CandidateDetail\CandidateDetailRepoInterface;
+use App\Repositories\CandidateDetail\CandidateDetailRepository;
 
 
 class RepositoryServiceProvider extends ServiceProvider

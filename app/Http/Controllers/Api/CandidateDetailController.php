@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CandidateDetailResource;
-use App\Http\Resources\InterviewResource;
+
 use App\Repositories\CandidateDetail\CandidateDetailRepoInterface;
 use App\Traits\ApiResponser;
 use Exception;
