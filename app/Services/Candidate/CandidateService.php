@@ -20,7 +20,7 @@ class CandidateService implements CandidateServiceInterface
       'residentail_address',
       'date_of_birth',
       'cv_path',
-      'experience',
+ 
       'willingness_to_travel',
       'expected_salary',
       'last_salary',
