@@ -16,7 +16,7 @@ class SpecificLanguage extends Model
       'candidate_id'
    ];
 
-   public function Devlanguage()
+   public function devlanguage()
    {
       return  $this->belongsTo(Devlanguage::class);
    }

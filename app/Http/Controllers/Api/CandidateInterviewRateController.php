@@ -3,21 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CandidateDetailResource;
-
-use App\Repositories\CandidateDetail\CandidateDetailRepoInterface;
+use App\Models\Assessment;
+use App\Repositories\CandidateInterviewRate\CandidateInterviewRateRepoInterface;
 use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Http\Request;
 
-class CandidateDetailController extends Controller
+class CandidateInterviewRateController extends Controller
 {
-    use ApiResponser;
-    private CandidateDetailRepoInterface $candidateDetailRepo;
 
-    public function __construct(CandidateDetailRepoInterface $candidateDetailRepo)
+    use ApiResponser;
+
+    private CandidateInterviewRateRepoInterface $candidateInterviewRateRepo;
+
+    public function __construct(CandidateInterviewRateRepoInterface $candidateInterviewRateRepo)
     {
-        $this->candidateDetailRepo = $candidateDetailRepo;
+        $this->candidateInterviewRateRepo = $candidateInterviewRateRepo;
     }
 
     /**
@@ -27,16 +28,7 @@ class CandidateDetailController extends Controller
      */
     public function index()
     {
-        // try {
-
-        //     $data = $this->candidateDetailRepo->get();
-
-        //     // return $this->success(200, CandidateDetailResource::collection($data), 'success');
-
-        //     return $this->success(200, $data, 'success');
-        // } catch (Exception $e) {
-        //     return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        // };
+        //
     }
 
     /**
@@ -59,7 +51,8 @@ class CandidateDetailController extends Controller
     public function show($id)
     {
         try {
-            $result = $this->candidateDetailRepo->show($id);
+            // $result = Assessment::with('interviewStage', 'interviewer', 'assessmentResult.topic', 'assessmentResult.rate')->where('interview_stage_id', $id)->get();
+            $result = $this->candidateInterviewRateRepo->show($id);
             return $this->success(200, $result, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

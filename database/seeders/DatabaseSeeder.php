@@ -18,5 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(AgencySeeder::class);
         $this->call(LanguageSeeder::class);
+        $this->call(DepartmentSeeder::class);
+        $this->call(TopicSeeder::class);
+        $this->call(RateSeeder::class);
+        $this->call(PositionSeeder::class);
     }
 }

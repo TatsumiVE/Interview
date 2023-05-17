@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PositionRequest;
 use App\Http\Resources\PositionResource;
 
-use App\Models\Department;
 use App\Repositories\Position\PositionRepoInterface;
 use App\Services\Position\PositionServiceInterface;
 use App\Traits\ApiResponser;
@@ -37,10 +36,10 @@ class PositionController extends Controller
     public function store(PositionRequest $request)
     {
         try {
-            $validateData = $request->validated();  
-    
+            $validateData = $request->validated();
+
             $data = $this->positionService->store($validateData);
-          
+
             return $this->success(200, $data, "Position created successfully.");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
