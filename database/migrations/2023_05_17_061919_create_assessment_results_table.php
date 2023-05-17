@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('assessments', function (Blueprint $table) {
+        Schema::create('assessment_results', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('candidate_id');
-            $table->foreignId('interviewer_id');
-            $table->foreignId('interview_stage_id');
+            $table->foreignId('topic_id');
+            $table->foreignId('rate_id');
+            $table->foreignId('assessment_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assessments');
+        Schema::dropIfExists('assessment_results');
     }
 };
