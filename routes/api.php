@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
 
+
 use App\Http\Controllers\Api\RateController;
 use App\Http\Controllers\Api\RoleController;
 
@@ -29,6 +30,7 @@ use App\Http\Controllers\Api\InterviewAssignController;
 use App\Http\Controllers\Api\InterviewDetailController;
 use App\Http\Controllers\Api\CandidateInterviewRateController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -41,7 +43,6 @@ use App\Http\Controllers\Api\CandidateInterviewRateController;
 */
 
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
-
 
 
 Route::middleware('auth:sanctum')->group(function () {

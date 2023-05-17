@@ -44,11 +44,13 @@ class InterviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         $this->interviewService->store($request);
         return $this->success(200, 'Done', "New Assement Form Created");
     }
+
 
     /**
      * Display the specified resource.
