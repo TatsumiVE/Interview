@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 
+
 use Illuminate\Support\ServiceProvider;
 
 use App\Services\Interview\InterviewService;
@@ -20,7 +21,6 @@ use App\Repositories\Candidate\CandidateRepository;
 use App\Repositories\Candidate\CandidateRepoInterface;
 use App\Services\Candidate\CandidateService;
 use App\Services\Candidate\CandidateServiceInterface;
-
 
 use App\Services\Interviewer\InterviewerServiceInterface;
 use App\Services\Interviewer\InterviewerService;
@@ -75,6 +75,9 @@ use App\Repositories\Position\PositionRepository;
 use App\Services\Position\PositionService;
 use App\Services\Position\PositionServiceInterface;
 
+use App\Services\DevLanguage\DevLanguageService;
+use App\Services\DevLanguage\DevLanguageServiceInterface;
+
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -96,23 +99,19 @@ class RepositoryServiceProvider extends ServiceProvider
     public function boot()
     {
 
+
         $this->app->bind(UserRepoInterface::class, UserRepository::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
+
 
         $this->app->bind(RoleRepoInterface::class, RoleRepository::class);
         $this->app->bind(RoleServiceInterface::class, RoleService::class);
 
         $this->app->bind(PermissionRepoInterface::class, PermissionRepository::class);
-
         $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
 
-
-
-
-        $this->app->bind(LanguageRepoInterFace::class, LanguageRepository::class);
-        $this->app->bind(LanguageServiceInterface::class, LanguageService::class);
-
-
+        $this->app->bind(DevLanguageRepoInterface::class, DevLanguageRepository::class);
+        $this->app->bind(DevLanguageServiceInterface::class, DevLanguageService::class);
 
         $this->app->bind(TopicRepoInterface::class, TopicRepository::class);
         $this->app->bind(TopicServiceInterface::class, TopicService::class);
@@ -120,14 +119,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RateRepoInterface::class, RateRepository::class);
         $this->app->bind(RateServiceInterface::class, RateService::class);
 
-
-
         $this->app->bind(InterviewerRepoInterface::class, InterviewerRepository::class);
         $this->app->bind(InterviewerServiceInterface::class, InterviewerService::class);
 
         $this->app->bind(InterviewRepoInterface::class, InterviewRepository::class);
         $this->app->bind(InterviewServiceInterface::class, InterviewService::class);
-
 
         $this->app->bind(CandidateRepoInterface::class, CandidateRepository::class);
         $this->app->bind(CandidateServiceInterface::class, CandidateService::class);
@@ -138,16 +134,13 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(InterviewAssignRepoInterface::class, InterviewAssignRepository::class);
         $this->app->bind(InterviewAssignServiceInterface::class, InterviewAssignService::class);
 
+        $this->app->bind(CandidateDetailRepoInterface::class, CandidateDetailRepository::class);
 
-        $this->app->bind(InterviewDetailRepoInterface::class, InterviewDetailRepository::class);
+        $this->app->bind(DepartmentRepoInterface::class, DepartmentRepository::class);
+        $this->app->bind(DepartmentServiceInterface::class, DepartmentService::class);
 
-
-        $this->app->bind(DepartmentRepoInterface::class,DepartmentRepository::class);
-        $this->app->bind(DepartmentServiceInterface::class,DepartmentService::class);
-
-        $this->app->bind(PositionRepoInterface::class,PositionRepository::class);
-        $this->app->bind(PositionServiceInterface::class,PositionService::class);
-
+        $this->app->bind(PositionRepoInterface::class, PositionRepository::class);
+        $this->app->bind(PositionServiceInterface::class, PositionService::class);
 
     }
 }

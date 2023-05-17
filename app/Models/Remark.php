@@ -12,4 +12,10 @@ class Remark extends Model
         'comment', 'grade', 'interview_stage_id', 'interview_assign_id'
     ];
 
+
+
+    public function interviewAssign()
+    {
+        return $this->belongsTo(InterviewAssign::class);
+    }
 }

@@ -11,14 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class InterviewAssign extends Model
 {
    use HasFactory;
-   protected $fillable = ['interview_id', 'interviewer_id'];
+   protected $fillable = [
+      'interview_id',
+      'interviewer_id'
+   ];
 
 
-
-   // public function remarks()
-   // {
-   //    return  $this->belongsTo(Remark::class);
-   // }
 
    public function interview()
    {

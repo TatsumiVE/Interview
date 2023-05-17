@@ -33,4 +33,19 @@ class Assessment extends Model
     {
         return $this->belongsTo(Rate::class);
     }
+
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class);
+    }
+
+    public function interviewer()
+    {
+        return $this->belongsTo(Interviewer::class);
+    }
+
+    public function interviewStage()
+    {
+        return $this->belongsTo(InterviewStage::class);
+    }
 }

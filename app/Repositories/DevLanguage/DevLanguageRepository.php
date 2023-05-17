@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\Language;
+namespace App\Repositories\DevLanguage;
 
 use App\Models\Devlanguage;
-use App\Models\Language;
 
-class LanguageRepository implements LanguageRepoInterface
+
+class DevLanguageRepository implements DevLanguageRepoInterface
 {
     public function get()
     {

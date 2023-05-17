@@ -11,14 +11,14 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
+<<<<<<< HEAD
 {
     use HasApiTokens, HasFactory, Notifiable,HasRoles,SoftDeletes;
+=======
+{  
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
+>>>>>>> a915a070eed09a0d11c86916ab3cabe3e3044066
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
