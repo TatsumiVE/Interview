@@ -64,9 +64,9 @@ Route::apiResource('languages', LanguageController::class);
 Route::apiResource('departments', DepartmentController::class);
 Route::apiResource('positions', PositionController::class);
 Route::apiResource('agencies', AgencyController::class);
-Route::apiResource('candidateDetails', CandidateDetailController::class);
+Route::apiResource('candidate_details', CandidateDetailController::class);
 
 Route::apiResource('interviewers', InterviewerController::class);
 
-Route::apiResource('candidateInterviews', CandidateInterviewRateController::class);
+Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);
 
