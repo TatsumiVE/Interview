@@ -27,7 +27,7 @@ class InterviewAssignService implements InterviewAssignServiceInterface
         'interview_summarize' => $request['interview_summarize'],
         'interview_result_date' => $request['interview_result_date'],
         'candidate_id' => $request['candidate_id'],
-        'interview_stages_id' => $stage->id,
+        'interview_stage_id' => $stage->id,
       ]);
       $interviewers = $request->input('interviewer_id', []);
       foreach ($interviewers as $interviewer) {

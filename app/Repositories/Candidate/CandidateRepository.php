@@ -8,7 +8,7 @@ class CandidateRepository implements CandidateRepoInterface
 {
   public function get()
   {
-    return Candidate::with('position', 'agency', 'specificLanguage.language')->get();
+    return Candidate::with('position', 'agency', 'specificLanguage.devlanguage')->get();
   }
   public function show($id)
   {
