@@ -29,7 +29,7 @@ use App\Http\Controllers\Api\CandidateDetailController;
 use App\Http\Controllers\Api\InterviewAssignController;
 use App\Http\Controllers\Api\InterviewDetailController;
 use App\Http\Controllers\Api\CandidateInterviewRateController;
-
+use App\Http\Controllers\Api\DevLanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,15 +49,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('permissions', PermissionController::class);
-    Route::apiResource('interviews', InterviewController::class);
+
     Route::apiResource('topics', TopicController::class);
     Route::apiResource('rates', RateController::class);
     Route::apiResource('agencies', AgencyController::class);
     Route::apiResource('interview_assigns', InterviewAssignController::class);
     Route::apiResource('departments', DepartmentController::class);
     Route::apiResource('positions', PositionController::class);
-    Route::apiResource('languages', LanguageController::class);
+    Route::apiResource('dev_languages', DevLanguageController::class);
     Route::apiResource('candidates', CandidateController::class);
+    Route::apiResource('interviews', InterviewController::class);
+
     Route::apiResource('candidate_details', CandidateDetailController::class);
     Route::apiResource('interviewers', InterviewerController::class);
     Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);

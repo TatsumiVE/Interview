@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TopicSeeder::class);
         $this->call(RateSeeder::class);
         $this->call(PositionSeeder::class);
+        $this->call(InterviewerSeeder::class);
+        $this->call(InterviewAssignSeeder::class);
     }
 }

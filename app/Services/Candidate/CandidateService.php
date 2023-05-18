@@ -27,8 +27,8 @@ class CandidateService implements CandidateServiceInterface
         'expected_salary',
         'last_salary',
         'earliest_starting_date',
-        'position',
-        'agency',
+        'position_id',
+        'agency_id',
       ]));
 
       $requestDatas = $request->input('data');
@@ -37,7 +37,7 @@ class CandidateService implements CandidateServiceInterface
         SpecificLanguage::create([
 
           'experience' => $experience,
-          'devlanguage_id' => $requestData["'language'"],
+          'devlanguage_id' => $requestData["'devlanguage_id'"],
           'candidate_id' => $candidate->id
         ]);
 
@@ -52,7 +52,7 @@ class CandidateService implements CandidateServiceInterface
   public function update($data, $id)
   {
 
-    $result = Candidate::where('id', $id)->first();
+    $result = Candidate::with('specificLanguage.devlanguage')->where('id', $id)->first();
     return $result->update($data);
   }
 }
