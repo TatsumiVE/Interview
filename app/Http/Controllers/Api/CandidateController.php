@@ -34,7 +34,6 @@ class CandidateController extends Controller
     public function index()
     {
         try {
-
             $data = $this->candidateRepo->get();
             return $this->success(200, CandidateResource::collection($data), 'success');
         } catch (Exception $e) {
