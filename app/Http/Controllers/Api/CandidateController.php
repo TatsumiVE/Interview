@@ -36,7 +36,6 @@ class CandidateController extends Controller
     public function index()
     {
         try {
-
             $data = $this->candidateRepo->get();
             return $this->success(200, CandidateResource::collection($data), 'success');
         } catch (Exception $e) {
@@ -67,12 +66,12 @@ class CandidateController extends Controller
         };
     }
 
-  
-    public function update(CandidateRequest $request, $id)
+   
+    public function update(Request $request, $id)
     {
         try {
 
-            $data = $this->candidateService->update($request->validated(), $id);
+            $data = $this->candidateService->update($request->all(), $id);
             return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

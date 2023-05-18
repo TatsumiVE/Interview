@@ -18,7 +18,7 @@ class SpecificLanguageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'language_id' => new LanguageResource($this->whenLoaded('language')),
+            'language_id' => new DevLanguageResource($this->whenLoaded('language')),
             'candidate_id' => new CandidateResource($this->whenLoaded('candidate')),
         ];
     }

@@ -13,16 +13,16 @@ class CandidateService implements CandidateServiceInterface
   public function store($request)
   {
 
+
     DB::transaction(function () use ($request) {
       $candidate = Candidate::create($request->only([
         'name',
         'email',
         'gender',
         'phone_number',
-        'residentail_address',
+        'residential_address',
         'date_of_birth',
         'cv_path',
-        'experience',
         'willingness_to_travel',
         'expected_salary',
         'last_salary',
@@ -30,14 +30,8 @@ class CandidateService implements CandidateServiceInterface
         'position_id',
         'agency_id',
       ]));
-      // $candidate = Candidate::create($request);
-      // $experience= $request->input('experiences',[]);
-      // $languages = $request->input('languages', []);
 
       $requestDatas = $request->input('data');
-
-
-
       foreach ($requestDatas as $requestData) {
         $experience = $requestData["'experience'"]["'month'"] + $requestData["'experience'"]["'year'"] * 12;
         SpecificLanguage::create([
@@ -58,7 +52,9 @@ class CandidateService implements CandidateServiceInterface
   public function update($data, $id)
   {
 
-    $result = Candidate::where('id', $id)->first();
+
+    $result = Candidate::with('specificLanguage.devlanguage')->where('id', $id)->first();
+
     return $result->update($data);
   }
 }

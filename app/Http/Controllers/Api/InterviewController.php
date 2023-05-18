@@ -34,7 +34,7 @@ class InterviewController extends Controller
     {
         try {
             $data = $this->interviewRepo->get();
-            // return $this->success(200, InterviewResource::collection($data));
+            return $this->success(200, $data, 'success');
         } catch (Exception $exception) {
             return $this->error($exception->getCode(), [], $exception->getMessage());
             // return $this->customApiResponse($exception);
@@ -63,6 +63,14 @@ class InterviewController extends Controller
      */
     public function show($id)
     {
+
+
+        try {
+            $result = $this->interviewRepo->show($id);
+            return $this->success(200, $result, 'success');
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        };
     }
 
     /**

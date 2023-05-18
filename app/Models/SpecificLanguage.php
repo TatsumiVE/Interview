@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SpecificLanguage extends Model
 {
    use HasFactory;
+
    protected $fillable = [
       'experience',
       'devlanguage_id',
       'candidate_id'
    ];
+
 
    public function devlanguage()
    {

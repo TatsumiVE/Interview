@@ -26,7 +26,7 @@ class InterviewStage extends Model
 
     public function assessment()
     {
-        return $this->belongsTo(Assessment::class);
+        return $this->hasOne(Assessment::class);
     }
     public function remark()
     {

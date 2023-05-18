@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email');
             $table->integer('gender');
             $table->string('phone_number');
-            $table->string('residentail_address');
+            $table->string('residential_address');
             $table->string('date_of_birth');
             $table->string('cv_path');
             $table->boolean('willingness_to_travel')->nullable();

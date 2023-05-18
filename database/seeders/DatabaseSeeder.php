@@ -22,5 +22,19 @@ class DatabaseSeeder extends Seeder
         $this->call(TopicSeeder::class);
         $this->call(RateSeeder::class);
         $this->call(PositionSeeder::class);
+        $this->call(SpecificLanguageSeeder::class);
+        $this->call(CandidateSeeder::class);
+        $this->call(InterviewerSeeder::class);
+        $this->call(AssessmentSeeder::class);
+        $this->call(IntervieStageSeeder::class);
+        $this->call(RemarkSeeder::class);
+        $this->call(InterviewAssignSeeder::class);
+
+
+
+
+
+
+
     }
 }
