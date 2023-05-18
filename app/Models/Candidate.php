@@ -23,7 +23,6 @@ class Candidate extends Model
         'residential_address',
         'date_of_birth',
         'cv_path',
-        'experience',
         'willingness_to_travel',
         'expected_salary',
         'last_salary',

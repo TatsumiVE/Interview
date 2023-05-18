@@ -23,7 +23,6 @@ class CandidateService implements CandidateServiceInterface
         'residential_address',
         'date_of_birth',
         'cv_path',
-        'experience',
         'willingness_to_travel',
         'expected_salary',
         'last_salary',
@@ -53,7 +52,7 @@ class CandidateService implements CandidateServiceInterface
   public function update($data, $id)
   {
 
-    $result = Candidate::where('id', $id)->first();
+    $result = Candidate::with('specificLanguage.devlanguage')->where('id', $id)->first();
     return $result->update($data);
   }
 }

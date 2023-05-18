@@ -12,8 +12,8 @@ class Rate extends Model
         'name'
     ];
 
-    public function assessment()
+    public function assessmentResults()
     {
-        return $this->hasMany(Assessment::class);
+        return $this->hasMany(AssessmentResult::class);
     }
 }
