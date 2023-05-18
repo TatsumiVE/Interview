@@ -11,25 +11,26 @@ use App\Http\Controllers\Api\RoleController;
 
 use App\Http\Controllers\Api\UserController;
 
-use App\Http\Controllers\Api\TopicController;
+use App\Http\Controllers\API\SearchCandidate;
 
+use App\Http\Controllers\Api\TopicController;
 use App\Http\Controllers\Api\AgencyController;
 use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\PositionController;
+
 use App\Http\Controllers\Api\CandidateController;
 
 use App\Http\Controllers\Api\InterviewController;
 
+
 use App\Http\Controllers\Api\DepartmentController;
-
-
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\InterviewerController;
 use App\Http\Controllers\Api\CandidateDetailController;
 use App\Http\Controllers\Api\InterviewAssignController;
 use App\Http\Controllers\Api\InterviewDetailController;
+use App\Http\Controllers\API\SearchCandidateController;
 use App\Http\Controllers\Api\CandidateInterviewRateController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -65,8 +66,6 @@ Route::apiResource('departments', DepartmentController::class);
 Route::apiResource('positions', PositionController::class);
 Route::apiResource('agencies', AgencyController::class);
 Route::apiResource('candidate_details', CandidateDetailController::class);
-
 Route::apiResource('interviewers', InterviewerController::class);
-
 Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);
-
+Route::post('candidates/search',[SearchCandidateController::class,'search']);
