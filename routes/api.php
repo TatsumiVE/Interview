@@ -72,3 +72,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);
     Route::post('candidates/search', [SearchCandidateController::class, 'search']);
 });
+Route::post('candidates/search', [CandidateSearchController::class, 'search']);
