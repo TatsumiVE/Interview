@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     use HasFactory;
-    protected $fillable=['name'];
+    protected $fillable = ['name'];
+
+    public function assessmentResults()
+    {
+        return $this->hasMany(AssessmentResult::class);
+    }
 }

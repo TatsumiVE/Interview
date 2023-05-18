@@ -16,6 +16,7 @@ class InterviewerSeeder extends Seeder
     public function run()
     {
         Interviewer::create([
+
             'name' => 'HR',
             'position_id' => 1,
         ]);
@@ -28,6 +29,7 @@ class InterviewerSeeder extends Seeder
         Interviewer::create([
             'name' => 'Manager',
             'position_id' => 3,
+
         ]);
     }
 }

@@ -41,7 +41,5 @@ class InterviewAssignService implements InterviewAssignServiceInterface
 
   public function update($request, $id)
   {
-    $data = Interview::where('id', $id)->first();
-    return $data->update($request);
   }
 }

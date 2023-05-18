@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Traits\ApiResponser;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LanguageRequest;
-use App\Http\Resources\LanguageResource;
+use App\Http\Resources\DevLanguageResource;
 use App\Models\Devlanguage;
 use App\Repositories\DevLanguage\DevLanguageRepoInterface;
 use App\Services\DevLanguage\DevLanguageServiceInterface;
+use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Http\Request;
 
-class LanguageController extends Controller
+class DevLanguageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     use ApiResponser;
     private DevLanguageRepoInterface $DevLanguageRepo;
     private DevLanguageServiceInterface $DevLanguageService;
@@ -29,13 +24,16 @@ class LanguageController extends Controller
         $this->DevLanguageRepo = $DevLanguageRepo;
         $this->DevLanguageService = $DevLanguageService;
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-
-        // return response()->json($data);
         try {
             $data = Devlanguage::all();
-            return $this->success(200, LanguageResource::collection($data));
+            return $this->success(200, DevLanguageResource::collection($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
@@ -47,16 +45,15 @@ class LanguageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LanguageRequest $request)
+    public function store($request)
     {
         try {
             $data = $this->DevLanguageService->store($request->validated());
-            return $this->success(200, new LanguageResource($data));
+            return $this->success(200, new DevLanguageResource($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
-
     /**
      * Display the specified resource.
      *
@@ -68,12 +65,11 @@ class LanguageController extends Controller
 
         try {
             $data = $this->DevLanguageRepo->show($id);
-            return $this->success(200, new LanguageResource($data));
+            return $this->success(200, new DevLanguageResource($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
-
     /**
      * Update the specified resource in storage.
      *
