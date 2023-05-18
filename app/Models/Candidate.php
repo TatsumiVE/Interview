@@ -20,7 +20,7 @@ class Candidate extends Model
         'email',
         'gender',
         'phone_number',
-        'residentail_address',
+        'residential_address',
         'date_of_birth',
         'cv_path',
         'experience',
