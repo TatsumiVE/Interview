@@ -29,12 +29,12 @@ class AuthController extends Controller
                 $success['role'] =  $user->name;
 
                 return $this->success(200, $success, 'User login successfully.');
-            }else{
-                return $this->error(401,['error'=>'Unauthorized'],'Unauthorized.');
+            } else {
+                return $this->error(401, ['error' => 'Unauthorized'], 'Unauthorized.');
             }
         } catch (Exception $e) {
 
-            return $this->error(500,$e->getMessage(),'Internal Server Error.');
+            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
 
             // app(Handler::class)->report($e); // Report the exception to the handler
             // return app(Handler::class)->render($request, $e); // Render the exception response

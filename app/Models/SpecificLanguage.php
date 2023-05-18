@@ -20,7 +20,7 @@ class SpecificLanguage extends Model
    ];
 >>>>>>> dce0ccff28b8d6dda1a1e74fed6ebc4b4e570103
 
-   public function Devlanguage()
+   public function devlanguage()
    {
       return  $this->belongsTo(Devlanguage::class);
    }

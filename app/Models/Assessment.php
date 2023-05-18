@@ -10,22 +10,12 @@ class Assessment extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'rate_id',
         'candidate_id',
         'interviewer_id',
-        'topic_id',
         'interview_stage_id'
     ];
 
-    public function topics()
-    {
-        return $this->belongsTo(Topic::class);
-    }
 
-    public function rates()
-    {
-        return $this->belongsTo(Rate::class);
-    }
 
     public function candidate()
     {
@@ -40,5 +30,10 @@ class Assessment extends Model
     public function interviewStage()
     {
         return $this->belongsTo(InterviewStage::class);
+    }
+
+    public function assessmentResult()
+    {
+        return $this->hasOne(AssessmentResult::class);
     }
 }

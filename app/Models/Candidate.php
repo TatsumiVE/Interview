@@ -58,8 +58,14 @@ class Candidate extends Model
         return $this->hasMany(Assessment::class);
     }
 
-    public function Interview()
+    // public function interview()
+    // {
+    //     return $this->hasMany(Interview::class);
+    // }
+
+
+    public function interviews()
     {
-        return $this->hasMany(Candidate::class);
+        return $this->hasMany(Interview::class);
     }
 }

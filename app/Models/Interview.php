@@ -26,7 +26,7 @@ class Interview extends Model
     {
         return $this->belongsTo(Candidate::class);
     }
-    public function intervieStages()
+    public function interviewStage()
     {
         return $this->belongsTo(InterviewStage::class);
     }
