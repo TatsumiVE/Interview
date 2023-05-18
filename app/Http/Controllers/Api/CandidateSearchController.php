@@ -10,7 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CandidteSearchController extends Controller
+class CandidateSearchController extends Controller
 {
     use ApiResponser;
 
