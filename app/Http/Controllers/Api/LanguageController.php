@@ -28,6 +28,12 @@ class LanguageController extends Controller
     {
         $this->DevLanguageRepo = $DevLanguageRepo;
         $this->DevLanguageService = $DevLanguageService;
+        
+        $this->middleware('permission:languageList',['only'=>['index']]);
+        $this->middleware('permission:languageCreate',['only'=>['store']]);
+        $this->middleware('permission:languageUpdate',['only'=>['update']]);
+        $this->middleware('permission:languageDelete',['only'=>['destroy']]);
+        $this->middleware('permission:languageShow',['only'=>['show']]);
     }
     public function index()
     {

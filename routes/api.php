@@ -19,9 +19,7 @@ use App\Http\Controllers\Api\PositionController;
 use App\Http\Controllers\Api\CandidateController;
 
 use App\Http\Controllers\Api\InterviewController;
-
 use App\Http\Controllers\Api\DepartmentController;
-
 
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\InterviewerController;
@@ -29,7 +27,7 @@ use App\Http\Controllers\Api\CandidateDetailController;
 use App\Http\Controllers\Api\InterviewAssignController;
 use App\Http\Controllers\Api\InterviewDetailController;
 use App\Http\Controllers\Api\CandidateInterviewRateController;
-
+use App\Http\Controllers\Api\CandidteSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +41,6 @@ use App\Http\Controllers\Api\CandidateInterviewRateController;
 */
 
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
-
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
@@ -59,6 +56,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('interviewAssigns', InterviewAssignController::class);
     Route::apiResource('departments', DepartmentController::class);
     Route::apiResource('positions', PositionController::class);
+
+
+    Route::post('candidates/search', [CandidteSearchController::class, 'search']);
 });
 
 Route::apiResource('candidateDetails', CandidateDetailController::class);
