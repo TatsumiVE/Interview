@@ -54,12 +54,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('interviews', InterviewController::class);
     Route::apiResource('topics', TopicController::class);
     Route::apiResource('rates', RateController::class);
-    Route::apiResource('candidates', CandidateController::class);
+
     Route::apiResource('agencies', AgencyController::class);
-    Route::apiResource('interviewAssigns', InterviewAssignController::class);
+    Route::apiResource('interview_assigns', InterviewAssignController::class);
     Route::apiResource('departments', DepartmentController::class);
     Route::apiResource('positions', PositionController::class);
 });
-
-Route::apiResource('candidateDetails', CandidateDetailController::class);
-Route::apiResource('candidateInterviews', CandidateInterviewRateController::class);
+Route::apiResource('candidates', CandidateController::class);
+Route::apiResource('candidate_details', CandidateDetailController::class);
+Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);

@@ -28,7 +28,7 @@ class CandidateRequest extends FormRequest
             'email' => 'required',
             'gender' => 'required',
             'phone_number' => 'required',
-            'residentail_address' => 'required',
+            'residential_address' => 'required',
             'date_of_birth' => 'required|date_format:m/d/Y',
             'cv_path' => 'required',
             'willingness_to_travel' => '',

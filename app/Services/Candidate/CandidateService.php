@@ -19,10 +19,9 @@ class CandidateService implements CandidateServiceInterface
         'email',
         'gender',
         'phone_number',
-        'residentail_address',
+        'residential_address',
         'date_of_birth',
         'cv_path',
-        'experience',
         'willingness_to_travel',
         'expected_salary',
         'last_salary',
@@ -35,9 +34,6 @@ class CandidateService implements CandidateServiceInterface
       // $languages = $request->input('languages', []);
 
       $requestDatas = $request->input('data');
-
-
-
       foreach ($requestDatas as $requestData) {
         $experience = $requestData["'experience'"]["'month'"] + $requestData["'experience'"]["'year'"] * 12;
         SpecificLanguage::create([
