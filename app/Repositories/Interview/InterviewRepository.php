@@ -17,6 +17,6 @@ class InterviewRepository implements InterviewRepoInterface
     }
     public function show($id)
     {
-        return Interview::with('candidate', 'interviewStage.assessment.assessmentResult.topic', 'interviewStage.assessment.assessmentResult.rate')->where('candidate_id', $id)->get();
+        return Interview::with('candidate', 'interviewStage.assessment.assessmentResult.topic', 'interviewStage.assessment.assessmentResult.rate', 'interviewStage.interview.interviewAssign.remarks')->where('candidate_id', $id)->get();
     }
 }

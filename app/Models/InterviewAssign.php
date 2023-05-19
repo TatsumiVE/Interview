@@ -27,4 +27,9 @@ class InterviewAssign extends Model
    {
       return  $this->belongsTo(Interviewer::class);
    }
+
+   public function remarks()
+   {
+      return  $this->hasMany(Remark::class);
+   }
 }

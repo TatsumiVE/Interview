@@ -28,6 +28,7 @@ return new class extends Migration
             $table->date('earliest_starting_date')->nullable();
             $table->foreignId('position_id');
             $table->foreignId('agency_id');
+            $table->integer('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

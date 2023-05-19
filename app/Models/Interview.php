@@ -30,4 +30,9 @@ class Interview extends Model
     {
         return $this->belongsTo(InterviewStage::class);
     }
+
+    public function interviewAssign()
+    {
+        return $this->hasMany(InterviewAssign::class);
+    }
 }
