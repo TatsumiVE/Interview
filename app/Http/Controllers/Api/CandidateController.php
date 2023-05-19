@@ -27,7 +27,7 @@ class CandidateController extends Controller
         $this->candidateService = $candidateService;
 
         $this->middleware('permission:candidateList',['only'=>['index']]);
-        $this->middleware('permission:candidateagencyCreate',['only'=>['store']]);
+        $this->middleware('permission:candidateCreate',['only'=>['store']]);
         $this->middleware('permission:candidateUpdate',['only'=>['update']]);
         $this->middleware('permission:candidateDelete',['only'=>['destroy']]);
         $this->middleware('permission:candidateShow',['only'=>['show']]);

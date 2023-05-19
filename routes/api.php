@@ -45,31 +45,27 @@ use App\Http\Controllers\Api\DevLanguageController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
 
+Route::apiResource('users', UserController::class);
+Route::apiResource('roles', RoleController::class);
+Route::apiResource('permissions', PermissionController::class);
 
+Route::apiResource('topics', TopicController::class);
+Route::apiResource('rates', RateController::class);
+Route::apiResource('agencies', AgencyController::class);
+Route::apiResource('interview_assigns', InterviewAssignController::class);
+Route::apiResource('departments', DepartmentController::class);
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('users', UserController::class);
-    Route::apiResource('roles', RoleController::class);
-    Route::apiResource('permissions', PermissionController::class);
+Route::apiResource('dev_languages', DevLanguageController::class);
+Route::apiResource('interviews', InterviewController::class);
 
-    Route::apiResource('topics', TopicController::class);
-    Route::apiResource('rates', RateController::class);
-    Route::apiResource('agencies', AgencyController::class);
-    Route::apiResource('interview_assigns', InterviewAssignController::class);
-    Route::apiResource('departments', DepartmentController::class);
+Route::apiResource('candidates', CandidateController::class);
+Route::apiResource('positions', PositionController::class);
+Route::apiResource('agencies', AgencyController::class);
+Route::apiResource('candidate_details', CandidateDetailController::class);
+Route::apiResource('interviewers', InterviewerController::class);
+Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);
+Route::post('candidates/search', [SearchCandidateController::class, 'search']);
 
-    Route::apiResource('dev_languages', DevLanguageController::class);
-    Route::apiResource('interviews', InterviewController::class);
-
-    Route::apiResource('candidates', CandidateController::class);
-    Route::apiResource('positions', PositionController::class);
-    Route::apiResource('agencies', AgencyController::class);
-    Route::apiResource('candidate_details', CandidateDetailController::class);
-    Route::apiResource('interviewers', InterviewerController::class);
-    Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);
-    Route::post('candidates/search', [SearchCandidateController::class, 'search']);
-});
-Route::post('candidates/search', [CandidateSearchController::class, 'search']);
+Route::post('candidates/searchs', [CandidateSearchController::class, 'search']);
