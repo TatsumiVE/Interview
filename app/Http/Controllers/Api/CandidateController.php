@@ -26,24 +26,25 @@ class CandidateController extends Controller
         $this->candidateRepo = $candidateRepo;
         $this->candidateService = $candidateService;
 
-        $this->middleware('permission:candidateList',['only'=>['index']]);
-        $this->middleware('permission:candidateagencyCreate',['only'=>['store']]);
-        $this->middleware('permission:candidateUpdate',['only'=>['update']]);
-        $this->middleware('permission:candidateDelete',['only'=>['destroy']]);
-        $this->middleware('permission:candidateShow',['only'=>['show']]);
+        // $this->middleware('permission:candidateList',['only'=>['index']]);
+        // $this->middleware('permission:candidateagencyCreate',['only'=>['store']]);
+        // $this->middleware('permission:candidateUpdate',['only'=>['update']]);
+        // $this->middleware('permission:candidateDelete',['only'=>['destroy']]);
+        // $this->middleware('permission:candidateShow',['only'=>['show']]);
     }
-   
+
     public function index()
     {
         try {
             $data = $this->candidateRepo->get();
+
             return $this->success(200, CandidateResource::collection($data), 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
 
-  
+
     public function store(Request $request)
     {
         try {
@@ -54,7 +55,7 @@ class CandidateController extends Controller
         };
     }
 
-  
+
     public function show($id)
     {
 
@@ -66,7 +67,7 @@ class CandidateController extends Controller
         };
     }
 
-   
+
     public function update(Request $request, $id)
     {
         try {
@@ -78,7 +79,7 @@ class CandidateController extends Controller
         };
     }
 
-   
+
     public function destroy($id)
     {
         try {

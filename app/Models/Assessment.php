@@ -15,6 +15,10 @@ class Assessment extends Model
         'interview_stage_id'
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     public function candidate()
     {
         return $this->belongsTo(Candidate::class);

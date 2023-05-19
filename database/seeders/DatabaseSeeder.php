@@ -29,12 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(IntervieStageSeeder::class);
         $this->call(RemarkSeeder::class);
         $this->call(InterviewAssignSeeder::class);
-
-
-
-
-
-
-
+        $this->call(InterviewSeeder::class);
     }
 }

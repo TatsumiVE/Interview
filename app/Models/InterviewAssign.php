@@ -15,7 +15,9 @@ class InterviewAssign extends Model
       'interview_id',
       'interviewer_id'
    ];
-
+   protected $hidden = [
+      'created_at', 'updated_at'
+   ];
 
 
    public function interview()

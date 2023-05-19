@@ -3,6 +3,7 @@
 namespace App\Repositories\Interview;
 
 use App\Models\Assessment;
+use App\Models\Candidate;
 use App\Models\Interview;
 use App\Models\InterviewAssign;
 use App\Models\Interviewer;
@@ -13,7 +14,18 @@ class InterviewRepository implements InterviewRepoInterface
 {
     public function get()
     {
-        // return Interview::all();
+        return Candidate::with('specificLanguage.devlanguage', 'interviews.interviewStage.assessment.assessmentResult.topic', 'interviews.interviewStage.assessment.assessmentResult.rate')
+            ->where('status', 1)
+            ->get();
+
+
+        // return Candidate::with(['interviews.interviewStage' => function ($query) {
+        //     $query->select('id', 'stage_name');
+        // }])
+        //     ->where('status', 1)
+        //     ->get();
+
+        // $candidateDetail=DB::table()
     }
     public function show($id)
     {

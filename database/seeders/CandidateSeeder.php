@@ -21,22 +21,28 @@ class CandidateSeeder extends Seeder
             'gender' => 1,
             'phone_number' => '09898989',
             'residential_address' => 'YGN',
-            'date_of_birth' => 23-2-2000,
-            'cv_path' => 'http://127.0.0.1:8000/',
-            'position_id'=> 1,
+            'date_of_birth' => '23 - 2 - 2000',
+            'cv_path' => 'https://docs.google.com/document/d/1xiuQL4q33yNLOIc88omGHRJsdOWEa3OHSPtp8vit_aI/edit',
+            'position_id' => 1,
             'agency_id' => 1,
+            'status' => 1
+
+
+
         ]);
 
         Candidate::create([
             'name'  => 'Mgmg',
             'email' => 'mgmg@gmail.com',
-            'gender' => 0,
+            'gender' => 2,
             'phone_number' => '09898989',
             'residential_address' => 'MDY',
-            'date_of_birth' => 23-4-2000,
-            'cv_path' => 'http://127.0.0.1:8000/',
-            'position_id'=> 2,
+            'date_of_birth' => '23 - 4 - 2000',
+            'cv_path' => 'https://docs.google.com/document/d/1xiuQL4q33yNLOIc88omGHRJsdOWEa3OHSPtp8vit_aI/edit',
+            'position_id' => 2,
             'agency_id' => 2,
+            'status' => 1
+
         ]);
     }
 }

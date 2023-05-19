@@ -27,6 +27,7 @@ class CandidateService implements CandidateServiceInterface
       'earliest_starting_date' => '',
       'position_id' => 'required',
       'agency_id' => 'required',
+      'status' => '',
       'data.*.experience.month' => 'required|integer',
       'data.*.experience.year' => 'required|integer',
       'data.*.devlanguage_id' => 'required',

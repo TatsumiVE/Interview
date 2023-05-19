@@ -16,6 +16,10 @@ class Interviewer extends Model
         'position_id',
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     public function position()
     {
         return $this->belongsTo(Position::class);

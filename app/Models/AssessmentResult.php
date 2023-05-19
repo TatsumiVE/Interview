@@ -14,6 +14,9 @@ class AssessmentResult extends Model
         'topic_id',
         'rate_id',
     ];
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
 
     public function assessment()
     {
