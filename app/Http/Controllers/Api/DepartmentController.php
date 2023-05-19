@@ -19,6 +19,12 @@ class DepartmentController extends Controller
     {
         $this->departmentRepo = $departmentRepo;
         $this->departmentService = $departmentService;
+
+        $this->middleware('permission:departmentList',['only'=>['index']]);
+        $this->middleware('permission:departmentCreate',['only'=>['store']]);
+        $this->middleware('permission:departmentUpdate',['only'=>['update']]);
+        $this->middleware('permission:departmentDelete',['only'=>['destroy']]);
+        $this->middleware('permission:departmentShow',['only'=>['show']]);
     }
 
     public function index()

@@ -15,9 +15,18 @@ class InterviewAssignSeeder extends Seeder
      */
     public function run()
     {
+
+
         InterviewAssign::create([
-            'interview_id' => 1,
+            'interview_id' => 1 ,
             'interviewer_id' => 1
         ]);
+
+        InterviewAssign::create([
+            'interview_id' => 2 ,
+            'interviewer_id' => 2
+        ]);
+
+
     }
 }

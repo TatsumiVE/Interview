@@ -23,12 +23,14 @@ class AgencyController extends Controller
     {
         $this->agencyRepo = $agencyRepo;
         $this->agencyService = $agencyService;
+
+        $this->middleware('permission:agencyList',['only'=>['index']]);
+        $this->middleware('permission:agencyCreate',['only'=>['store']]);
+        $this->middleware('permission:agencyUpdate',['only'=>['update']]);
+        $this->middleware('permission:agencyDelete',['only'=>['destroy']]);
+        $this->middleware('permission:agencyShow',['only'=>['show']]);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function index()
     {
         try {
@@ -41,12 +43,7 @@ class AgencyController extends Controller
         };
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(AgencyRequest $request)
     {
         try {
@@ -58,12 +55,7 @@ class AgencyController extends Controller
         };
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show($id)
     {
         try {
@@ -74,13 +66,7 @@ class AgencyController extends Controller
         };
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(AgencyRequest $request, $id)
     {
         try {
@@ -92,12 +78,7 @@ class AgencyController extends Controller
         };
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function destroy($id)
     {
         try {

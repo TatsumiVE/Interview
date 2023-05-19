@@ -11,7 +11,6 @@ class SpecificLanguage extends Model
 {
    use HasFactory;
 
-
    protected $fillable = [
       'experience',
       'devlanguage_id',

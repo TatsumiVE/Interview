@@ -15,8 +15,6 @@ class Assessment extends Model
         'interview_stage_id'
     ];
 
-
-
     public function candidate()
     {
         return $this->belongsTo(Candidate::class);
