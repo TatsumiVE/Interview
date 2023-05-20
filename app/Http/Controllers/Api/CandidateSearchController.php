@@ -20,8 +20,8 @@ class CandidateSearchController extends Controller
     {
         $this->candidateSearchService = $candidateSearchService;
 
-        $this->middleware('permission:candidateSearch',['only'=>['search']]);
-       
+        // $this->middleware('permission:candidateSearch',['only'=>['search']]);
+
     }
 
     public function search(CandidateSearchRequest $request)
@@ -30,7 +30,7 @@ class CandidateSearchController extends Controller
             $validateData = $request->validated();
 
             $candidates=$this->candidateSearchService->search($validateData);
-          
+
             // $candidates = Candidate::with(['specificLanguage', 'interviews.interviewStage.remark'])
             //     ->join('specific_languages', 'candidates.id', '=', 'specific_languages.candidate_id')
             //     ->join('devlanguages', 'specific_languages.devlanguage_id', '=', 'devlanguages.id')
@@ -50,6 +50,6 @@ class CandidateSearchController extends Controller
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
-       
+
     }
 }

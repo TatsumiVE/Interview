@@ -24,12 +24,12 @@ class UserController extends Controller
     {
         $this->userRepo = $userRepo;
         $this->userService = $userService;
-        
-        $this->middleware('permission:userList',['only'=>['index']]);
-        $this->middleware('permission:userCreate',['only'=>['store']]);
-        $this->middleware('permission:userUpdate',['only'=>['update']]);
-        $this->middleware('permission:userDelete',['only'=>['destroy']]);
-        $this->middleware('permission:userShow',['only'=>['show']]);
+
+        // $this->middleware('permission:userList',['only'=>['index']]);
+        // $this->middleware('permission:userCreate',['only'=>['store']]);
+        // $this->middleware('permission:userUpdate',['only'=>['update']]);
+        // $this->middleware('permission:userDelete',['only'=>['destroy']]);
+        // $this->middleware('permission:userShow',['only'=>['show']]);
     }
 
     public function index()
@@ -48,7 +48,7 @@ class UserController extends Controller
         try {
             $data = [];
             $validateData = $request->validated();
-          
+
             $data = $this->userService->store($validateData);
 
             $data['token'] =  $data->createToken('App')->plainTextToken;
@@ -81,7 +81,7 @@ class UserController extends Controller
             ]);
 
             $data = $this->userService->update($validateData, $id);
-        
+
             return $this->success(200, new UserResource($data), 'User updated successfully.');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
@@ -93,7 +93,7 @@ class UserController extends Controller
     {
         try {
             $data = $this->userService->destroy($id);
-            
+
             return $this->success(200, $data, 'User deleted successfully.');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
