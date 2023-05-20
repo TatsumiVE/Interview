@@ -27,7 +27,7 @@ class InterviewController extends Controller
         $this->interviewRepo = $interviewRepo;
         $this->interviewService = $interviewerService;
 
-        $this->middleware('permission:interviewCreate', ['only' => ['store']]);
+        // $this->middleware('permission:interviewCreate', ['only' => ['store']]);
     }
     public function index()
     {

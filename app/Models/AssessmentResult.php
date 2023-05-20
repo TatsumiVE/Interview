@@ -10,9 +10,9 @@ class AssessmentResult extends Model
     use HasFactory;
 
     protected $fillable = [
-        'assessment_id',
         'topic_id',
         'rate_id',
+        'assessment_id',
     ];
     protected $hidden = [
         'created_at', 'updated_at'

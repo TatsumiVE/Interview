@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Traits\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LanguageRequest;
+use App\Http\Resources\DevLanguageResource;
 use App\Http\Resources\LanguageResource;
 use App\Models\Devlanguage;
 use App\Repositories\DevLanguage\DevLanguageRepoInterface;
@@ -35,7 +36,7 @@ class LanguageController extends Controller
         // return response()->json($data);
         try {
             $data = Devlanguage::all();
-            return $this->success(200, LanguageResource::collection($data));
+            return $this->success(200, DevLanguageResource::collection($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
@@ -51,7 +52,7 @@ class LanguageController extends Controller
     {
         try {
             $data = $this->DevLanguageService->store($request->validated());
-            return $this->success(200, new LanguageResource($data));
+            return $this->success(200, new DevLanguageResource($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
@@ -68,7 +69,7 @@ class LanguageController extends Controller
 
         try {
             $data = $this->DevLanguageRepo->show($id);
-            return $this->success(200, new LanguageResource($data));
+            return $this->success(200, new DevLanguageResource($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }

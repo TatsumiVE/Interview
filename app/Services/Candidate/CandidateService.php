@@ -15,7 +15,7 @@ class CandidateService implements CandidateServiceInterface
 
     $validatedData = $request->validate([
       'name' => 'required',
-      'email' => 'required|email',
+      'email' => 'required|email|unique:candidates,email',
       'gender' => 'required',
       'phone_number' => 'required',
       'residential_address' => 'required',
@@ -25,11 +25,11 @@ class CandidateService implements CandidateServiceInterface
       'expected_salary' => '',
       'last_salary' => '',
       'earliest_starting_date' => '',
-      'position_id' => 'required',
-      'agency_id' => 'required',
+      'position_id' => 'required|exists:positions,id',
+      'agency_id' => 'required| exists:agencies,id',
       'status' => '',
-      'data.*.experience.month' => 'required|integer',
-      'data.*.experience.year' => 'required|integer',
+      'data.*.experience.month' => 'required|integer|between:1,12',
+      'data.*.experience.year' => 'required|integer|between:0,30',
       'data.*.devlanguage_id' => 'required',
     ]);
 
@@ -82,7 +82,7 @@ class CandidateService implements CandidateServiceInterface
   {
 
 
-    $result = Candidate::with('specificLanguage.devlanguage')->where('id', $id)->first();
+    $result = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
 
     return $result->update($data);
   }
