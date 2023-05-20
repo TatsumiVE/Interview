@@ -48,7 +48,7 @@ class Candidate extends Model
         return $this->belongsTo(Agency::class);
     }
 
-    public function specificLanguage()
+    public function specificLanguages()
     {
         return $this->hasMany(SpecificLanguage::class);
     }

@@ -30,8 +30,8 @@ class InterviewStage extends Model
     {
         return $this->hasOne(Assessment::class);
     }
-    public function remark()
+    public function remarks()
     {
-        return $this->belongsTo(Remark::class);
+        return $this->hasMany(Remark::class);
     }
 }

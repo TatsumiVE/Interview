@@ -21,4 +21,9 @@ class Remark extends Model
     {
         return $this->belongsTo(InterviewAssign::class);
     }
+
+    public function interviewStage()
+    {
+        return $this->belongsTo(InterviewStage::class);
+    }
 }

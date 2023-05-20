@@ -68,7 +68,7 @@ class PositionController extends Controller
     {
         try {
             $validateData = $request->validate([
-                'name' => 'required|string|unique:positions,name,'.$id,
+                'name' => 'required|string|unique:positions,name,' . $id,
                 'department_id' => 'required|exists:departments,id'
             ]);
 

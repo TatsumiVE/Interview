@@ -77,7 +77,7 @@ class UserController extends Controller
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email,' . $id,
                 'is_active' => '',
-                'role'=>'required'
+                'role' => 'required'
             ]);
 
             $data = $this->userService->update($validateData, $id);

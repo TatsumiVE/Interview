@@ -68,7 +68,4 @@ Route::apiResource('candidates', CandidateController::class);
 Route::apiResource('candidate_details', CandidateDetailController::class);
 Route::apiResource('interviewers', InterviewerController::class);
 Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);
-
-
-
 Route::apiResource('interviews', InterviewController::class);

@@ -7,8 +7,10 @@ use App\Models\Interviewer;
 
 
 
-class InterviewerRepository implements InterviewerRepoInterface{
-    public function get(){
+class InterviewerRepository implements InterviewerRepoInterface
+{
+    public function get()
+    {
 
 
         return Interviewer::with('position.department')->orderBy('id', 'desc')->paginate(5);
@@ -18,5 +20,4 @@ class InterviewerRepository implements InterviewerRepoInterface{
     {
         return Interviewer::where('id', $id)->first();
     }
-
 }
