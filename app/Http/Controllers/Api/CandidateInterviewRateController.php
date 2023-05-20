@@ -19,6 +19,8 @@ class CandidateInterviewRateController extends Controller
     public function __construct(CandidateInterviewRateRepoInterface $candidateInterviewRateRepo)
     {
         $this->candidateInterviewRateRepo = $candidateInterviewRateRepo;
+
+        $this->middleware('permission:candidateInterviewRateShow',['only'=>['show']]);
     }
 
     /**

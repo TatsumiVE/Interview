@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Traits\ApiResponser;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\DevLanguageResource;
+use App\Http\Requests\LanguageRequest;
+use App\Http\Resources\LanguageResource;
 use App\Models\Devlanguage;
 use App\Repositories\DevLanguage\DevLanguageRepoInterface;
 use App\Services\DevLanguage\DevLanguageServiceInterface;
-use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Http\Request;
 
-class DevLanguageController extends Controller
+class LanguageController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     use ApiResponser;
     private DevLanguageRepoInterface $DevLanguageRepo;
     private DevLanguageServiceInterface $DevLanguageService;
@@ -23,23 +28,14 @@ class DevLanguageController extends Controller
     {
         $this->DevLanguageRepo = $DevLanguageRepo;
         $this->DevLanguageService = $DevLanguageService;
-        
-        $this->middleware('permission:languageList',['only'=>['index']]);
-        $this->middleware('permission:languageCreate',['only'=>['store']]);
-        $this->middleware('permission:languageUpdate',['only'=>['update']]);
-        $this->middleware('permission:languageDelete',['only'=>['destroy']]);
-        $this->middleware('permission:languageShow',['only'=>['show']]);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+
+        // return response()->json($data);
         try {
             $data = Devlanguage::all();
-            return $this->success(200, DevLanguageResource::collection($data));
+            return $this->success(200, LanguageResource::collection($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
@@ -51,15 +47,16 @@ class DevLanguageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($request)
+    public function store(LanguageRequest $request)
     {
         try {
             $data = $this->DevLanguageService->store($request->validated());
-            return $this->success(200, new DevLanguageResource($data));
+            return $this->success(200, new LanguageResource($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
+
     /**
      * Display the specified resource.
      *
@@ -71,11 +68,12 @@ class DevLanguageController extends Controller
 
         try {
             $data = $this->DevLanguageRepo->show($id);
-            return $this->success(200, new DevLanguageResource($data));
+            return $this->success(200, new LanguageResource($data));
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
+
     /**
      * Update the specified resource in storage.
      *

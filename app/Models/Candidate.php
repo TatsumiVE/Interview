@@ -29,8 +29,13 @@ class Candidate extends Model
         'earliest_starting_date',
         'position_id',
         'agency_id',
+        'status'
 
 
+    ];
+
+    protected $hidden = [
+        'created_at', 'updated_at'
     ];
 
     public function position()

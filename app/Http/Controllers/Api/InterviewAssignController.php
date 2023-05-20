@@ -24,6 +24,10 @@ class InterviewAssignController extends Controller
     {
         $this->interviewAssignRepo = $interviewAssignRepo;
         $this->interviewAssignService = $interviewAssignService;
+
+        $this->middleware('permission:interviewAssignCreate',['only'=>['store']]);
+        $this->middleware('permission:interviewAssignUpdate',['only'=>['update']]);
+    
     }
     /**
      * Display a listing of the resource.

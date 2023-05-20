@@ -18,6 +18,9 @@ class CandidateDetailController extends Controller
     public function __construct(CandidateDetailRepoInterface $candidateDetailRepo)
     {
         $this->candidateDetailRepo = $candidateDetailRepo;
+
+        $this->middleware('permission:candidateDetailShow',['only'=>['show']]);
+        
     }
 
     /**

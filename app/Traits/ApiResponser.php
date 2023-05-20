@@ -25,19 +25,13 @@ trait ApiResponser
 
 
 	protected function success(int $code = 200, $data = null, $message = null)
-
-
 	{
         // modify here
 		return response()->json([
 			'status' => 'success',
 			'status_code' => $code,
 			'data' => $data,
-
-
 			'message'=>$message
-
-
 		], $code);
 	}
 
@@ -72,4 +66,5 @@ trait ApiResponser
 	// 		]
 	// 	], $code);
 	// }
+	
 }

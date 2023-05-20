@@ -87,7 +87,8 @@ use App\Repositories\InterviewAssign\InterviewAssignRepoInterface;
 use App\Repositories\InterviewDetail\InterviewDetailRepoInterface;
 use App\Repositories\CandidateInterviewRate\CandidateInterviewRateRepository;
 use App\Repositories\CandidateInterviewRate\CandidateInterviewRateRepoInterface;
-
+use App\Services\CandidateSearch\CandidateSearchServiceInterface;
+use App\Services\CandidateSearch\CandidateSearchService;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -145,7 +146,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(InterviewAssignServiceInterface::class, InterviewAssignService::class);
 
 
-
         $this->app->bind(DepartmentRepoInterface::class, DepartmentRepository::class);
         $this->app->bind(DepartmentServiceInterface::class, DepartmentService::class);
 
@@ -154,5 +154,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(CandidateDetailRepoInterface::class, CandidateDetailRepository::class);
         $this->app->bind(CandidateInterviewRateRepoInterface::class, CandidateInterviewRateRepository::class);
+
+        $this->app->bind(CandidateSearchServiceInterface::class, CandidateSearchService::class);
     }
 }
