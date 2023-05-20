@@ -65,8 +65,8 @@ class InterviewController extends Controller
 
 
         try {
-            $result = $this->interviewRepo->show($id);
-            return $this->success(200, $result, 'success');
+            $data = $this->interviewRepo->show($id);
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

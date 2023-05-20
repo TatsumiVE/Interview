@@ -33,7 +33,7 @@ class CandidateResource extends JsonResource
             'positions_id' => new PositionResource($this->whenLoaded('position')),
             'agencies_id' => new AgencyResource($this->whenLoaded('agency')),
 
-            'languages' => $this->specificLanguage->pluck('devlanguage.name'),
+            'languages' => $this->specificLanguage->pluck('devlanguage'),
             'status' => $this->status
 
 

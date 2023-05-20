@@ -38,7 +38,7 @@ class CandidateController extends Controller
         try {
             $data = $this->candidateRepo->get();
 
-            return $this->success(200, CandidateResource::collection($data), 'success');
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
@@ -60,8 +60,8 @@ class CandidateController extends Controller
     {
 
         try {
-            $result = $this->candidateRepo->show($id);
-            return $this->success(200, new CandidateResource($result), 'success');
+            $data = $this->candidateRepo->show($id);
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
@@ -83,9 +83,9 @@ class CandidateController extends Controller
     public function destroy($id)
     {
         try {
-            $result = Candidate::where('id', $id)->first();
-            $result->delete();
-            return $this->success(200, $result, 'success');
+            $data = Candidate::where('id', $id)->first();
+            $data->delete();
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
