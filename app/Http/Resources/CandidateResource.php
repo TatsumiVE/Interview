@@ -32,7 +32,6 @@ class CandidateResource extends JsonResource
             'earliest_starting_date' => $this->earliest_starting_date,
             'positions_id' => new PositionResource($this->whenLoaded('position')),
             'agencies_id' => new AgencyResource($this->whenLoaded('agency')),
-
             'languages' => $this->specificLanguage->pluck('devlanguage.name'),
             'status' => $this->status
 
