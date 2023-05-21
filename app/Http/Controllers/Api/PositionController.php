@@ -26,6 +26,7 @@ class PositionController extends Controller
         $this->middleware('permission:positionUpdate',['only'=>['update']]);
         $this->middleware('permission:positionDelete',['only'=>['destroy']]);
         $this->middleware('permission:positionShow',['only'=>['show']]);
+    
     }
 
 

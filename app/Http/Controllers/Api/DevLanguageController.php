@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DevLanguageRequest;
 use App\Http\Resources\DevLanguageResource;
 use App\Models\Devlanguage;
 use App\Repositories\DevLanguage\DevLanguageRepoInterface;
@@ -24,11 +25,11 @@ class DevLanguageController extends Controller
         $this->DevLanguageRepo = $DevLanguageRepo;
         $this->DevLanguageService = $DevLanguageService;
         
-        $this->middleware('permission:languageList',['only'=>['index']]);
-        $this->middleware('permission:languageCreate',['only'=>['store']]);
-        $this->middleware('permission:languageUpdate',['only'=>['update']]);
-        $this->middleware('permission:languageDelete',['only'=>['destroy']]);
-        $this->middleware('permission:languageShow',['only'=>['show']]);
+        // $this->middleware('permission:languageList',['only'=>['index']]);
+        // $this->middleware('permission:languageCreate',['only'=>['store']]);
+        // $this->middleware('permission:languageUpdate',['only'=>['update']]);
+        // $this->middleware('permission:languageDelete',['only'=>['destroy']]);
+        // $this->middleware('permission:languageShow',['only'=>['show']]);
     }
     /**
      * Display a listing of the resource.
@@ -51,7 +52,7 @@ class DevLanguageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($request)
+    public function store(DevLanguageRequest $request)
     {
         try {
             $data = $this->DevLanguageService->store($request->validated());
