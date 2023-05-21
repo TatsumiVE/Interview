@@ -15,6 +15,8 @@ class AssessmentSeeder extends Seeder
      */
     public function run()
     {
+
+
         Assessment::create([
             'candidate_id' => 1,
             'interviewer_id' => 1,
@@ -22,9 +24,52 @@ class AssessmentSeeder extends Seeder
         ]);
 
         Assessment::create([
-            'candidate_id' => 2,
+            'candidate_id' => 1,
+            'interviewer_id' => 2,
+            'interview_stage_id' => 1
+        ]);
+
+
+        Assessment::create([
+            'candidate_id' => 1,
+            'interviewer_id' => 3,
+            'interview_stage_id' => 1
+        ]);
+
+        Assessment::create([
+            'candidate_id' => 1,
+            'interviewer_id' => 1,
+            'interview_stage_id' => 2
+        ]);
+
+        Assessment::create([
+            'candidate_id' => 1,
             'interviewer_id' => 2,
             'interview_stage_id' => 2
+        ]);
+        Assessment::create([
+            'candidate_id' => 1,
+            'interviewer_id' => 3,
+            'interview_stage_id' => 2
+        ]);
+
+
+
+        Assessment::create([
+            'candidate_id' => 2,
+            'interviewer_id' => 1,
+            'interview_stage_id' => 1
+        ]);
+
+        Assessment::create([
+            'candidate_id' => 2,
+            'interviewer_id' => 2,
+            'interview_stage_id' => 1
+        ]);
+        Assessment::create([
+            'candidate_id' => 2,
+            'interviewer_id' => 3,
+            'interview_stage_id' => 1
         ]);
     }
 }

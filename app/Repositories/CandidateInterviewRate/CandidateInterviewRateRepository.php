@@ -10,5 +10,8 @@ class CandidateInterviewRateRepository implements CandidateInterviewRateRepoInte
   {
     return Assessment::with('interviewStage.remarks', 'interviewer', 'assessmentResult.topic',
     'assessmentResult.rate')->where('candidate_id', $id)->get();
+    // return Assessment::with('interviewStage.remarks', 'interviewer', 'assessmentResult.topic', 'assessmentResult.rate')->where('candidate_id', $id)->get();
+
+
   }
 }
