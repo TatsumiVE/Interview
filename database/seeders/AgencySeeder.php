@@ -16,10 +16,10 @@ class AgencySeeder extends Seeder
     public function run()
     {
         Agency::create([
-            'name' => 'Ace'
+            'name' => 'Upwork'
         ]);
         Agency::create([
-            'name' => 'Mahar'
+            'name' => 'Eden'
         ]);
         Agency::create([
             'name' => 'JobNet'

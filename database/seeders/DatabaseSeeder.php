@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AssessmentResult;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -26,9 +27,10 @@ class DatabaseSeeder extends Seeder
         $this->call(CandidateSeeder::class);
         $this->call(InterviewerSeeder::class);
         $this->call(AssessmentSeeder::class);
-        $this->call(IntervieStageSeeder::class);
         $this->call(RemarkSeeder::class);
         $this->call(InterviewAssignSeeder::class);
         $this->call(InterviewSeeder::class);
+        $this->call(AssessmentResultSeeder::class);
+        $this->call(InterviewStageSeeder::class);
     }
 }
