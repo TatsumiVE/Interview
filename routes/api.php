@@ -64,11 +64,11 @@ Route::post('auth/login', [AuthController::class, 'UserLogin']);
 
     Route::apiResource('interviews', InterviewController::class);
 
-Route::apiResource('candidates', CandidateController::class);
-Route::apiResource('positions', PositionController::class);
-Route::apiResource('agencies', AgencyController::class);
-Route::apiResource('candidate_details', CandidateDetailController::class);
-Route::apiResource('interviewers', InterviewerController::class);
-Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);
-Route::post('candidates/search',[SearchCandidateController::class,'search']);
+    Route::apiResource('candidates', CandidateController::class);
+    Route::apiResource('positions', PositionController::class);
+    Route::apiResource('agencies', AgencyController::class);
+    Route::apiResource('candidate_details', CandidateDetailController::class);
+    Route::apiResource('interviewers', InterviewerController::class);
+    Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);
+    Route::post('candidates/search',[SearchCandidateController::class,'search']);
 

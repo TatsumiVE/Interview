@@ -30,7 +30,7 @@ class IntervieStageSeeder extends Seeder
         ]);
 
         InterviewStage::create([
-            'stage_name' => 'Third',
+            'stage_name' => 'third',
             'interview_date' => '2023-07-04',
             'interview_time' => '03:06:23',
             'location' => 'Inperson',
