@@ -20,8 +20,8 @@ class InterviewService implements InterviewServiceInterface
             ]);
             $assessment = Assessment::create([
                 'candidate_id' => $request->candidate_id,
-                'interviewer_id' => $request->interviewer_id,
                 'interview_stage_id' => $request->interview_stage_id,
+                'interview_assign_id' => $request->interview_assign_id
             ]);
 
             $data = $request->input('data', []);
