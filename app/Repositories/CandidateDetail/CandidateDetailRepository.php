@@ -27,6 +27,7 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 
     return Interview::with('interviewAssign.interviewer.position.department', 'InterviewStage.assessment.assessmentResult.topic', 'InterviewStage.assessment.assessmentResult.rate', 'candidate.position.department', 'interviewAssign.remarks')
       ->where('candidate_id', $id)
+
       ->get();
   }
 }
