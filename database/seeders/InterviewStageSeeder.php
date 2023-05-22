@@ -2,10 +2,10 @@
 namespace Database\Seeders;
 
 use App\Models\InterviewStage;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class IntervieStageSeeder extends Seeder
+class InterviewStageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -26,13 +26,6 @@ class IntervieStageSeeder extends Seeder
             'interview_date' => '2023-06-04',
             'interview_time' => '03:06:23',
             'location' => 'Online',
-        ]);
-
-        InterviewStage::create([
-            'stage_name' => '3',
-            'interview_date' => '2023-07-04',
-            'interview_time' => '03:06:23',
-            'location' => 'Inperson',
         ]);
     }
 }

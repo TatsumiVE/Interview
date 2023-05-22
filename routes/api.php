@@ -15,6 +15,7 @@ use App\Http\Controllers\API\SearchCandidate;
 
 use App\Http\Controllers\Api\TopicController;
 use App\Http\Controllers\Api\AgencyController;
+use App\Http\Controllers\Api\BarChartController;
 
 use App\Http\Controllers\Api\PositionController;
 
@@ -45,11 +46,9 @@ use App\Http\Controllers\Api\DevLanguageController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
 
-
-
+Route::get('candidate-detail/{id}', [CandidateDetailController::class, 'candidateDetail']);
 
 Route::apiResource('users', UserController::class);
 Route::apiResource('roles', RoleController::class);
@@ -58,14 +57,18 @@ Route::apiResource('permissions', PermissionController::class);
 Route::apiResource('topics', TopicController::class);
 Route::apiResource('rates', RateController::class);
 Route::apiResource('agencies', AgencyController::class);
-Route::apiResource('interview_assigns', InterviewAssignController::class);
+Route::apiResource('interview-assigns', InterviewAssignController::class);
 Route::apiResource('departments', DepartmentController::class);
 Route::apiResource('positions', PositionController::class);
-Route::apiResource('dev_languages', DevLanguageController::class);
-
-
+Route::apiResource('dev-languages', DevLanguageController::class);
 Route::apiResource('candidates', CandidateController::class);
-Route::apiResource('candidate_details', CandidateDetailController::class);
 Route::apiResource('interviewers', InterviewerController::class);
-Route::apiResource('candidate_interviews', CandidateInterviewRateController::class);
+Route::apiResource('candidate-interviews', CandidateInterviewRateController::class);
 Route::apiResource('interviews', InterviewController::class);
+
+Route::post('candidates/search', [SearchCandidateController::class, 'search']);
+
+Route::post('candidates/searchs', [CandidateSearchController::class, 'search']);
+
+Route::get('candidate', [BarChartController::class, 'index']);
+

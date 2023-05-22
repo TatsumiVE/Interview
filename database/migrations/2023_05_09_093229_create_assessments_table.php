@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('candidate_id');
-            $table->foreignId('interviewer_id');
             $table->foreignId('interview_stage_id');
+            $table->foreignId('interview_assign_id');
             $table->timestamps();
         });
     }

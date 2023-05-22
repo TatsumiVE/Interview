@@ -58,8 +58,12 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 
   public function show($id)
   {
-    // return Interview::with('interviewStage', 'candidate', 'position', 'agency')->where('candidate_id', $id)->get();
 
-    return Candidate::with('interviews.interviewStage', 'position', 'agency')->where('id', $id)->get();
+    // return Interview::with('interviewAssign.interviewer.position.department', 'InterviewStage.assessment.assessmentResult.topic', 'InterviewStage.assessment.assessmentResult.rate', 'candidate.position.department', 'interviewAssign.remarks')
+    //   ->where('candidate_id', $id)
+    //   ->get();
+
+
+    return Interview::with('candidate.position.department', 'interviewStage.interview.interviewAssign.assessments.assessmentResult.topic', 'interviewStage.interview.interviewAssign.assessments.assessmentResult.rate', 'interviewAssign.interviewer.position.department', 'interviewAssign.remarks')->where('candidate_id', $id)->get();
   }
 }

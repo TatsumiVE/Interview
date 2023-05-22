@@ -19,13 +19,13 @@ class CandidateSeeder extends Seeder
             'name'  => 'Mama',
             'email' => 'mama@gmail.com',
             'gender' => 1,
-            'phone_number' => '09898989',
+            'phone_number' => '09455678902',
             'residential_address' => 'YGN',
             'date_of_birth' => '23 - 2 - 2000',
             'cv_path' => 'https://docs.google.com/document/d/1xiuQL4q33yNLOIc88omGHRJsdOWEa3OHSPtp8vit_aI/edit',
-            'position_id' => 1,
+            'position_id' => 4,
             'agency_id' => 1,
-            'status' => 1
+
 
 
 
@@ -35,13 +35,13 @@ class CandidateSeeder extends Seeder
             'name'  => 'Mgmg',
             'email' => 'mgmg@gmail.com',
             'gender' => 2,
-            'phone_number' => '09898989',
+            'phone_number' => '0988997766',
             'residential_address' => 'MDY',
             'date_of_birth' => '23 - 4 - 2000',
             'cv_path' => 'https://docs.google.com/document/d/1xiuQL4q33yNLOIc88omGHRJsdOWEa3OHSPtp8vit_aI/edit',
-            'position_id' => 2,
+            'position_id' => 4,
             'agency_id' => 2,
-            'status' => 1
+
 
         ]);
     }
