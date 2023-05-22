@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Topic;
+use App\Models\InterviewAssign;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -11,8 +12,10 @@ class Assessment extends Model
     use HasFactory;
     protected $fillable = [
         'candidate_id',
-        'interviewer_id',
-        'interview_stage_id'
+        'interview_stage_id',
+        'interview_assign_id'
+
+
     ];
 
     protected $hidden = [
@@ -24,11 +27,10 @@ class Assessment extends Model
         return $this->belongsTo(Candidate::class);
     }
 
-    public function interviewer()
+    public function interviewAssign()
     {
-        return $this->belongsTo(Interviewer::class);
+        return $this->belongsTo(InterviewAssign::class);
     }
-
     public function interviewStage()
     {
         return $this->belongsTo(InterviewStage::class);

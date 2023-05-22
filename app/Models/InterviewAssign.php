@@ -34,4 +34,9 @@ class InterviewAssign extends Model
    {
       return  $this->hasMany(Remark::class);
    }
+
+   public function assessments()
+   {
+      return $this->hasMany(Assessment::class);
+   }
 }

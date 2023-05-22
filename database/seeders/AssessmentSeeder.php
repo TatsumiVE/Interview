@@ -16,60 +16,62 @@ class AssessmentSeeder extends Seeder
     public function run()
     {
 
-
+        //for candidate 1  stage 1
         Assessment::create([
             'candidate_id' => 1,
-            'interviewer_id' => 1,
-            'interview_stage_id' => 1
+            'interview_stage_id' => 1,
+            'interview_assign_id' => 1
         ]);
 
         Assessment::create([
             'candidate_id' => 1,
-            'interviewer_id' => 2,
-            'interview_stage_id' => 1
+            'interview_stage_id' => 1,
+            'interview_assign_id' => 2
         ]);
 
 
         Assessment::create([
             'candidate_id' => 1,
-            'interviewer_id' => 3,
-            'interview_stage_id' => 1
+            'interview_stage_id' => 1,
+            'interview_assign_id' => 3
+        ]);
+
+        //for candidate 1 stage 2
+        Assessment::create([
+            'candidate_id' => 1,
+            'interview_stage_id' => 2,
+            'interview_assign_id' => 4
         ]);
 
         Assessment::create([
             'candidate_id' => 1,
-            'interviewer_id' => 1,
-            'interview_stage_id' => 2
-        ]);
-
-        Assessment::create([
-            'candidate_id' => 1,
-            'interviewer_id' => 2,
-            'interview_stage_id' => 2
+            'interview_stage_id' => 2,
+            'interview_assign_id' => 5
         ]);
         Assessment::create([
             'candidate_id' => 1,
-            'interviewer_id' => 3,
-            'interview_stage_id' => 2
+            'interview_stage_id' => 2,
+            'interview_assign_id' => 6
         ]);
 
 
+
+        //for candidate 2 stage 1
+        Assessment::create([
+            'candidate_id' => 2,
+            'interview_stage_id' => 1,
+            'interview_assign_id' => 7
+        ]);
 
         Assessment::create([
             'candidate_id' => 2,
-            'interviewer_id' => 1,
-            'interview_stage_id' => 1
-        ]);
-
-        Assessment::create([
-            'candidate_id' => 2,
-            'interviewer_id' => 2,
-            'interview_stage_id' => 1
+            'interview_stage_id' => 1,
+            'interview_assign_id' => 8
         ]);
         Assessment::create([
             'candidate_id' => 2,
-            'interviewer_id' => 3,
-            'interview_stage_id' => 1
+            'interview_stage_id' => 1,
+            'interview_assign_id' => 8
         ]);
     }
 }
