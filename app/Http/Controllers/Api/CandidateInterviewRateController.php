@@ -20,7 +20,7 @@ class CandidateInterviewRateController extends Controller
     {
         $this->candidateInterviewRateRepo = $candidateInterviewRateRepo;
 
-        $this->middleware('permission:candidateInterviewRateShow',['only'=>['show']]);
+        // $this->middleware('permission:candidateInterviewRateShow',['only'=>['show']]);
     }
 
     /**
@@ -54,8 +54,8 @@ class CandidateInterviewRateController extends Controller
     {
         try {
             // $result = Assessment::with('interviewStage', 'interviewer', 'assessmentResult.topic', 'assessmentResult.rate')->where('interview_stage_id', $id)->get();
-            $result = $this->candidateInterviewRateRepo->show($id);
-            return $this->success(200, $result, 'success');
+            $data = $this->candidateInterviewRateRepo->show($id);
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

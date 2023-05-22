@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->string('interview_summarize')->nullable();
             $table->date('interview_result_date')->nullable();
-            $table->string('interview_result')->nullable();
+            $table->integer('interview_result')->nullable();
             $table->foreignId('candidate_id');
             $table->foreignId('interview_stage_id');
             $table->timestamps();

@@ -24,28 +24,27 @@ class RateController extends Controller
     private RateServiceInterface $rateService;
 
 
-    public function __construct(RateRepoInterface $rateRepo,RateServiceInterface $rateService)
+    public function __construct(RateRepoInterface $rateRepo, RateServiceInterface $rateService)
     {
         $this->rateRepo = $rateRepo;
         $this->rateService = $rateService;
-        
-        $this->middleware('permission:rateList',['only'=>['index']]);
-        $this->middleware('permission:rateCreate',['only'=>['store']]);
-        $this->middleware('permission:rateUpdate',['only'=>['update']]);
-        $this->middleware('permission:rateDelete',['only'=>['destroy']]);
-        $this->middleware('permission:rateShow',['only'=>['show']]);
+
+        // $this->middleware('permission:rateList',['only'=>['index']]);
+        // $this->middleware('permission:rateCreate',['only'=>['store']]);
+        // $this->middleware('permission:rateUpdate',['only'=>['update']]);
+        // $this->middleware('permission:rateDelete',['only'=>['destroy']]);
+        // $this->middleware('permission:rateShow',['only'=>['show']]);
 
     }
     public function index()
     {
 
 
-        try{
-            $data=$this->rateRepo->get();
+        try {
+            $data = $this->rateRepo->get();
             return $this->success(200, RateResource::collection($data));
-        }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 
@@ -59,12 +58,11 @@ class RateController extends Controller
     {
 
 
-        try{
+        try {
             $data = $this->rateService->store($request->validated());
             return $this->success(200, new RateResource($data));
-        }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 
@@ -78,14 +76,12 @@ class RateController extends Controller
     {
 
 
-        try{
+        try {
             $data = $this->rateRepo->show($id);
             return $this->success(200, new RateResource($data));
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
-        }
-
     }
 
     /**
@@ -99,12 +95,11 @@ class RateController extends Controller
     {
 
 
-        try{
-            $data = $this->rateService->update($request->validated(),$id);
-            return $this->success(200, $data,"Update Rate Success");
-        }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+        try {
+            $data = $this->rateService->update($request->validated(), $id);
+            return $this->success(200, $data, "Update Rate Success");
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 
@@ -118,13 +113,12 @@ class RateController extends Controller
     {
 
 
-        try{
-            $data = Rate::where('id',$id)->first();
+        try {
+            $data = Rate::where('id', $id)->first();
             $data->delete();
-            return $this->success(200, $data,"Delete Rate success");
-        }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+            return $this->success(200, $data, "Delete Rate success");
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 }

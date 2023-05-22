@@ -9,10 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Position extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'name',
         'department_id',
+    ];
+
+    protected $hidden = [
+        'created_at', 'updated_at'
     ];
 
     public function department()

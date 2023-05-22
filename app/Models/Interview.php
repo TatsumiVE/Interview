@@ -21,6 +21,9 @@ class Interview extends Model
         'interview_stage_id'
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
 
     public function candidate()
     {
@@ -29,5 +32,10 @@ class Interview extends Model
     public function interviewStage()
     {
         return $this->belongsTo(InterviewStage::class);
+    }
+
+    public function interviewAssign()
+    {
+        return $this->hasMany(InterviewAssign::class);
     }
 }

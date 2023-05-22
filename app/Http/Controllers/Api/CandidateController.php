@@ -27,23 +27,24 @@ class CandidateController extends Controller
         $this->candidateService = $candidateService;
 
         // $this->middleware('permission:candidateList',['only'=>['index']]);
-        // $this->middleware('permission:candidateCreate',['only'=>['store']]);
+        // $this->middleware('permission:candidateagencyCreate',['only'=>['store']]);
         // $this->middleware('permission:candidateUpdate',['only'=>['update']]);
         // $this->middleware('permission:candidateDelete',['only'=>['destroy']]);
         // $this->middleware('permission:candidateShow',['only'=>['show']]);
     }
-   
+
     public function index()
     {
         try {
             $data = $this->candidateRepo->get();
-            return $this->success(200, CandidateResource::collection($data), 'success');
+
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
 
-  
+
     public function store(Request $request)
     {
         try {
@@ -54,19 +55,19 @@ class CandidateController extends Controller
         };
     }
 
-  
+
     public function show($id)
     {
 
         try {
-            $result = $this->candidateRepo->show($id);
-            return $this->success(200, new CandidateResource($result), 'success');
+            $data = $this->candidateRepo->show($id);
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
 
-   
+
     public function update(Request $request, $id)
     {
         try {
@@ -78,13 +79,13 @@ class CandidateController extends Controller
         };
     }
 
-   
+
     public function destroy($id)
     {
         try {
-            $result = Candidate::where('id', $id)->first();
-            $result->delete();
-            return $this->success(200, $result, 'success');
+            $data = Candidate::where('id', $id)->first();
+            $data->delete();
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

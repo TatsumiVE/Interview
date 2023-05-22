@@ -24,13 +24,13 @@ class AgencyController extends Controller
         $this->agencyRepo = $agencyRepo;
         $this->agencyService = $agencyService;
 
-        $this->middleware('permission:agencyList',['only'=>['index']]);
-        $this->middleware('permission:agencyCreate',['only'=>['store']]);
-        $this->middleware('permission:agencyUpdate',['only'=>['update']]);
-        $this->middleware('permission:agencyDelete',['only'=>['destroy']]);
-        $this->middleware('permission:agencyShow',['only'=>['show']]);
+        // $this->middleware('permission:agencyList',['only'=>['index']]);
+        // $this->middleware('permission:agencyCreate',['only'=>['store']]);
+        // $this->middleware('permission:agencyUpdate',['only'=>['update']]);
+        // $this->middleware('permission:agencyDelete',['only'=>['destroy']]);
+        // $this->middleware('permission:agencyShow',['only'=>['show']]);
     }
-  
+
     public function index()
     {
         try {
@@ -43,7 +43,7 @@ class AgencyController extends Controller
         };
     }
 
-  
+
     public function store(AgencyRequest $request)
     {
         try {
@@ -55,7 +55,7 @@ class AgencyController extends Controller
         };
     }
 
-  
+
     public function show($id)
     {
         try {
@@ -66,7 +66,7 @@ class AgencyController extends Controller
         };
     }
 
-   
+
     public function update(AgencyRequest $request, $id)
     {
         try {
@@ -78,12 +78,12 @@ class AgencyController extends Controller
         };
     }
 
-  
+
     public function destroy($id)
     {
         try {
-            $result = $this->agencyService->destroy($id);
-            return $this->success(200, $result, 'success');
+            $data = $this->agencyService->destroy($id);
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

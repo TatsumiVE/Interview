@@ -29,8 +29,13 @@ class Candidate extends Model
         'earliest_starting_date',
         'position_id',
         'agency_id',
+        'status'
 
 
+    ];
+
+    protected $hidden = [
+        'created_at', 'updated_at'
     ];
 
     public function position()
@@ -43,7 +48,7 @@ class Candidate extends Model
         return $this->belongsTo(Agency::class);
     }
 
-    public function specificLanguage()
+    public function specificLanguages()
     {
         return $this->hasMany(SpecificLanguage::class);
     }

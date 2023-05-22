@@ -18,7 +18,9 @@ class InterviewStage extends Model
         'record_path'
 
     ];
-
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
     public function interview()
     {
         return $this->hasMany(Interview::class);
@@ -28,8 +30,8 @@ class InterviewStage extends Model
     {
         return $this->hasOne(Assessment::class);
     }
-    public function remark()
+    public function remarks()
     {
-        return $this->belongsTo(Remark::class);
+        return $this->hasMany(Remark::class);
     }
 }
