@@ -26,9 +26,5 @@ class DepartmentSeeder extends Seeder
         Department::create([
             'name' => 'B2B Team'
         ]);
-
-        Department::create([
-            'name' => 'TAT Team'
-        ]);
     }
 }

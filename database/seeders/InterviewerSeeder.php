@@ -17,17 +17,17 @@ class InterviewerSeeder extends Seeder
     {
         Interviewer::create([
 
-            'name' => 'HR',
+            'name' => 'John',
             'position_id' => 1,
         ]);
 
         Interviewer::create([
-            'name' => 'Management',
+            'name' => 'Mary',
             'position_id' => 2,
         ]);
 
         Interviewer::create([
-            'name' => 'Manager',
+            'name' => 'Esther',
             'position_id' => 3,
 
         ]);

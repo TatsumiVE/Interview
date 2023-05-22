@@ -11,6 +11,7 @@ use App\Services\DevLanguage\DevLanguageServiceInterface;
 use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DevLanguageController extends Controller
 {
@@ -39,10 +40,11 @@ class DevLanguageController extends Controller
     public function index()
     {
         try {
-            $data = Devlanguage::all();
-            return $this->success(200, DevLanguageResource::collection($data));
+
+            $data = $this->DevLanguageRepo->get();
+            return $this->success(200, DevLanguageResource::collection($data), 'success');
         } catch (Exception $e) {
-            return $this->error($e->getCode(), [], $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 
@@ -58,6 +60,9 @@ class DevLanguageController extends Controller
             $data = $this->DevLanguageService->store($request->validated());
             return $this->success(200, new DevLanguageResource($data));
         } catch (Exception $e) {
+
+
+            Log::channel('web_daily_error')->error("DevLanguage Create: " . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -72,7 +77,7 @@ class DevLanguageController extends Controller
 
         try {
             $data = $this->DevLanguageRepo->show($id);
-            return $this->success(200, new DevLanguageResource($data));
+            return $this->success(200, new DevLanguageResource($data), 'success');
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
@@ -84,11 +89,11 @@ class DevLanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DevLanguageRequest $request, $id)
     {
         try {
             $data = $this->DevLanguageService->update($request->all(), $id);
-            return $this->success(200, $data, "Language updated");
+            return $this->success(200, $data, "Language updated success");
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
