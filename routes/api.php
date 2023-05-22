@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
@@ -36,9 +37,9 @@ use App\Http\Controllers\Api\InterviewProcessController;
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
 Route::get('candidate-detail/{id}', [CandidateDetailController::class, 'candidateDetail']);
 
+Route::post('interview-process',[InterviewProcessController::class,'store']);
 
-
-
+Route::post('interview-process/{id}',[InterviewProcessController::class,'update']);
 Route::apiResource('users', UserController::class);
 Route::apiResource('roles', RoleController::class);
 Route::apiResource('permissions', PermissionController::class);
@@ -52,9 +53,6 @@ Route::apiResource('candidates', CandidateController::class);
 Route::apiResource('interviewers', InterviewerController::class);
 Route::apiResource('candidate-interviews', CandidateInterviewRateController::class);
 Route::apiResource('interviews', InterviewController::class);
-
-Route::post('candidates/search', [SearchCandidateController::class, 'search']);
-
 Route::post('candidates/searchs', [CandidateSearchController::class, 'search']);
 
 Route::get('candidate', [BarChartController::class, 'index']);

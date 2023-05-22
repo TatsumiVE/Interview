@@ -13,7 +13,7 @@ class InterviewerRepository implements InterviewerRepoInterface
     {
 
 
-        return Interviewer::with('position.department')->orderBy('id', 'desc')->paginate(5);
+        return Interviewer::with('position.department')->get();
     }
 
     public function show($id)
