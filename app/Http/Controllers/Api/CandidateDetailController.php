@@ -18,6 +18,9 @@ class CandidateDetailController extends Controller
     public function __construct(CandidateDetailRepoInterface $candidateDetailRepo)
     {
         $this->candidateDetailRepo = $candidateDetailRepo;
+
+        // $this->middleware('permission:candidateDetailShow',['only'=>['show']]);
+
     }
 
     /**
@@ -59,8 +62,8 @@ class CandidateDetailController extends Controller
     public function show($id)
     {
         try {
-            $result = $this->candidateDetailRepo->show($id);
-            return $this->success(200, $result, 'success');
+            $data = $this->candidateDetailRepo->show($id);
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

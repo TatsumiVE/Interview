@@ -35,7 +35,7 @@ class CandidateRequest extends FormRequest
             'expected_salary' => '',
             'last_salary' => '',
             'earliest_starting_date' => '',
-            'experience' => 'required | integer',
+
             'position_id' => 'required | exists:positions,id',
             'agency_id' => 'required | exists:agencies,id',
             'languages' => 'required'

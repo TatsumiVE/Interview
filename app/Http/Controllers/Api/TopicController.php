@@ -24,22 +24,27 @@ class TopicController extends Controller
     private TopicServiceInterface $topicService;
 
 
-    public function __construct(TopicRepoInterface $topicRepo,TopicServiceInterface $topicService)
+    public function __construct(TopicRepoInterface $topicRepo, TopicServiceInterface $topicService)
     {
         $this->topicRepo = $topicRepo;
         $this->topicService = $topicService;
+
+        // $this->middleware('permission:topicList',['only'=>['index']]);
+        // $this->middleware('permission:topicCreate',['only'=>['store']]);
+        // $this->middleware('permission:topicUpdate',['only'=>['update']]);
+        // $this->middleware('permission:topicDelete',['only'=>['destroy']]);
+        // $this->middleware('permission:topicShow',['only'=>['show']]);
 
     }
     public function index()
     {
 
 
-        try{
-            $data=$this->topicRepo->get();
+        try {
+            $data = $this->topicRepo->get();
             return $this->success(200, TopicResource::collection($data));
-        }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 
@@ -53,12 +58,11 @@ class TopicController extends Controller
     {
 
 
-        try{
+        try {
             $data = $this->topicService->store($request->validated());
             return $this->success(200, new TopicResource($data));
-        }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 
@@ -72,12 +76,11 @@ class TopicController extends Controller
     {
 
 
-        try{
+        try {
             $data = $this->topicRepo->show($id);
             return $this->success(200, new TopicResource($data));
-        }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 
@@ -91,14 +94,12 @@ class TopicController extends Controller
     public function update(TopicRequest $request, $id)
     {
 
-        try{
-            $data = $this->topicService->update($request->validated(),$id);
-            return $this->success(200, $data,"Topic updated");
+        try {
+            $data = $this->topicService->update($request->validated(), $id);
+            return $this->success(200, $data, "Topic updated");
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
-        }
-
     }
 
     /**
@@ -111,13 +112,12 @@ class TopicController extends Controller
     {
 
 
-        try{
-            $data = Topic::where('id',$id)->first();
+        try {
+            $data = Topic::where('id', $id)->first();
             $data->delete();
-            return $this->success(200, $data,"Delete topic success");
-        }
-        catch(Exception $e){
-            return $this->error($e->getCode(),[],$e->getMessage());
+            return $this->success(200, $data, "Delete topic success");
+        } catch (Exception $e) {
+            return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
 }

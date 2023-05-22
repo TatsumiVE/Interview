@@ -17,6 +17,10 @@ class SpecificLanguage extends Model
       'candidate_id'
    ];
 
+   protected $hidden = [
+      'created_at', 'updated_at'
+   ];
+
 
    public function devlanguage()
    {

@@ -13,12 +13,18 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-   use ApiResponser;
-   private $departmentRepo, $departmentService;
+    use ApiResponser;
+    private  $departmentRepo, $departmentService;
     public function __construct(DepartmentRepoInterface $departmentRepo, DepartmentServiceInterface $departmentService)
     {
         $this->departmentRepo = $departmentRepo;
         $this->departmentService = $departmentService;
+
+        // $this->middleware('permission:departmentList',['only'=>['index']]);
+        // $this->middleware('permission:departmentCreate',['only'=>['store']]);
+        // $this->middleware('permission:departmentUpdate',['only'=>['update']]);
+        // $this->middleware('permission:departmentDelete',['only'=>['destroy']]);
+        // $this->middleware('permission:departmentShow',['only'=>['show']]);
     }
 
     public function index()
@@ -64,7 +70,7 @@ class DepartmentController extends Controller
             ]);
 
             $data = $this->departmentService->update($validateData, $id);
-            return $this->success(200,$data, "Department updated successfully.");
+            return $this->success(200, $data, "Department updated successfully.");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }

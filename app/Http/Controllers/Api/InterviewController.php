@@ -26,15 +26,17 @@ class InterviewController extends Controller
     {
         $this->interviewRepo = $interviewRepo;
         $this->interviewService = $interviewerService;
+
+        // $this->middleware('permission:interviewCreate', ['only' => ['store']]);
     }
     public function index()
     {
         try {
             $data = $this->interviewRepo->get();
             return $this->success(200, $data, 'success');
-        } catch (Exception $exception) {
-            return $this->error($exception->getCode(), [], $exception->getMessage());
-            // return $this->customApiResponse($exception);
+        } catch (Exception $e) {
+
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 
@@ -63,8 +65,8 @@ class InterviewController extends Controller
 
 
         try {
-            $result = $this->interviewRepo->show($id);
-            return $this->success(200, $result, 'success');
+            $data = $this->interviewRepo->show($id);
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

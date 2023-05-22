@@ -4,6 +4,7 @@ namespace App\Services\Interview;
 
 use App\Models\Remark;
 use App\Models\Assessment;
+use App\Models\AssessmentResult;
 use Illuminate\Support\Facades\DB;
 
 class InterviewService implements InterviewServiceInterface
@@ -17,16 +18,18 @@ class InterviewService implements InterviewServiceInterface
                 'grade' => $request->grade,
                 'interview_assign_id' => $request->interview_assign_id
             ]);
-            $data = $request->input('data');
+            $assessment = Assessment::create([
+                'candidate_id' => $request->candidate_id,
+                'interviewer_id' => $request->interviewer_id,
+                'interview_stage_id' => $request->interview_stage_id,
+            ]);
 
-
-            foreach ($data as $data) {
-                Assessment::create([
-                    'topic_id' => $data["'topic'"],
-                    'rate_id' => $data["'rate_id'"],
-                    'candidate_id' => $request->candidate_id,
-                    'interviewer_id' => $request->interviewer_id,
-                    'interview_stage_id' => $request->interview_stage_id,
+            $data = $request->input('data', []);
+            foreach ($data as $item) {
+                AssessmentResult::create([
+                    'topic_id' => $item['topic_id'],
+                    'rate_id' => $item['rate_id'],
+                    'assessment_id' => $assessment->id,
                 ]);
             }
         });
