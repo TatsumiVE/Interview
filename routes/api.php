@@ -25,14 +25,15 @@ use App\Http\Controllers\Api\InterviewController;
 
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\DevLanguageController;
 use App\Http\Controllers\Api\InterviewerController;
 use App\Http\Controllers\Api\CandidateDetailController;
+use App\Http\Controllers\Api\CandidateSearchController;
 use App\Http\Controllers\Api\InterviewAssignController;
 use App\Http\Controllers\Api\InterviewDetailController;
 use App\Http\Controllers\API\SearchCandidateController;
+use App\Http\Controllers\Api\InterviewAssessmentController;
 use App\Http\Controllers\Api\CandidateInterviewRateController;
-use App\Http\Controllers\Api\CandidateSearchController;
-use App\Http\Controllers\Api\DevLanguageController;
 
 
 /*
@@ -49,6 +50,8 @@ use App\Http\Controllers\Api\DevLanguageController;
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
 
 Route::get('candidate-detail/{id}', [CandidateDetailController::class, 'candidateDetail']);
+
+Route::get('interview-assessment/{candiateId},{interviewerId}', [InterviewAssessmentController::class, 'interviewAssessment']);
 
 
 

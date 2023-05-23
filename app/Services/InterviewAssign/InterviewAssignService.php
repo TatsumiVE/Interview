@@ -6,6 +6,7 @@ use App\Models\Interview;
 
 use App\Models\InterviewStage;
 use App\Models\InterviewAssign;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class InterviewAssignService implements InterviewAssignServiceInterface
@@ -13,6 +14,12 @@ class InterviewAssignService implements InterviewAssignServiceInterface
   public function store($request)
   {
     DB::transaction(function () use ($request) {
+      // Parse datetime string
+      // $datetime = Carbon::parse($request->input('datetime'));
+
+      // Get date and time components
+      // $interviewDate = $datetime->format('Y-m-d');
+      // $interviewTime = $datetime->format('H:i:s');
 
       $stage = InterviewStage::create([
         'stage_name' => $request['stage_name'],
@@ -23,9 +30,9 @@ class InterviewAssignService implements InterviewAssignServiceInterface
       ]);
 
       $interview = Interview::create([
-        'interview_result' => $request['interview_result'],
-        'interview_summarize' => $request['interview_summarize'],
-        'interview_result_date' => $request['interview_result_date'],
+        // 'interview_result' => $request['interview_result'],
+        // 'interview_summarize' => $request['interview_summarize'],
+        // 'interview_result_date' => $request['interview_result_date'],
         'candidate_id' => $request['candidate_id'],
         'interview_stage_id' => $stage->id,
       ]);
@@ -33,7 +40,7 @@ class InterviewAssignService implements InterviewAssignServiceInterface
       foreach ($interviewers as $interviewer) {
         $interviewAssign = InterviewAssign::create([
           'interview_id' => $interview->id,
-          'interviewer_id' => $interviewer,
+          'interviewer_id' => $interviewer[''],
         ]);
       }
     });
@@ -41,5 +48,7 @@ class InterviewAssignService implements InterviewAssignServiceInterface
 
   public function update($request, $id)
   {
+    $result = Interview::with('candidate', 'interviewStage')->where('id', $id)->first();
+    return $result->update($request);
   }
 }

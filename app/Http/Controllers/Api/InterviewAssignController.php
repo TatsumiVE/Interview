@@ -36,7 +36,15 @@ class InterviewAssignController extends Controller
      */
     public function index()
     {
+        try {
+            $data = $this->interviewAssignRepo->get();
+
+            return $this->success(200, $data, "InterviewAssign Listing successfully");
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        };
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -63,7 +71,12 @@ class InterviewAssignController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $data = $this->interviewAssignRepo->show($id);
+            return $this->success(200, $data, 'success ');
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        };
     }
 
     /**
@@ -73,10 +86,12 @@ class InterviewAssignController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(InterviewResultRequest  $request, $id)
+    public function update(Request  $request, $id)
     {
         try {
-            $data = $this->interviewAssignService->update($request->validated(), $id);
+
+
+            $data = $this->interviewAssignService->update($request->all(), $id);
             return $this->success(200, $data, "Updated Success Interviews result");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
