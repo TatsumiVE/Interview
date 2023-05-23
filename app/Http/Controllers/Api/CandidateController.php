@@ -71,8 +71,27 @@ class CandidateController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            $validatedData = $request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:candidates,email' . $id,
+                'gender' => 'required',
+                'phone_number' => 'required',
+                'residential_address' => 'required',
+                'date_of_birth'  => 'required | date ',
+                'cv_path'  => 'required',
+                'willingness_to_travel' => '',
+                'expected_salary' => '',
+                'last_salary' => '',
+                'earliest_starting_date' => '',
+                'position_id' => 'required|exists:positions,id',
+                'agency_id' => 'required| exists:agencies,id',
+                'status' => '',
+                'data.*.experience.month' => 'required|integer|between:1,12',
+                'data.*.experience.year' => 'required|integer|between:0,30',
+                'data.*.devlanguage_id' => 'required',
+            ]);
 
-            $data = $this->candidateService->update($request->all(), $id);
+            $data = $this->candidateService->update($validatedData, $id);
             return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

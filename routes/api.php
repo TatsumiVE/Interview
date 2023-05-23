@@ -54,9 +54,7 @@ Route::get('candidate-detail/{id}', [CandidateDetailController::class, 'candidat
 
 
 Route::get('interview-assessment/{candiateId},{interviewerId}', [InterviewAssessmentController::class, 'interviewAssessment']);
-
-
-
+Route::apiResource('interview-assign', InterviewAssignController::class);
 
 
 Route::apiResource('users', UserController::class);
@@ -66,7 +64,7 @@ Route::apiResource('permissions', PermissionController::class);
 Route::apiResource('topics', TopicController::class);
 Route::apiResource('rates', RateController::class);
 Route::apiResource('agencies', AgencyController::class);
-Route::apiResource('interview-assigns', InterviewAssignController::class);
+
 Route::apiResource('departments', DepartmentController::class);
 Route::apiResource('positions', PositionController::class);
 Route::apiResource('dev-languages', DevLanguageController::class);
@@ -75,8 +73,12 @@ Route::apiResource('interviewers', InterviewerController::class);
 Route::apiResource('candidate-interviews', CandidateInterviewRateController::class);
 Route::apiResource('interviews', InterviewController::class);
 
+
+//for seraching without api resources
 Route::post('candidates/search', [SearchCandidateController::class, 'search']);
 
+
+//for seraching with api resources
 Route::post('candidates/searchs', [CandidateSearchController::class, 'search']);
 
 Route::get('candidate', [BarChartController::class, 'index']);
