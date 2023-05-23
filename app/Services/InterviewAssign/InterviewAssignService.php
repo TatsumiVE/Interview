@@ -52,3 +52,4 @@ class InterviewAssignService implements InterviewAssignServiceInterface
     return $result->update($request);
   }
 }
+  
