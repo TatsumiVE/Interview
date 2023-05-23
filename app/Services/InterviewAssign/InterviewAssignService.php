@@ -37,7 +37,9 @@ class InterviewAssignService implements InterviewAssignServiceInterface
           'interview_id' => $interview->id,
           'interviewer_id' => $interviewerId,
         ]);
+        $interviewAssigns[] = $interviewAssign;
       }
+      return $interviewAssigns;
     });
   }
 

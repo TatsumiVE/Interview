@@ -26,6 +26,17 @@ class InterviewProcessController extends Controller
             // $this->middleware('permission:interviewAssignUpdate',['only'=>['update']]);
 
         }
+
+        public function show($interviewAssignId)
+    {
+        try {
+            $data = $this->interviewAssignRepo->show($interviewAssignId);
+            return $this->success(200, $data, 'success ');
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        };
+    }
+
         public function store(Request $request)
         {
             try {
@@ -36,6 +47,7 @@ class InterviewProcessController extends Controller
                 return $this->error(500, $e->getMessage(), 'Internal Server Error');
             };
         }
+
         public function update(InterviewResultRequest  $request, $id)
         {
             try {

@@ -2,6 +2,8 @@
 
 namespace App\Repositories\InterviewAssign;
 
+use App\Models\InterviewAssign;
+
 
 
 class InterviewAssignRepository implements InterviewAssignRepoInterface
@@ -13,5 +15,7 @@ class InterviewAssignRepository implements InterviewAssignRepoInterface
   }
   public function show($id)
   {
+    return InterviewAssign::with(['interviewer', 'interview.candidate.position', 'interview.interviewStage'])
+      ->where('id', $id)->first();
   }
 }

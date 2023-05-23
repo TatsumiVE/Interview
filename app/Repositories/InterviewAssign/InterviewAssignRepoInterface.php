@@ -5,5 +5,5 @@ namespace App\Repositories\InterviewAssign;
 interface InterviewAssignRepoInterface
 {
   public function get();
-  public function show($id);
+  public function show($interveiwAssignId);
 }
