@@ -16,20 +16,24 @@ class InterviewerSeeder extends Seeder
     public function run()
     {
         Interviewer::create([
-
             'name' => 'John',
-            'position_id' => 1,
+            'email'=>'john@gmail.com',
+            'department_id' => 1,
+            'position_id'=>1,
+        ]);
+
+        Interviewer::create([
+            'name' => 'David',
+            'email'=>'david@gmail.com',
+            'department_id' => 2,
+            'position_id'=>2,
         ]);
 
         Interviewer::create([
             'name' => 'Mary',
-            'position_id' => 2,
-        ]);
-
-        Interviewer::create([
-            'name' => 'Esther',
-            'position_id' => 3,
-
-        ]);
+            'email'=>'mary@gmail.com',
+            'department_id' => 3,
+            'position_id'=>4,            
+         ]);
     }
 }

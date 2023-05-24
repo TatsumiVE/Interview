@@ -74,9 +74,7 @@ class UserController extends Controller
     {
         try {
             $validateData = $request->validate([
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email,' . $id,
-                'is_active' => '',
+                'interviewer_id'=>'required|exists:interviewers,id',
                 'role' => 'required'
             ]);
 

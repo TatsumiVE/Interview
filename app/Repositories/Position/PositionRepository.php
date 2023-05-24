@@ -7,10 +7,10 @@ use App\Models\Position;
 class PositionRepository implements PositionRepoInterface
 {
   public function get(){
-    return Position::with('department')->get();
+    return Position::all();
   }
   public function show($id){
-    return Position::with('department')->where('id',$id)->first();
+    return Position::where('id',$id)->first();
   }
 
 }

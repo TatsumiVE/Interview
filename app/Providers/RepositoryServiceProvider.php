@@ -14,7 +14,6 @@ use Illuminate\Support\ServiceProvider;
 use App\Repositories\Rate\RateRepository;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\User\UserRepository;
-use App\Services\Language\LanguageService;
 
 use App\Services\Position\PositionService;
 use App\Repositories\Topic\TopicRepository;
@@ -48,7 +47,6 @@ use App\Repositories\Position\PositionRepository;
 use App\Repositories\Candidate\CandidateRepository;
 use App\Repositories\Interview\InterviewRepository;
 
-use App\Services\Language\LanguageServiceInterface;
 use App\Services\Position\PositionServiceInterface;
 use App\Repositories\Position\PositionRepoInterface;
 use App\Repositories\Department\DepartmentRepository;
@@ -69,28 +67,33 @@ use App\Repositories\Department\DepartmentRepoInterface;
 
 use App\Repositories\Permission\PermissionRepoInterface;
 use App\Services\CandidateSearch\CandidateSearchService;
-use App\Services\InterviewAssign\InterviewAssignService;
+
 use App\Services\DevLanguage\DevLanguageServiceInterface;
 
 use App\Services\Interviewer\InterviewerServiceInterface;
 use App\Repositories\DevLanguage\DevLanguageRepoInterface;
 use App\Repositories\Interviewer\InterviewerRepoInterface;
-use App\Http\Controllers\Api\InterviewAssessmentController;
+
+
+use App\Services\InterviewProcess\InterviewProcessService;
+
 
 use App\Repositories\CandidateDetail\CandidateDetailRepository;
-use App\Repositories\InterviewAssign\InterviewAssignRepository;
-use App\Repositories\InterviewDetail\InterviewDetailRepository;
+
+
+use App\Repositories\InterviewProcess\InterviewProcessRepository;
+
+
+
 use App\Services\CandidateSearch\CandidateSearchServiceInterface;
-
-use App\Services\InterviewAssign\InterviewAssignServiceInterface;
 use App\Repositories\CandidateDetail\CandidateDetailRepoInterface;
-use App\Repositories\InterviewAssign\InterviewAssignRepoInterface;
-use App\Repositories\InterviewDetail\InterviewDetailRepoInterface;
 
+use App\Services\InterviewProcess\InterviewProcessServiceInterface;
+use App\Repositories\InterviewProcess\InterviewProcessRepoInterface;
 use App\Repositories\CandidateInterviewRate\CandidateInterviewRateRepository;
 use App\Repositories\CandidateInterviewRate\CandidateInterviewRateRepoInterface;
-use App\Repositories\InterviewAssessment\InterviewAssessmentRepoInterface;
-use App\Repositories\InterviewAssessment\InterviewAssessmentRepository;
+
+
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -144,8 +147,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AgencyRepoInterface::class, AgencyRepository::class);
         $this->app->bind(AgencyServiceInterface::class, AgencyService::class);
 
-        $this->app->bind(InterviewAssignRepoInterface::class, InterviewAssignRepository::class);
-        $this->app->bind(InterviewAssignServiceInterface::class, InterviewAssignService::class);
+
 
 
         $this->app->bind(DepartmentRepoInterface::class, DepartmentRepository::class);
@@ -159,7 +161,8 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(CandidateSearchServiceInterface::class, CandidateSearchService::class);
 
+        $this->app->bind(InterviewProcessRepoInterface::class,InterviewProcessRepository::class);
+        $this->app->bind(InterviewProcessServiceInterface::class,InterviewProcessService::class);
 
-        $this->app->bind(InterviewAssessmentRepoInterface::class, InterviewAssessmentRepository::class);
     }
 }

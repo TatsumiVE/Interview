@@ -16,23 +16,19 @@ class PositionSeeder extends Seeder
    public function run()
    {
       Position::create([
-         'name' => 'Senior HR',
-         'department_id' => 1
+         'name' => 'Senior HR',        
       ]);
 
       Position::create([
-         'name' => 'Senior PM',
-         'department_id' => 2
+         'name' => 'Senior PM',        
       ]);
 
       Position::create([
-         'name' => 'Senior Engineer',
-         'department_id' => 3
+         'name' => 'Senior Engineer',       
       ]);
 
       Position::create([
          'name' => 'Junior Engineer',
-         'department_id' => 3
       ]);
    }
 }

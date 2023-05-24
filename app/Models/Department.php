@@ -17,4 +17,8 @@ class Department extends Model
     protected $hidden = [
         'created_at', 'updated_at'
     ];
+
+    public function interviewers(){
+        return $this->hasMany(Interviewer::class);
+    }
 }

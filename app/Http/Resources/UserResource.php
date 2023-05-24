@@ -19,11 +19,9 @@ class UserResource extends JsonResource
         $role = Role::whereIn('id', $this->roles->pluck('id'))->get();
         return [
             'id'=>$this->id,
-            'name'=>$this->name,
-            'email'=>$this->email,
-            'is_active'=>$this->is_active,
-            'role'=>$role->pluck('name'),
+            'interviewer_id'=>new InterviewerResource($this->whenLoaded('interviewer')),
             'password'=>$this->password,
+            'role'=>$role->pluck('name'),           
             'token'=>$this->token,
         ];
 

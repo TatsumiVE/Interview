@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Services\InterviewAssign;
+namespace App\Services\InterviewProcess;
 
 use App\Models\Interview;
 
 use App\Models\InterviewStage;
+
 use App\Models\InterviewAssign;
+use App\Services\InterviewProcess\InterviewProcessServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class InterviewAssignService implements InterviewAssignServiceInterface
+class InterviewProcessService implements InterviewProcessServiceInterface
 {
   public function store($request)
   {
@@ -21,13 +23,14 @@ class InterviewAssignService implements InterviewAssignServiceInterface
       // $interviewDate = $datetime->format('Y-m-d');
       // $interviewTime = $datetime->format('H:i:s');
 
-      $stage = InterviewStage::create([
-        'stage_name' => $request['stage_name'],
-        'interview_date' => $request['interview_date'],
-        'interview_time' => $request['interview_time'],
-        'location' => $request['location'],
-        'record_path' => $request['record_path']
-      ]);
+
+        $stage = InterviewStage::create([
+          'stage_name' => $request['stage_name'],
+          'interview_date' => $request['interview_date'],
+          'interview_time' =>$request['interview_time'],
+          'location' => $request['location'],
+          'record_path' => $request['record_path']
+        ]);
 
       $interview = Interview::create([
         // 'interview_result' => $request['interview_result'],
@@ -37,12 +40,16 @@ class InterviewAssignService implements InterviewAssignServiceInterface
         'interview_stage_id' => $stage->id,
       ]);
       $interviewers = $request->input('interviewer_id', []);
+
       foreach ($interviewers as $interviewer) {
+        $interviewerId = $interviewer['interviewer_id'];
         $interviewAssign = InterviewAssign::create([
           'interview_id' => $interview->id,
           'interviewer_id' => $interviewer[''],
         ]);
+        $interviewAssigns[] = $interviewAssign;
       }
+      return $interviewAssigns;
     });
   }
 
@@ -52,4 +59,3 @@ class InterviewAssignService implements InterviewAssignServiceInterface
     return $result->update($request);
   }
 }
-  
