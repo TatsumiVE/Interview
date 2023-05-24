@@ -42,7 +42,7 @@ class RateController extends Controller
 
         try {
             $data = $this->rateRepo->get();
-            return $this->success(200, RateResource::collection($data));
+            return $this->success(200, $data, 'success');
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }

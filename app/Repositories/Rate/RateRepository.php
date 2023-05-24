@@ -6,14 +6,15 @@ use Exception;
 use App\Models\Rate;
 
 
-class RateRepository implements RateRepoInterface{
-    public function get(){
-        return Rate::with('assessment')->get();
-
+class RateRepository implements RateRepoInterface
+{
+    public function get()
+    {
+        return Rate::all();
     }
 
-    public function show($id){
-        return $data = Rate::where('id',$id)->first();
+    public function show($id)
+    {
+        return $data = Rate::where('id', $id)->first();
     }
-
 }
