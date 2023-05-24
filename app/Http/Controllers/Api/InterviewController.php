@@ -49,8 +49,15 @@ class InterviewController extends Controller
 
     public function store(Request $request)
     {
-        $this->interviewService->store($request);
-        return $this->success(200, 'Done', "New Assement blah Form Created");
+
+
+        try {
+            $this->interviewService->store($request);
+            return $this->success(200, 'Done', "New Assement Form Created");
+        } catch (Exception $e) {
+
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        }
     }
 
 

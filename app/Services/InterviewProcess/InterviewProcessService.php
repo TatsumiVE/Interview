@@ -22,11 +22,10 @@ class InterviewProcessService implements InterviewProcessServiceInterface
         'interview_date' => $request['interview_date'],
         'interview_time' => $request['interview_time'],
         'location' => $request['location'],
-        // 'record_path' => $request['record_path']
+
       ]);
 
       $interview = Interview::create([
-
         'candidate_id' => $request['candidate_id'],
         'interview_stage_id' => $stage->id,
       ]);
@@ -39,6 +38,7 @@ class InterviewProcessService implements InterviewProcessServiceInterface
         ]);
         $interviewAssigns[] = $interviewAssign;
       }
+
       return $interviewAssigns;
     });
   }
