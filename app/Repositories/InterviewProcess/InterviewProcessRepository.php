@@ -19,11 +19,7 @@ class  InterviewProcessRepository implements InterviewProcessRepoInterface
     $interviewId = $interview->id;
     $interviewAssign = InterviewAssign::where('interview_id', $interviewId)->where('interviewer_id', $interviewerId)->first();
     $interviewAssignId = $interviewAssign->id;
-    return InterviewAssign::with(['interviewer', 'interview.candidate.position', 'interview.interviewStage'])
-    ->where('id', $interviewAssignId)->first();
-
+    return InterviewAssign::with(['interviewer.department', 'interviewer.position', 'interview.candidate.position', 'interview.interviewStage'])
+      ->where('id', $interviewAssignId)->first();
   }
-
-
-
 }

@@ -5,6 +5,7 @@ namespace App\Services\Interview;
 use App\Models\Remark;
 use App\Models\Assessment;
 use App\Models\AssessmentResult;
+use App\Models\InterviewStage;
 use Illuminate\Support\Facades\DB;
 
 class InterviewService implements InterviewServiceInterface
@@ -32,6 +33,10 @@ class InterviewService implements InterviewServiceInterface
                     'assessment_id' => $assessment->id,
                 ]);
             }
+
+            InterviewStage::updated([
+                ' record_path' => $request->record_path
+            ]);
         });
     }
     public function update($data, $id)

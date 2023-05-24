@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\CandidateSearchController;
 use App\Http\Controllers\Api\InterviewAssignController;
 
 use App\Http\Controllers\API\SearchCandidateController;
+use App\Http\Controllers\Api\InterviewProcessController;
 use App\Http\Controllers\Api\InterviewAssessmentController;
 use App\Http\Controllers\Api\CandidateInterviewRateController;
 
