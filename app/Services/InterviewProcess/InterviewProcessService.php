@@ -45,11 +45,12 @@ class InterviewProcessService implements InterviewProcessServiceInterface
         $interviewerId = $interviewer['interviewer_id'];
         $interviewAssign = InterviewAssign::create([
           'interview_id' => $interview->id,
-          'interviewer_id' => $interviewer[''],
+          'interviewer_id' =>  $interviewerId,
         ]);
-        $interviewAssigns[] = $interviewAssign;
+        // $interviewAssigns[] = $interviewAssign;
       }
-      return $interviewAssigns;
+
+      dd($interviewAssign);
     });
   }
 
