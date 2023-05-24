@@ -10,6 +10,7 @@ class CandidateRepository implements CandidateRepoInterface
   {
     return Candidate::with('position', 'agency', 'specificLanguages.devlanguage')
       ->where('status', 0)
+      ->orderBy('id')
       ->get();
   }
   public function show($id)

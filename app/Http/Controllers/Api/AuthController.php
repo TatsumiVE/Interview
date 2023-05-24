@@ -29,7 +29,7 @@ class AuthController extends Controller
             if ($interviewer && Auth::attempt(['interviewer_id' => $interviewerId, 'password' => $request->password])) {
                 $user = Auth::user();
                 $success['token'] =  $user->createToken('User API')->plainTextToken;
-                
+                $success['id']=$user->id;
                 $success['name'] =  $user->name;
 
                 return $this->success(200, $success, 'User login successfully.');

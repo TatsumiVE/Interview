@@ -8,8 +8,7 @@ use App\Models\Rate;
 
 class RateRepository implements RateRepoInterface{
     public function get(){
-        return Rate::with('assessment')->get();
-
+        return Rate::all();
     }
 
     public function show($id){
@@ -17,3 +16,4 @@ class RateRepository implements RateRepoInterface{
     }
 
 }
+

@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('interview_stages', function (Blueprint $table) {
             $table->id();
-            $table->string('stage_name');
+            $table->integer('stage_name');
             $table->date('interview_date');
             $table->time('interview_time');
-            $table->string('location');
+            $table->integer('location');
             $table->string('record_path')->nullable();
             $table->timestamps();
         });
