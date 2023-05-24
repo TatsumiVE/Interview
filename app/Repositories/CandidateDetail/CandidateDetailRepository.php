@@ -22,11 +22,29 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 
 
   public function show($id)
-  {
+{
+    $data = Candidate::where('id', $id)->first();
+    $interviewStage = Interview::with('interviewStage', 'interviewAssign.interviewer.position', 'interviewAssign.interviewer.department')->where('candidate_id', $data->id)->get();
 
-    // return Interview::with('interviewAssign.interviewer.position.department', 'InterviewStage.assessment.assessmentResult.topic', 'InterviewStage.assessment.assessmentResult.rate', 'candidate.position.department', 'interviewAssign.remarks')
-    //   ->where('candidate_id', $id)
-    //   ->get();
-    return Interview::with('candidate.position', 'interviewStage.interview.interviewAssign.assessments.assessmentResult.topic', 'interviewStage.interview.interviewAssign.assessments.assessmentResult.rate', 'interviewAssign.interviewer.position.department', 'interviewAssign.remarks')->where('candidate_id', $id)->get();
-  }
+    $result['candidate'] = $data;
+    $result['interview'] = $interviewStage;
+
+    // Retrieve assessment and remarks for each interview stage
+    foreach ($interviewStage as $stage) {
+
+        $assessment = Assessment::with('assessmentResult.topic', 'assessmentResult.rate')->where('interview_stage_id', $stage->interview_stage_id)->get();
+        // $remarks = Remark::where('interview_assign_id', $stage->interview_assign->id)->get();
+
+        // if ($assessment) {
+        //     $stage->assessment = $assessment;
+        // }
+
+    return $assessment;
+    }
+
+    // return $result;
+}
+
+
+
 }

@@ -15,53 +15,39 @@ class AssessmentResultSeeder extends Seeder
      */
     public function run()
     {
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 1,
-        ]);
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 2,
-        ]);
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 3,
-        ]);
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 4,
-        ]);
+        // AssessmentResult::create([
+        //     'topic_id' => 1,
+        //     'rate_id' => 1,
+        //     'assessment_id' => 1,
+        // ]);
+        // AssessmentResult::create([
+        //     'topic_id' => 2,
+        //     'rate_id' => 1,
+        //     'assessment_id' => 1,
+        // ]);
+        // AssessmentResult::create([
+        //     'topic_id' => 3,
+        //     'rate_id' => 1,
+        //     'assessment_id' => 1,
+        // ]);
+        // AssessmentResult::create([
+        //     'topic_id' => 4,
+        //     'rate_id' => 2,
+        //     'assessment_id' => 1,
+        // ]);
 
 
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 5,
-        ]);
+        // AssessmentResult::create([
+        //     'topic_id' => 5,
+        //     'rate_id' => 1,
+        //     'assessment_id' => 1,
+        // ]);
 
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 6,
-        ]);
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 7,
-        ]);
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 8,
-        ]);
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 9,
-        ]);
+        // AssessmentResult::create([
+        //     'topic_id' => 6,
+        //     'rate_id' => 1,
+        //     'assessment_id' => 1,
+        // ]);
+
     }
 }

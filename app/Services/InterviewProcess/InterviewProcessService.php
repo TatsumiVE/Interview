@@ -16,13 +16,6 @@ class InterviewProcessService implements InterviewProcessServiceInterface
   public function store($request)
   {
     DB::transaction(function () use ($request) {
-      // Parse datetime string
-      // $datetime = Carbon::parse($request->input('datetime'));
-
-      // Get date and time components
-      // $interviewDate = $datetime->format('Y-m-d');
-      // $interviewTime = $datetime->format('H:i:s');
-
 
       $stage = InterviewStage::create([
         'stage_name' => $request['stage_name'],
@@ -33,9 +26,7 @@ class InterviewProcessService implements InterviewProcessServiceInterface
       ]);
 
       $interview = Interview::create([
-        // 'interview_result' => $request['interview_result'],
-        // 'interview_summarize' => $request['interview_summarize'],
-        // 'interview_result_date' => $request['interview_result_date'],
+
         'candidate_id' => $request['candidate_id'],
         'interview_stage_id' => $stage->id,
       ]);

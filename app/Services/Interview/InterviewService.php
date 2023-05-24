@@ -12,7 +12,7 @@ class InterviewService implements InterviewServiceInterface
 {
     public function store($request)
     {
-        DB::transaction(function () use ($request) {
+     return   DB::transaction(function () use ($request) {
             Remark::create([
                 'interview_stage_id' => $request->interview_stage_id,
                 'comment' => $request->comment,
@@ -35,6 +35,7 @@ class InterviewService implements InterviewServiceInterface
             }
 
         });
+
     }
     public function update($data, $id)
     {
