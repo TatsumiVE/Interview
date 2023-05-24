@@ -15,7 +15,7 @@ class CandidateRepository implements CandidateRepoInterface
   }
   public function show($id)
   {
-    return Candidate::with(['position.department', 'agency', 'specificLanguages.devlanguage'])
+    return Candidate::with(['position', 'agency', 'specificLanguages.devlanguage'])
       ->where('id', $id)->first();
   }
 }

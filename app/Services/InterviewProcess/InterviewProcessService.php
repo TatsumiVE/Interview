@@ -24,13 +24,13 @@ class InterviewProcessService implements InterviewProcessServiceInterface
       // $interviewTime = $datetime->format('H:i:s');
 
 
-        $stage = InterviewStage::create([
-          'stage_name' => $request['stage_name'],
-          'interview_date' => $request['interview_date'],
-          'interview_time' =>$request['interview_time'],
-          'location' => $request['location'],
-          'record_path' => $request['record_path']
-        ]);
+      $stage = InterviewStage::create([
+        'stage_name' => $request['stage_name'],
+        'interview_date' => $request['interview_date'],
+        'interview_time' => $request['interview_time'],
+        'location' => $request['location'],
+        // 'record_path' => $request['record_path']
+      ]);
 
       $interview = Interview::create([
         // 'interview_result' => $request['interview_result'],
@@ -42,10 +42,9 @@ class InterviewProcessService implements InterviewProcessServiceInterface
       $interviewers = $request->input('interviewer_id', []);
 
       foreach ($interviewers as $interviewer) {
-        $interviewerId = $interviewer['interviewer_id'];
         $interviewAssign = InterviewAssign::create([
           'interview_id' => $interview->id,
-          'interviewer_id' => $interviewer[''],
+          'interviewer_id' => $interviewer['interviewer_id'],
         ]);
         $interviewAssigns[] = $interviewAssign;
       }
