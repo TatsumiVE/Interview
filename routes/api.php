@@ -70,5 +70,5 @@ Route::post('candidates/search', [SearchCandidateController::class, 'search']);
 
 Route::post('candidates/searchs', [CandidateSearchController::class, 'search']);
 
-Route::get('candidate', [BarChartController::class, 'index']);
+Route::get('candidate-barchart', [BarChartController::class, 'index']);
 

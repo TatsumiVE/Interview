@@ -24,8 +24,7 @@ class PositionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|string|unique:positions,name',
-            'department_id'=>'required|exists:departments,id',
+            'name'=>'required|string|unique:positions,name'           
         ];
     }
 }

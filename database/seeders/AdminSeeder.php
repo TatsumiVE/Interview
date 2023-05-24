@@ -16,24 +16,21 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $super_admin = User::create([
-            'name' => 'John',
-            'email' => 'john@gmail.com',
+        $super_admin = User::create([          
+            'interviewer_id'=>1,
             'password' => Hash::make('password'),
-            'is_active' => 1
+           
         ]);
-        $admin = User::create([
-            'name' => 'David',
-            'email' => 'david@gmail.com',
+        $admin = User::create([ 
+            'interviewer_id'=>2,          
             'password' => Hash::make('password'),
-            'is_active' => 1
+           
         ]);
 
         $moderator = User::create([
-            'name' => 'Mary',
-            'email' => 'mary@gmail.com',
+            'interviewer_id'=>3,         
             'password' => Hash::make('password'),
-            'is_active' => 1
+           
         ]);
 
         $super_admin->assignRole('SuperAdmin');

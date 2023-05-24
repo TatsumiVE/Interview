@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Exceptions\Handler;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\Interviewer;
 use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
@@ -22,7 +23,10 @@ class AuthController extends Controller
     public function UserLogin(Request $request)
     {
         try {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $interviewer = Interviewer::where('email', $request->email)->first();
+            $interviewerId=$interviewer->id;
+            
+            if ($interviewer && Auth::attempt(['interviewer_id' => $interviewerId, 'password' => $request->password])) {
                 $user = Auth::user();
                 $success['token'] =  $user->createToken('User API')->plainTextToken;
                 

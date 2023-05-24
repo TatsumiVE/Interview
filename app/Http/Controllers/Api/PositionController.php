@@ -44,7 +44,6 @@ class PositionController extends Controller
     {
         try {
             $validateData = $request->validated();
-
             $data = $this->positionService->store($validateData);
 
             return $this->success(200, $data, "Position created successfully.");
@@ -68,8 +67,7 @@ class PositionController extends Controller
     {
         try {
             $validateData = $request->validate([
-                'name' => 'required|string|unique:positions,name,' . $id,
-                'department_id' => 'required|exists:departments,id'
+                'name' => 'required|string|unique:positions,name,' . $id,               
             ]);
 
             $data = $this->positionService->update($validateData, $id);

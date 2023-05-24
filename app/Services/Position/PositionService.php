@@ -7,9 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class PositionService implements PositionServiceInterface{
     public function store($request){      
-         return Position::create($request);               
-    
-       
+         return Position::create($request); 
     }
     public function update($request,$id){
         $position=Position::where('id',$id)->first();
