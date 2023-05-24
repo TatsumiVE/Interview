@@ -11,6 +11,11 @@ return new class extends Migration
      *
      * @return void
      */
+
+    /**
+     * 
+     * Interviewer is the same as the employer .
+     */
     public function up()
     {
         Schema::create('interviewers', function (Blueprint $table) {

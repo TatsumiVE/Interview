@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Interviewer extends Model
 {
+
+    /**
+     * 
+     * Interviewer is the same as the employer .
+     */
     use HasFactory;
     protected $fillable = [
         'name',

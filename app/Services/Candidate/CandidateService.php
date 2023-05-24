@@ -80,12 +80,12 @@ class CandidateService implements CandidateServiceInterface
     //   }
     // });
   }
-  public function update($data, $id)
+  public function update($request, $id)
   {
 
 
     $result = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
 
-    return $result->update($data);
+    return $result->update($request);
   }
 }
