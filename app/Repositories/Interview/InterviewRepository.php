@@ -14,6 +14,8 @@ class InterviewRepository implements InterviewRepoInterface
 {
     public function get()
     {
+
+        //view api  for interviewer side
         return Candidate::with('specificLanguages.devlanguage', 'interviews.interviewStage.assessment.assessmentResult.topic', 'interviews.interviewStage.assessment.assessmentResult.rate')
             ->where('status', 1)
             ->get();
@@ -29,8 +31,9 @@ class InterviewRepository implements InterviewRepoInterface
     }
     public function show($id)
     {
-        return Interview::with('candidate', 'interviewStage.assessment.assessmentResult.topic', 'interviewStage.assessment.assessmentResult.rate', 'interviewStage.remarks')
-            ->where('candidate_id', $id)
-            ->get();
+         //view api  for interviewer side
+        // return Interview::with('candidate', 'interviewStage.assessment.assessmentResult.topic', 'interviewStage.assessment.assessmentResult.rate', 'interviewStage.remarks')
+        //     ->where('candidate_id', $id)
+        //     ->get();
     }
 }

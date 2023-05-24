@@ -23,7 +23,12 @@ use App\Http\Controllers\Api\InterviewerController;
 use App\Http\Controllers\Api\CandidateDetailController;
 use App\Http\Controllers\Api\CandidateSearchController;
 use App\Http\Controllers\Api\InterviewProcessController;
+use App\Http\Controllers\Api\InterviewAssignController;
+use App\Http\Controllers\Api\InterviewDetailController;
+use App\Http\Controllers\API\SearchCandidateController;
+use App\Http\Controllers\Api\InterviewAssessmentController;
 use App\Http\Controllers\Api\CandidateInterviewRateController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,11 +40,14 @@ use App\Http\Controllers\Api\CandidateInterviewRateController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
 Route::get('candidate-detail/{id}', [CandidateDetailController::class, 'candidateDetail']);
 Route::post('interview-process',[InterviewProcessController::class,'store']);
-Route::get('interview-process/{interviewAssignId}',[InterviewProcessController::class,'show']);
-Route::post('interview-process/{id}',[InterviewProcessController::class,'update']);
+ Route::post('interview-process/{id}',[InterviewProcessController::class,'update']);
+//find AssignI
+Route::get('interview-process/{candiateId},{interviewerId}', [InterviewProcessController::class, 'searchInterviewAssignId']);
+// Route::get('interview-process/{interviewAssignId}',[InterviewProcessController::class,'showAssessment']);
 Route::apiResource('users', UserController::class);
 Route::apiResource('roles', RoleController::class);
 Route::apiResource('permissions', PermissionController::class);
@@ -50,9 +58,8 @@ Route::apiResource('departments', DepartmentController::class);
 Route::apiResource('positions', PositionController::class);
 Route::apiResource('dev-languages', DevLanguageController::class);
 Route::apiResource('candidates', CandidateController::class);
-Route::apiResource('interviewers', InterviewerController::class);
-Route::apiResource('candidate-interviews', CandidateInterviewRateController::class);
-Route::apiResource('interviews', InterviewController::class);
 Route::post('candidates/searchs', [CandidateSearchController::class, 'search']);
 Route::get('candidate', [BarChartController::class, 'index']);
-
+Route::apiResource('interviewers', InterviewerController::class);
+//  Route::apiResource('candidate-interviews', CandidateInterviewRateController::class);
+Route::apiResource('interviews', InterviewController::class);

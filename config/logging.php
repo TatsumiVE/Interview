@@ -118,12 +118,13 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
-        'web_daily_error' => [
+        'api' => [
             'driver' => 'single',
-            'path' => storage_path('logs/webDailyError.log'),
-            'level' => 'debug'
+            'path' => storage_path('logs/api.log'),
+            'level' => 'debug',
+        ],
 
-        ]
+
     ],
 
 ];

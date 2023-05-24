@@ -7,40 +7,28 @@ use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InterviewResultRequest;
-use App\Services\InterviewAssign\InterviewAssignServiceInterface;
-use App\Repositories\InterviewAssign\InterviewAssignRepoInterface;
+
+
+use App\Repositories\InterviewProcess\InterviewProcessRepoInterface;
+use App\Services\InterviewProcess\InterviewProcessServiceInterface;
 
 class InterviewProcessController extends Controller
 {
 
     use ApiResponser;
-        private InterviewAssignRepoInterface $interviewAssignRepo;
-        private InterviewAssignServiceInterface $interviewAssignService;
+        private InterviewProcessRepoInterface $interviewProcessRepo;
+        private InterviewProcessServiceInterface $interviewProcessService;
 
-        public function __construct(InterviewAssignRepoInterface $interviewAssignRepo, InterviewAssignServiceInterface $interviewAssignService)
+        public function __construct(InterviewProcessRepoInterface $interviewProcessRepo,
+        InterviewProcessServiceInterface $interviewProcessService)
         {
-            $this->interviewAssignRepo = $interviewAssignRepo;
-            $this->interviewAssignService = $interviewAssignService;
-
-            // $this->middleware('permission:interviewAssignCreate',['only'=>['store']]);
-            // $this->middleware('permission:interviewAssignUpdate',['only'=>['update']]);
-
+            $this->interviewProcessRepo= $interviewProcessRepo;
+            $this->interviewProcessService = $interviewProcessService;
         }
-
-        public function show($interviewAssignId)
-    {
-        try {
-            $data = $this->interviewAssignRepo->show($interviewAssignId);
-            return $this->success(200, $data, 'success ');
-        } catch (Exception $e) {
-            return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        };
-    }
-
         public function store(Request $request)
         {
             try {
-                $this->interviewAssignService->store($request);
+                $this->interviewProcessService->store($request);
 
                 return $this->success(200, "success", "New InterviewAssign Created");
             } catch (Exception $e) {
@@ -48,16 +36,33 @@ class InterviewProcessController extends Controller
             };
         }
 
+        public function searchInterviewAssignId($candidateId, $interviewerId)
+    {
+        try {
+            $data = $this->interviewProcessRepo->showAssign($candidateId,$interviewerId);
+            return $this->success(200, $data, 'success ');
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        };
+    }
+
+    // public function showAssessment($showAssessment)
+    // {
+    //     try {
+    //         $data = $this->interviewProcessRepo->showAssessment($showAssessment);
+    //         return $this->success(200, $data, 'success ');
+    //     } catch (Exception $e) {
+    //         return $this->error(500, $e->getMessage(), 'Internal Server Error');
+    //     };
+    // }
+
         public function update(InterviewResultRequest  $request, $id)
         {
             try {
-                $data = $this->interviewAssignService->update($request->validated(), $id);
+                $data = $this->interviewProcessService->update($request->validated(), $id);
                 return $this->success(200, $data, "Updated Success Interviews result");
             } catch (Exception $e) {
                 return $this->error(500, $e->getMessage(), 'Internal Server Error');
             };
         }
-
-
-
 }

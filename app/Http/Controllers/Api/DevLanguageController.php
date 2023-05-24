@@ -60,9 +60,7 @@ class DevLanguageController extends Controller
             $data = $this->DevLanguageService->store($request->validated());
             return $this->success(200, new DevLanguageResource($data));
         } catch (Exception $e) {
-
-
-            Log::channel('web_daily_error')->error("DevLanguage Create: " . $e->getMessage());
+            Log::channel('api')->debug('Your log message here');
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -79,6 +77,7 @@ class DevLanguageController extends Controller
             $data = $this->DevLanguageRepo->show($id);
             return $this->success(200, new DevLanguageResource($data), 'success');
         } catch (Exception $e) {
+
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
