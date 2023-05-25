@@ -20,7 +20,7 @@ class CandidateInterviewRateController extends Controller
     {
         $this->candidateInterviewRateRepo = $candidateInterviewRateRepo;
 
-        // $this->middleware('permission:candidateInterviewRateShow',['only'=>['show']]);
+        $this->middleware('permission:candidateInterviewRateShow',['only'=>['show']]);
     }
 
     /**
