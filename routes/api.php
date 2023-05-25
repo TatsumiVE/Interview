@@ -22,6 +22,8 @@ use App\Http\Controllers\Api\DevLanguageController;
 use App\Http\Controllers\Api\InterviewerController;
 use App\Http\Controllers\Api\CandidateDetailController;
 use App\Http\Controllers\Api\CandidateSearchController;
+
+
 use App\Http\Controllers\Api\InterviewProcessController;
 
 
@@ -39,8 +41,8 @@ use App\Http\Controllers\Api\InterviewProcessController;
 
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
 Route::get('candidate-detail/{id}', [CandidateDetailController::class, 'candidateDetail']);
-Route::post('interview-process',[InterviewProcessController::class,'store']);
- Route::post('interview-process/{id}',[InterviewProcessController::class,'update']);
+Route::post('interview-process', [InterviewProcessController::class, 'store']);
+Route::post('interview-process/{id}', [InterviewProcessController::class, 'update']);
 //find AssignI
 Route::get('interview-process/{candiateId},{interviewerId}', [InterviewProcessController::class, 'searchInterviewAssignId']);
 // Route::get('interview-process/{interviewAssignId}',[InterviewProcessController::class,'showAssessment']);
@@ -61,4 +63,3 @@ Route::get('candidate-barchart', [BarChartController::class, 'index']);
 Route::apiResource('interviewers', InterviewerController::class);
 //  Route::apiResource('candidate-interviews', CandidateInterviewRateController::class);
 Route::apiResource('interviews', InterviewController::class);
-

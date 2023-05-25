@@ -11,7 +11,6 @@ use App\Services\Interviewer\InterviewerServiceInterface;
 use App\Repositories\Interviewer\InterviewerRepoInterface;
 use Illuminate\Http\Request;
 
-
 class InterviewerController extends Controller
 {
     use ApiResponser;
@@ -42,7 +41,7 @@ class InterviewerController extends Controller
         }
     }
 
-   
+
     public function store(InterviewerRequest $request)
     {
         try {
@@ -53,19 +52,20 @@ class InterviewerController extends Controller
         }
     }
 
-   
+
     public function show($id)
     {
         try {
             $data = $this->interviewerRepo->show($id);
          
             return $this->success(200, $data,"Interviewer showed successfully.");
+
         } catch (Exception $exception) {
             return $this->error(500, $exception->getMessage(), 'Internal Server Error.');
         }
     }
 
-   
+
 
     public function update(Request $request, $id)
     {
@@ -78,7 +78,7 @@ class InterviewerController extends Controller
             ]);
 
             $data = $this->interviewerService->update($validateData, $id);
-            return $this->success(200, $data, "Interviewer updated successfully.");
+    return $this->success(200, $data, "Interviewer updated successfully.");
         } catch (Exception $exception) {
             return $this->error(500, $exception->getMessage(), 'Internal Server Error.');
         }
