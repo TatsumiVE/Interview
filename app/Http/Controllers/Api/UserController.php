@@ -25,11 +25,11 @@ class UserController extends Controller
         $this->userRepo = $userRepo;
         $this->userService = $userService;
 
-        // $this->middleware('permission:userList',['only'=>['index']]);
-        // $this->middleware('permission:userCreate',['only'=>['store']]);
-        // $this->middleware('permission:userUpdate',['only'=>['update']]);
-        // $this->middleware('permission:userDelete',['only'=>['destroy']]);
-        // $this->middleware('permission:userShow',['only'=>['show']]);
+        $this->middleware('permission:userList',['only'=>['index']]);
+        $this->middleware('permission:userCreate',['only'=>['store']]);
+        $this->middleware('permission:userUpdate',['only'=>['update']]);
+        $this->middleware('permission:userDelete',['only'=>['destroy']]);
+        $this->middleware('permission:userShow',['only'=>['show']]);
     }
 
     public function index()
