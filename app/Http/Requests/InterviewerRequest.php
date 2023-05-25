@@ -28,7 +28,6 @@ class InterviewerRequest extends FormRequest
             'email' => 'required|email|unique:interviewers,email',
             'position_id'=>'required|exists:positions,id',
             'department_id' => 'required|exists:departments,id',
-
         ];
     }
 }

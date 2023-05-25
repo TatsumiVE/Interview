@@ -13,7 +13,7 @@ class UserService implements UserServiceInterface
     public function store($request)
     {
         return DB::transaction(function () use ($request) {
-            $request['password'] = Hash::make($request['password']);
+            // $request['password'] = Hash::make($request['password']);
             $user = User::create($request);
             if (isset($request['role'])) {
                 $user->assignRole($request['role']);

@@ -17,7 +17,6 @@ class InterviewProcessService implements InterviewProcessServiceInterface
   {
     DB::transaction(function () use ($request) {
 
-
       $stage = InterviewStage::create([
         'stage_name' => $request['stage_name'],
         'interview_date' => $request['interview_date'],

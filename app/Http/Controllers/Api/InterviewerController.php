@@ -57,7 +57,9 @@ class InterviewerController extends Controller
     {
         try {
             $data = $this->interviewerRepo->show($id);
-            return $this->success(200, new InterviewerResource($data), "Interviewer showed successfully.");
+         
+            return $this->success(200, $data,"Interviewer showed successfully.");
+
         } catch (Exception $exception) {
             return $this->error(500, $exception->getMessage(), 'Internal Server Error.');
         }
@@ -68,16 +70,15 @@ class InterviewerController extends Controller
     public function update(Request $request, $id)
     {
         try {
-
-
-            $validateData = $request->validate([
-                'name' => 'required' . $id,
-                'email' => 'required|email|unique:interviewers,email',
-                'position_id' => 'required|exists:positions,id',
-                'department_id' => 'required|exists:departments,id',
+            $validateData=$request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:interviewers,email,'.$id,
+                'position_id'=>'required|exists:positions,id',
+                'department_id' => 'required|exists:departments,id',                
             ]);
-            $data = $this->interviewerService->update($request->$validateData, $id);
-            return $this->success(200, $data, "Interviewer updated successfully.");
+
+            $data = $this->interviewerService->update($validateData, $id);
+    return $this->success(200, $data, "Interviewer updated successfully.");
         } catch (Exception $exception) {
             return $this->error(500, $exception->getMessage(), 'Internal Server Error.');
         }
