@@ -24,9 +24,9 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'interviewer_id'=>'required|exists:interviewers,id',
+            'interviewer_id'=>'required|exists:interviewers,id|unique:users,interviewer_id',
             'password' => 'required|confirmed',
-            'password_confirmation' => 'required',
+            //'password_confirmation' => 'required',
             'role'=>'required|exists:roles,id',
         ];
     }

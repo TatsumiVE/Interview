@@ -17,7 +17,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'interviewer_id',      
-        'password',        
+        'password',       
        
     ];
 
