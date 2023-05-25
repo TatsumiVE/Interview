@@ -38,7 +38,7 @@ class CandidateController extends Controller
         try {
             $data = $this->candidateRepo->get();
 
-            return $this->success(200, $data, 'success');
+            return $this->success(200, $data, 'Candidate Data retrieved successfully');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
@@ -49,7 +49,7 @@ class CandidateController extends Controller
     {
         try {
             $data = $this->candidateService->store($request);
-            return $this->success(200, "success", "New Candidate Created");
+            return $this->success(200, "success", "New Candidate Created Successfully");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
@@ -61,7 +61,7 @@ class CandidateController extends Controller
 
         try {
             $data = $this->candidateRepo->show($id);
-            return $this->success(200, $data, 'success');
+            return $this->success(200, $data, 'Candidate Data retrieved  successfully');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
@@ -92,21 +92,22 @@ class CandidateController extends Controller
             ]);
 
             $data = $this->candidateService->update($validatedData, $id);
-            return $this->success(200, $data, 'success');
+            return $this->success(200, $data, 'Candidate updated successfully');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
 
 
-    public function destroy($id)
+    public function destroy(Candidate $candidate)
     {
-        try {
-            $data = Candidate::where('id', $id)->first();
-            $data->delete();
-            return $this->success(200, $data, 'success');
-        } catch (Exception $e) {
-            return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        };
+        if (count($candidate->specificLanguages) == 0 || count($candidate->assessments) == 0 || count($candidate->interviews) == 0) {
+            $candidate->delete();
+            $data = '';
+            return $this->success(200, $data, 'Candidate deleted successfully');
+        } else {
+            $msg = 'Cannot delete because there is are relationships remaining';
+            return $this->error(500, $msg, 'Internal Server Error');
+        }
     }
 }

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('comment');
             $table->integer('grade');
-            $table->foreignId('interview_stage_id');
-            $table->foreignId('interview_assign_id');
+            $table->foreignId('interview_stage_id')->constrained();
+            $table->foreignId('interview_assign_id')->constrained();
             $table->timestamps();
         });
     }

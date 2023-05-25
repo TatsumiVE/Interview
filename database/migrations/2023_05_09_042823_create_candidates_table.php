@@ -26,8 +26,8 @@ return new class extends Migration
             $table->integer('expected_salary')->nullable();
             $table->integer('last_salary')->nullable();
             $table->date('earliest_starting_date')->nullable();
-            $table->foreignId('position_id');
-            $table->foreignId('agency_id');
+            $table->foreignId('position_id')->constrained();
+            $table->foreignId('agency_id')->constrained();
             $table->integer('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

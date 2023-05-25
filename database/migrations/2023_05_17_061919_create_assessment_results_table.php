@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('assessment_results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('topic_id');
-            $table->foreignId('rate_id');
-            $table->foreignId('assessment_id');
+            $table->foreignId('topic_id')->constrained();
+            $table->foreignId('rate_id')->constrained();
+            $table->foreignId('assessment_id')->constrained();
             $table->timestamps();
         });
     }

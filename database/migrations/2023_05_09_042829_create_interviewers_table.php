@@ -22,8 +22,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->foreignId('department_id')->references('id')->on('departments');
-            $table->foreignId('position_id');
+            $table->foreignId('department_id')->constrained();
+            $table->foreignId('position_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });

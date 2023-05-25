@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('interview_assigns', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('interview_id');
-            $table->foreignId('interviewer_id');
+            $table->foreignId('interview_id')->constrained();
+            $table->foreignId('interviewer_id')->constrained();
             $table->timestamps();
         });
     }

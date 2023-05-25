@@ -21,6 +21,29 @@ class AssessmentResultSeeder extends Seeder
             'assessment_id' => 1,
         ]);
         AssessmentResult::create([
+            'topic_id' => 2,
+            'rate_id' => 2,
+            'assessment_id' => 1,
+        ]);
+        AssessmentResult::create([
+            'topic_id' => 3,
+            'rate_id' => 3,
+            'assessment_id' => 1,
+        ]);
+        AssessmentResult::create([
+            'topic_id' => 4,
+            'rate_id' => 4,
+            'assessment_id' => 1,
+        ]);
+
+
+        AssessmentResult::create([
+            'topic_id' => 1,
+            'rate_id' => 1,
+            'assessment_id' => 2,
+        ]);
+
+        AssessmentResult::create([
             'topic_id' => 1,
             'rate_id' => 1,
             'assessment_id' => 2,
@@ -28,40 +51,17 @@ class AssessmentResultSeeder extends Seeder
         AssessmentResult::create([
             'topic_id' => 1,
             'rate_id' => 1,
-            'assessment_id' => 3,
+            'assessment_id' => 2,
         ]);
         AssessmentResult::create([
             'topic_id' => 1,
             'rate_id' => 1,
-            'assessment_id' => 4,
-        ]);
-
-
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 5,
-        ]);
-
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 6,
+            'assessment_id' => 2,
         ]);
         AssessmentResult::create([
             'topic_id' => 1,
             'rate_id' => 1,
-            'assessment_id' => 7,
-        ]);
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 8,
-        ]);
-        AssessmentResult::create([
-            'topic_id' => 1,
-            'rate_id' => 1,
-            'assessment_id' => 9,
+            'assessment_id' => 2,
         ]);
     }
 }

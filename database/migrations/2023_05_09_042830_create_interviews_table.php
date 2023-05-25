@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('position_departments', function (Blueprint $table) {
+        Schema::create('interviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('position_id');
-            $table->foreignId('department_id');
+
+            $table->string('interview_summarize')->nullable();
+            $table->date('interview_result_date')->nullable();
+            $table->integer('interview_result')->nullable();
+            $table->foreignId('candidate_id')->constrained();
+            $table->foreignId('interview_stage_id')->constrained();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('position_departments');
+        Schema::dropIfExists('interviews');
     }
 };

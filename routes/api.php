@@ -51,10 +51,10 @@ Route::apiResource('roles', RoleController::class);
 Route::apiResource('permissions', PermissionController::class);
 Route::apiResource('topics', TopicController::class);
 Route::apiResource('rates', RateController::class);
-Route::apiResource('agencies', AgencyController::class);
+Route::apiResource('agency', AgencyController::class);
 Route::apiResource('departments', DepartmentController::class);
 Route::apiResource('positions', PositionController::class);
-Route::apiResource('dev-languages', DevLanguageController::class);
+Route::apiResource('devlanguages', DevLanguageController::class);
 Route::apiResource('candidates', CandidateController::class);
 Route::post('candidates/searchs', [CandidateSearchController::class, 'search']);
 

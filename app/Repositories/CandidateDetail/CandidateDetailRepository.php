@@ -25,11 +25,6 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
   public function show($id)
   {
 
-    // return Interview::with('interviewAssign.interviewer.position.department', 'InterviewStage.assessment.assessmentResult.topic', 'InterviewStage.assessment.assessmentResult.rate', 'candidate.position.department', 'interviewAssign.remarks')
-    //   ->where('candidate_id', $id)
-    //   ->get();
-    // $data =  Assessment::with('candidate')->where('candidate_id', $id)->first();
-    // dd($data);
 
     // $data = Candidate::where('id', $id)->with('interviews.interviewStage', 'interviews.interviewAssign.interviewer.position', 'interviews.interviewAssign.interviewer.department', 'interviews.assessment.assessmentResults.topic', 'interviews.assessment.assessmentResults.rate')->first();
 
@@ -39,7 +34,7 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
     // return $result;
 
 
-    $data = Candidate::where('id', $id)->first();
+    $data = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
     $interviewStage = Interview::with('interviewStage', 'interviewAssign.interviewer.position', 'interviewAssign.interviewer.department', 'interviewAssign.assessments.assessmentResult.topic', 'interviewAssign.assessments.assessmentResult.rate', 'interviewAssign.remarks')->where('candidate_id', $data->id)->get();
     $result['candidate'] = $data;
     $result['interview'] = $interviewStage;
