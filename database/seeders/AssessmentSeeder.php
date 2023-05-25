@@ -26,14 +26,30 @@ class AssessmentSeeder extends Seeder
         Assessment::create([
             'candidate_id' => 1,
             'interview_stage_id' => 1,
-            'interview_assign_id' => 1
+            'interview_assign_id' => 2
         ]);
-
 
         Assessment::create([
             'candidate_id' => 1,
             'interview_stage_id' => 1,
-            'interview_assign_id' => 1
+            'interview_assign_id' => 3
+        ]);
+
+        Assessment::create([
+            'candidate_id' => 1,
+            'interview_stage_id' => 2,
+            'interview_assign_id' => 4
+        ]);
+
+        Assessment::create([
+            'candidate_id' => 1,
+            'interview_stage_id' => 2,
+            'interview_assign_id' => 5
+        ]);
+        Assessment::create([
+            'candidate_id' => 1,
+            'interview_stage_id' => 2,
+            'interview_assign_id' => 6
         ]);
     }
 }
