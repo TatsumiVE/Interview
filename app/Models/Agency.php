@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Candidate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Agency extends Model
 {
@@ -15,6 +16,11 @@ class Agency extends Model
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at', 'updated_at', 'deleted_at'
     ];
+
+    public function candidates()
+    {
+        return $this->hasMany(Candidate::class);
+    }
 }

@@ -15,39 +15,20 @@ class AssessmentResultSeeder extends Seeder
      */
     public function run()
     {
-        // AssessmentResult::create([
-        //     'topic_id' => 1,
-        //     'rate_id' => 1,
-        //     'assessment_id' => 1,
-        // ]);
-        // AssessmentResult::create([
-        //     'topic_id' => 2,
-        //     'rate_id' => 1,
-        //     'assessment_id' => 1,
-        // ]);
-        // AssessmentResult::create([
-        //     'topic_id' => 3,
-        //     'rate_id' => 1,
-        //     'assessment_id' => 1,
-        // ]);
-        // AssessmentResult::create([
-        //     'topic_id' => 4,
-        //     'rate_id' => 2,
-        //     'assessment_id' => 1,
-        // ]);
-
-
-        // AssessmentResult::create([
-        //     'topic_id' => 5,
-        //     'rate_id' => 1,
-        //     'assessment_id' => 1,
-        // ]);
-
-        // AssessmentResult::create([
-        //     'topic_id' => 6,
-        //     'rate_id' => 1,
-        //     'assessment_id' => 1,
-        // ]);
-
+        AssessmentResult::create([
+            'topic_id' => 1,
+            'rate_id' => 1,
+            'assessment_id' => 1,
+        ]);
+        AssessmentResult::create([
+            'topic_id' => 2,
+            'rate_id' => 2,
+            'assessment_id' => 1,
+        ]);
+        AssessmentResult::create([
+            'topic_id' => 3,
+            'rate_id' => 3,
+            'assessment_id' => 1,
+        ]);
     }
 }

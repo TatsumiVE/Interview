@@ -18,10 +18,4 @@ class AgencyService implements AgencyServiceInterface
     $result = Agency::where('id', $id)->first();
     return $result->update($data);
   }
-
-  public function destroy($id)
-  {
-    $result = Agency::where('id', $id)->first();
-    return $result->delete();
-  }
 }

@@ -1,9 +1,10 @@
-<?php 
+<?php
 
 namespace App\Services\Position;
 
-interface PositionServiceInterface{
+interface PositionServiceInterface
+{
     public function store($request);
-    public function update($request,$id);
-    public function destroy($id);
+    public function update($request, $id);
+    // public function destroy($id);
 }

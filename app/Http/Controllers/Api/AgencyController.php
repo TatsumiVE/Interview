@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AgencyRequest;
 use App\Http\Resources\AgencyResource;
+use App\Models\Agency;
 use App\Repositories\Agency\AgencyRepoInterface;
 use App\Services\Agency\AgencyServiceInterface;
 use App\Traits\ApiResponser;
@@ -35,7 +36,7 @@ class AgencyController extends Controller
     {
         try {
             $data = $this->agencyRepo->get();
-            return $this->success(200, AgencyResource::collection($data), 'success');
+            return $this->success(200, AgencyResource::collection($data), 'Agency Reterived successfully');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
 
@@ -47,7 +48,6 @@ class AgencyController extends Controller
     public function store(AgencyRequest $request)
     {
         try {
-
             $data = $this->agencyService->store($request->validated());
             return $this->success(200, new AgencyResource($data), "New Agency Created");
         } catch (Exception $e) {
@@ -79,13 +79,15 @@ class AgencyController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Agency $agency)
     {
-        try {
-            $data = $this->agencyService->destroy($id);
-            return $this->success(200, $data, 'success');
-        } catch (Exception $e) {
-            return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        };
+        if (count($agency->candidates) == 0) {
+            $agency->delete();
+            $data = '';
+            return $this->success(200, $data, 'Agency successfully deleted');
+        } else {
+            $msg = 'Cannot delete because there are candidates remaining';
+            return $this->error(500, $msg, 'Internal Server Error');
+        }
     }
 }

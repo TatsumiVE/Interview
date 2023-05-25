@@ -42,7 +42,7 @@ class DevLanguageController extends Controller
         try {
 
             $data = $this->DevLanguageRepo->get();
-            return $this->success(200, DevLanguageResource::collection($data), 'success');
+            return $this->success(200, DevLanguageResource::collection($data), 'Language data retrieved successfully');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
@@ -60,7 +60,7 @@ class DevLanguageController extends Controller
             $data = $this->DevLanguageService->store($request->validated());
             return $this->success(200, new DevLanguageResource($data));
         } catch (Exception $e) {
-            Log::channel('api')->debug('Your log message here');
+
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -92,7 +92,7 @@ class DevLanguageController extends Controller
     {
         try {
             $data = $this->DevLanguageService->update($request->all(), $id);
-            return $this->success(200, $data, "Language updated success");
+            return $this->success(200, $data, "Language updated successfully");
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
@@ -104,14 +104,15 @@ class DevLanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Devlanguage $devlanguage)
     {
-        try {
-            $data = Devlanguage::where('id', $id)->first();
-            $data->delete();
-            return $this->success(200, $data, "Delete topic success");
-        } catch (Exception $e) {
-            return $this->error($e->getCode(), [], $e->getMessage());
+        if (count($devlanguage->specificLanguages) == 0) {
+            $devlanguage->delete();
+            $data = '';
+            return $this->success(200, $data, 'Language successfully deleted');
+        } else {
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
+            return $this->error(500, $msg, 'Internal Server Error');
         }
     }
 }

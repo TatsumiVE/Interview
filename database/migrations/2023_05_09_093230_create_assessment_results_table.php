@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('position_departments', function (Blueprint $table) {
+        Schema::create('assessment_results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('position_id');
-            $table->foreignId('department_id');
+            $table->foreignId('topic_id')->constrained();
+            $table->foreignId('rate_id')->constrained();
+            $table->foreignId('assessment_id')->constrained();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('position_departments');
+        Schema::dropIfExists('assessment_results');
     }
 };

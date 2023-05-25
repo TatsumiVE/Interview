@@ -29,7 +29,7 @@ class CandidateDetailController extends Controller
 
             $data = $this->candidateDetailRepo->show($id);
 
-            return $this->success(200, $data, 'success');
+            return $this->success(200, $data, 'CandidateDetail data returned successfully');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

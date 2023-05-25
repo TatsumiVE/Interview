@@ -11,12 +11,21 @@ return new class extends Migration
      *
      * @return void
      */
+
+    /**
+     * 
+     * Interviewer is the same as the employer .
+     */
     public function up()
     {
-        Schema::create('devlanguages', function (Blueprint $table) {
+        Schema::create('interviewers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('email')->unique();
+            $table->foreignId('department_id')->constrained();
+            $table->foreignId('position_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devlanguages');
+        Schema::dropIfExists('interviewers');
     }
 };

@@ -16,10 +16,8 @@ return new class extends Migration
         Schema::create('specific_languages', function (Blueprint $table) {
             $table->id();
             $table->integer('experience');
-
-            $table->foreignId('devlanguage_id');
-
-            $table->foreignId('candidate_id');
+            $table->foreignId('devlanguage_id')->constrained();
+            $table->foreignId('candidate_id')->constrained();
             $table->timestamps();
         });
     }

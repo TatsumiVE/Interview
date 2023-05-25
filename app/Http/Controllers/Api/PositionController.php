@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PositionRequest;
 use App\Http\Resources\PositionResource;
-
+use App\Models\Position;
 use App\Repositories\Position\PositionRepoInterface;
 use App\Services\Position\PositionServiceInterface;
 use App\Traits\ApiResponser;
@@ -67,7 +67,7 @@ class PositionController extends Controller
     {
         try {
             $validateData = $request->validate([
-                'name' => 'required|string|unique:positions,name,' . $id,               
+                'name' => 'required|string|unique:positions,name,' . $id,
             ]);
 
             $data = $this->positionService->update($validateData, $id);
@@ -78,13 +78,18 @@ class PositionController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Position $position)
     {
-        try {
-            $data = $this->positionService->destroy($id);
-            return $this->success(200, $data, "Position deleted successfully.");
-        } catch (Exception $e) {
-            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+        if (
+            count($position->candidates) == 0 ||
+            count($position->interviewers) == 0
+        ) {
+            $position->delete();
+            $data = '';
+            return $this->success(200, $data, "Position  successfully deleted.");
+        } else {
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
+            return $this->error(500, $msg, 'Internal Server Error');
         }
     }
 }

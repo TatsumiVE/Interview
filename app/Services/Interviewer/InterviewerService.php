@@ -15,8 +15,4 @@ class InterviewerService implements InterviewerServiceInterface
         $result = Interviewer::where('id', $id)->first();
         return $result->update($data);
     }
-    public function delete($id){
-        $result = Interviewer::where('id', $id)->first();
-        return $result->delete($id);
-    }
 }

@@ -26,8 +26,6 @@ use App\Http\Controllers\Api\CandidateSearchController;
 
 use App\Http\Controllers\Api\InterviewProcessController;
 
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
