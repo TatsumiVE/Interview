@@ -11,15 +11,19 @@ class Position extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'name',      
+        'name',
     ];
 
     protected $hidden = [
         'created_at', 'updated_at', 'deleted_at'
     ];
 
-    public function interviewers(){
+    public function interviewers()
+    {
         return $this->hasMany(Interviewer::class);
     }
-    
+    public function candidates()
+    {
+        return $this->hasMany(Candidate::class);
+    }
 }

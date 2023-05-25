@@ -22,7 +22,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->foreignId('department_id');
+            $table->foreignId('department_id')->references('id')->on('departments');
             $table->foreignId('position_id');
             $table->timestamps();
             $table->softDeletes();
