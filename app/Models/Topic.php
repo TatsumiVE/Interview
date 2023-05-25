@@ -2,20 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\AssessmentResult;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Topic extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];
 
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     public function assessmentResults()
     {
         return $this->hasMany(AssessmentResult::class);
     }
 
-    protected $hidden = [
-        'created_at', 'updated_at'
-    ];
+
 }
