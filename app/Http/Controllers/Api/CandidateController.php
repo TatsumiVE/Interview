@@ -106,7 +106,7 @@ class CandidateController extends Controller
             $data = '';
             return $this->success(200, $data, 'Candidate deleted successfully');
         } else {
-            $msg = 'Cannot delete because there is are relationships remaining';
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
             return $this->error(500, $msg, 'Internal Server Error');
         }
     }

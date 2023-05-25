@@ -88,7 +88,7 @@ class PositionController extends Controller
             $data = '';
             return $this->success(200, $data, "Position  successfully deleted.");
         } else {
-            $msg = 'Can not delete because there are relationships remaining';
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
             return $this->error(500, $msg, 'Internal Server Error');
         }
     }

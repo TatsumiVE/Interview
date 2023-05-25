@@ -111,7 +111,7 @@ class DevLanguageController extends Controller
             $data = '';
             return $this->success(200, $data, 'Language successfully deleted');
         } else {
-            $msg = 'Cannot delete because there are relationship remaining';
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
             return $this->error(500, $msg, 'Internal Server Error');
         }
     }
