@@ -26,7 +26,7 @@ class RemarkSeeder extends Seeder
         Remark::create([
             'comment' => 'This person is good',
             'grade' => 2,
-            'interview_stage_id' => 1,
+            'interview_stage_id' => 2,
             'interview_assign_id' => 1
         ]);
 
