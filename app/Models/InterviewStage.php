@@ -15,7 +15,6 @@ class InterviewStage extends Model
         'interview_date',
         'interview_time',
         'location',
-        'record_path'
 
     ];
     protected $hidden = [

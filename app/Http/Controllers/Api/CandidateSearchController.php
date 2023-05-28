@@ -20,7 +20,7 @@ class CandidateSearchController extends Controller
     {
         $this->candidateSearchService = $candidateSearchService;
 
-        $this->middleware('permission:candidateSearch',['only'=>['search']]);
+        // $this->middleware('permission:candidateSearch',['only'=>['search']]);
 
     }
 
@@ -29,16 +29,15 @@ class CandidateSearchController extends Controller
         try {
             $validateData = $request->validated();
 
-            $candidates=$this->candidateSearchService->search($validateData);
+            $candidates = $this->candidateSearchService->search($validateData);
 
             if (!$candidates->isEmpty()) {
-                    return $this->success(200, $candidates, "Candidates retrieved successfully for search.");
-                } else {
-                    return $this->error(404, "No candidates found for this search.", "Not Found.");
-                }
+                return $this->success(200, $candidates, "Candidates retrieved successfully for search.");
+            } else {
+                return $this->error(404, "No candidates found for this search.", "Not Found.");
+            }
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
-
     }
 }

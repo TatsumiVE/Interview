@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CandidateRequest;
 use App\Http\Resources\CandidateResource;
+use App\Models\InterviewStage;
 use App\Services\Candidate\CandidateServiceInterface;
 use App\Repositories\Candidate\CandidateRepoInterface;
 
@@ -26,11 +27,11 @@ class CandidateController extends Controller
         $this->candidateRepo = $candidateRepo;
         $this->candidateService = $candidateService;
 
-        $this->middleware('permission:candidateList',['only'=>['index']]);
-        $this->middleware('permission:candidateagencyCreate',['only'=>['store']]);
-        $this->middleware('permission:candidateUpdate',['only'=>['update']]);
-        $this->middleware('permission:candidateDelete',['only'=>['destroy']]);
-        $this->middleware('permission:candidateShow',['only'=>['show']]);
+        // $this->middleware('permission:candidateList', ['only' => ['index']]);
+        // $this->middleware('permission:candidateagencyCreate', ['only' => ['store']]);
+        // $this->middleware('permission:candidateUpdate', ['only' => ['update']]);
+        // $this->middleware('permission:candidateDelete', ['only' => ['destroy']]);
+        // $this->middleware('permission:candidateShow', ['only' => ['show']]);
     }
 
     public function index()
@@ -56,11 +57,11 @@ class CandidateController extends Controller
     }
 
 
-    public function show($id)
+    public function show(Candidate $candidate, InterviewStage $stagename)
     {
 
         try {
-            $data = $this->candidateRepo->show($id);
+            $data = $this->candidateRepo->show($candidate, $stagename);
             return $this->success(200, $data, 'Candidate Data retrieved  successfully');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
@@ -77,7 +78,7 @@ class CandidateController extends Controller
                 'gender' => 'required',
                 'phone_number' => 'required',
                 'residential_address' => 'required',
-                'date_of_birth'  => 'required | date ',
+                'date_of_birth' => 'required|date|before_or_equal:' . now()->subYear()->format('Y-m-d'),
                 'cv_path'  => 'required',
                 'willingness_to_travel' => '',
                 'expected_salary' => '',

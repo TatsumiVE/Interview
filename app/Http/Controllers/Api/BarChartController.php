@@ -13,16 +13,17 @@ class BarChartController extends Controller
     use ApiResponser;
 
     public function __construct()
-    {      
+    {
 
-        $this->middleware('permission:barChart',['only'=>['index']]);
-        
+        // $this->middleware('permission:barChart',['only'=>['index']]);
+
     }
-    public function index(){
+    public function index()
+    {
         try {
             $candidateCounts = SpecificLanguage::select('devlanguage_id', DB::raw('COUNT(candidate_id) as count'))
-            ->groupBy('devlanguage_id')
-            ->get();
+                ->groupBy('devlanguage_id')
+                ->get();
             return $this->success(200, $candidateCounts, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

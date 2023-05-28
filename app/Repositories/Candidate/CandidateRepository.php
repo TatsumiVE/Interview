@@ -13,9 +13,13 @@ class CandidateRepository implements CandidateRepoInterface
       ->orderBy('id')
       ->get();
   }
-  public function show($id)
+  public function show($candidateId)
   {
-    // return Candidate::with(['position', 'agency', 'specificLanguages.devlanguage'])
-    //   ->where('id', $id)->first();
+
+
+    return Candidate::with(['position', 'agency', 'specificLanguages.devlanguage', 'interviews.interviewStage'])
+      ->where('status', 0)
+      ->where('id', $candidateId)
+      ->first();
   }
 }

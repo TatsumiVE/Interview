@@ -7,6 +7,7 @@ use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\InterviewResource;
+use App\Models\Interviewer;
 use App\Services\Interview\InterviewServiceInterface;
 use App\Repositories\Interview\InterviewRepoInterface;
 
@@ -27,9 +28,9 @@ class InterviewController extends Controller
         $this->interviewRepo = $interviewRepo;
         $this->interviewService = $interviewerService;
 
-        $this->middleware('permission:interviewList', ['only' => ['index']]);
-        $this->middleware('permission:interviewCreate', ['only' => ['store']]);
-        $this->middleware('permission:interviewShow', ['only' => ['show']]);
+        // $this->middleware('permission:interviewList', ['only' => ['index']]);
+        // $this->middleware('permission:interviewCreate', ['only' => ['store']]);
+        // $this->middleware('permission:interviewShow', ['only' => ['show']]);
     }
     public function index()
     {
@@ -52,7 +53,7 @@ class InterviewController extends Controller
     public function store(Request $request)
     {
 
-
+        //assessment create
         try {
             $this->interviewService->store($request);
             return $this->success(200, 'Done', "New Assement Form Created");
@@ -69,7 +70,7 @@ class InterviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Interviewer $id)
     {
 
 

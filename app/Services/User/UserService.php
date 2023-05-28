@@ -24,7 +24,7 @@ class UserService implements UserServiceInterface
 
     public function update($request, $id)
     {
-        return DB::transaction(function () use ($request,$id) {
+        return DB::transaction(function () use ($request, $id) {
             $user = User::where('id', $id)->first();
             $user->update($request);
             if (isset($request['role'])) {
@@ -34,9 +34,9 @@ class UserService implements UserServiceInterface
         });
     }
 
-    public function destroy($id)
-    {
-        $user = User::where('id', $id)->first();
-        return  $user->delete();
-    }
+    // public function destroy($id)
+    // {
+    //     $user = User::where('id', $id)->first();
+    //     return  $user->delete();
+    // }
 }

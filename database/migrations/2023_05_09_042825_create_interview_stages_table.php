@@ -19,7 +19,6 @@ return new class extends Migration
             $table->date('interview_date');
             $table->time('interview_time');
             $table->integer('location');
-            $table->string('record_path')->nullable();
             $table->timestamps();
         });
     }

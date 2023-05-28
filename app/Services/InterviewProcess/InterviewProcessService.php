@@ -22,7 +22,6 @@ class InterviewProcessService implements InterviewProcessServiceInterface
         'interview_date' => $request['interview_date'],
         'interview_time' => $request['interview_time'],
         'location' => $request['location'],
-
       ]);
 
       $interview = Interview::create([
@@ -30,12 +29,13 @@ class InterviewProcessService implements InterviewProcessServiceInterface
         'interview_stage_id' => $stage->id,
       ]);
       $interviewers = $request->input('interviewer_id', []);
-
+      $interviewAssigns = [];
 
       foreach ($interviewers as $interviewer) {
         $interviewAssign = InterviewAssign::create([
           'interview_id' => $interview->id,
-          'interviewer_id' => $interviewer,
+          'interviewer_id' => $interviewer['interviewer_id'],
+          // 'interviewer_id' => $interviewer,
         ]);
         $interviewAssigns[] = $interviewAssign;
       }
@@ -45,9 +45,11 @@ class InterviewProcessService implements InterviewProcessServiceInterface
     });
   }
 
-  public function update($request, $id)
+  public function interviewSummerize($request, $candidateID, $stageID)
   {
-    $result = Interview::with('candidate', 'interviewStage')->where('id', $id)->first();
+    $result = Interview::with('candidate', 'interviewStage')
+      ->where('candidate_id', $candidateID)
+      ->where('interview_stage_id', $stageID)->first();
     return $result->update($request);
   }
 }

@@ -39,28 +39,36 @@ use App\Http\Controllers\Api\InterviewProcessController;
 
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('candidate-detail/{id}', [CandidateDetailController::class, 'candidateDetail']);
-    Route::post('interview-process', [InterviewProcessController::class, 'store']);
-    Route::post('interview-process/{id}', [InterviewProcessController::class, 'update']);
-    //find AssignI
-    Route::get('interview-process/{candiateId},{interviewerId}', [InterviewProcessController::class, 'searchInterviewAssignId']);
-    // Route::get('interview-process/{interviewAssignId}',[InterviewProcessController::class,'showAssessment']);
-    Route::apiResource('users', UserController::class);
-    Route::apiResource('roles', RoleController::class);
-    Route::apiResource('permissions', PermissionController::class);
-    Route::apiResource('topics', TopicController::class);
-    Route::apiResource('rates', RateController::class);
-    Route::apiResource('agencies', AgencyController::class);
-    Route::apiResource('departments', DepartmentController::class);
-    Route::apiResource('positions', PositionController::class);
-    Route::apiResource('dev-languages', DevLanguageController::class);
-    Route::apiResource('candidates', CandidateController::class);
-    Route::post('candidates/searchs', [CandidateSearchController::class, 'search']);
+// Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('candidate-barchart', [BarChartController::class, 'index']);
+Route::post('interview-process', [InterviewProcessController::class, 'store']);
 
-    Route::apiResource('interviewers', InterviewerController::class);
-    //  Route::apiResource('candidate-interviews', CandidateInterviewRateController::class);
-    Route::apiResource('interviews', InterviewController::class);
-});
+Route::post('interview-process/summerize/{candiateId}/{stageId}', [InterviewProcessController::class, 'interviewSummerize']);
+//find AssignI
+Route::get('interview-process/{candiateId},{interviewerId}', [InterviewProcessController::class, 'searchInterviewAssignId']);
+Route::post('interview-process/terminate/{candidateId}', [InterviewProcessController::class, 'terminateProcess']);
+
+Route::get('interview-process/checkStage/{candidateId}', [InterviewProcessController::class, 'checkInterviewStage']);
+
+// Route::get('interview-process/{interviewAssignId}',[InterviewProcessController::class,'showAssessment']);
+Route::apiResource('users', UserController::class);
+Route::apiResource('roles', RoleController::class);
+Route::apiResource('permissions', PermissionController::class);
+Route::apiResource('topics', TopicController::class);
+Route::apiResource('rates', RateController::class);
+Route::apiResource('agencies', AgencyController::class);
+Route::apiResource('departments', DepartmentController::class);
+Route::apiResource('positions', PositionController::class);
+Route::apiResource('dev-languages', DevLanguageController::class);
+Route::apiResource('candidates', CandidateController::class);
+Route::post('candidates/searchs', [CandidateSearchController::class, 'search']);
+
+Route::get('candidate-barchart', [BarChartController::class, 'index']);
+
+Route::apiResource('interviewers', InterviewerController::class);
+//  Route::apiResource('candidate-interviews', CandidateInterviewRateController::class);
+Route::apiResource('interviews', InterviewController::class);
+// });
+
+
+Route::get('candidate-detail/{id}', [CandidateDetailController::class, 'candidateDetail']);

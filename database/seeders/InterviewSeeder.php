@@ -21,6 +21,7 @@ class InterviewSeeder extends Seeder
             'interview_summarize' => 'WELL',
             'interview_result_date' => '2023-05-04',
             'interview_result' => 5,
+            'record_path' => 'https://docs.google.com/document/d/1j6Z7nIBAqaYVH4u8LD09d2SqCMCLLsogjUrh1t8RguE/edit',
             'candidate_id' => 1,
             'interview_stage_id' => 1
         ]);
@@ -31,6 +32,7 @@ class InterviewSeeder extends Seeder
             'interview_summarize' => 'NORMAL',
             'interview_result_date' => '2023-05-04',
             'interview_result' => 5,
+            'record_path' => 'https://docs.google.com/document/d/1j6Z7nIBAqaYVH4u8LD09d2SqCMCLLsogjUrh1t8RguE/edit',
             'candidate_id' => 1,
             'interview_stage_id' => 2
         ]);
