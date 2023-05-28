@@ -13,10 +13,10 @@ class BarChartController extends Controller
     use ApiResponser;
 
     public function __construct()
-    {      
+    {
 
-        // $this->middleware('permission:barChart',['only'=>['index']]);
-        
+        $this->middleware('permission:dashboardView',['only'=>['index']]);
+
     }
     public function index(){
         try {

@@ -38,14 +38,14 @@ use App\Http\Controllers\Api\InterviewProcessController;
 */
 
 Route::post('auth/login', [AuthController::class, 'UserLogin']);
-
-// Route::middleware('auth:sanctum')->group(function () {
-    Route::get('candidate-detail/{id}', [CandidateDetailController::class, 'candidateDetail']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('candidates/{id}', [CandidateDetailController::class, 'candidateDetail']);
     Route::post('interview-process', [InterviewProcessController::class, 'store']);
-    Route::post('interview-process/{id}', [InterviewProcessController::class, 'update']);
+
+    Route::post('interview-process/result/{candiateId}/{stageId}', [InterviewProcessController::class, 'interviewSummarize']);
     //find AssignI
     Route::get('interview-process/{candiateId},{interviewerId}', [InterviewProcessController::class, 'searchInterviewAssignId']);
-    // Route::get('interview-process/{interviewAssignId}',[InterviewProcessController::class,'showAssessment']);
+    Route::post('interview-process/terminate/{candidateId}', [InterviewProcessController::class, 'terminateProcess']);
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('permissions', PermissionController::class);
@@ -61,6 +61,6 @@ Route::post('auth/login', [AuthController::class, 'UserLogin']);
     Route::get('candidate-barchart', [BarChartController::class, 'index']);
 
     Route::apiResource('interviewers', InterviewerController::class);
-    //  Route::apiResource('candidate-interviews', CandidateInterviewRateController::class);
+
     Route::apiResource('interviews', InterviewController::class);
-// });
+});
