@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -25,19 +24,17 @@ class RoleAndPermissionSeeder extends Seeder
         $userUpdate = Permission::create(['name' => 'userUpdate']);
         $userDelete = Permission::create(['name' => 'userDelete']);
         $userShow = Permission::create(['name' => 'userShow']);
-        
+
         $agencyList = Permission::create(['name' => 'agencyList']);
         $agencyCreate = Permission::create(['name' => 'agencyCreate']);
         $agencyUpdate = Permission::create(['name' => 'agencyUpdate']);
         $agencyDelete = Permission::create(['name' => 'agencyDelete']);
         $agencyShow = Permission::create(['name' => 'agencyShow']);
 
-        $barChart = Permission::create(['name'=>'barChart']);
+        $dashboardView= Permission::create(['name'=>'dashboardView']);
 
         $interviewList = Permission::create(['name' => 'interviewList']);
         $interviewCreate = Permission::create(['name' => 'interviewCreate']);
-        //$interviewUpdate = Permission::create(['name' => 'interviewUpdate']);
-        // $interviewDelete = Permission::create(['name' => 'interviewDelete']);
         $interviewShow = Permission::create(['name'=>'interviewShow']);
 
         $candidateList = Permission::create(['name' => 'candidateList']);
@@ -45,26 +42,17 @@ class RoleAndPermissionSeeder extends Seeder
         $candidateUpdate = Permission::create(['name' => 'candidateUpdate']);
         $candidateDelete = Permission::create(['name' => 'candidateDelete']);
         $candidateShow = Permission::create(['name' => 'candidateShow']);
-
-        // $candidateDetailList = Permission::create(['name' => 'candidateDetailList']);
-        // $candidateDetailCreate = Permission::create(['name' => 'candidateDetailCreate']);
-        // $candidateDetailUpdate = Permission::create(['name' => 'candidateDetailUpdate']);
-        // $candidateDetailDelete = Permission::create(['candidateSearchname' => 'candidateDetailDelete']);
         $candidateDetail = Permission::create(['name' => 'candidateDetail']);
 
 
         $candidateSearch=Permission::create(['name'=>'candidateSearch']);
 
-        // $candidateInterviewRateList = Permission::create(['name' => 'candidateInterviewRateList']);
-        // $candidateInterviewRateCreate = Permission::create(['name' => 'candidateInterviewRateCreate']);
-        // $candidateInterviewRateUpdate = Permission::create(['name' => 'candidateInterviewRateUpdate']);
-        // $candidateInterviewRateDelete = Permission::create(['name' => 'candidateInterviewRateDelete']);
         $candidateInterviewRateShow = Permission::create(['name' => 'candidateInterviewRateShow']);
 
         $interviewProcessCreate=Permission::create(['name'=>'interviewProcessCreate']);
         $interviewProcessSearchAssignId=Permission::create(['name'=>'interviewProcessSearchAssignId']);
-        $interviewProcessUpdate=Permission::create(['name'=>'interviewProcessUpdate']);
-
+        $interviewProcessUpdate = Permission::create(['name' => 'interviewProcessUpdate']);
+        $interviewProcessTerminate = Permission::create(['name' => 'interviewProcessTerminate']);
         $interviewerList = Permission::create(['name' => 'interviewerList']);
         $interviewerCreate = Permission::create(['name' => 'interviewerCreate']);
         $interviewerUpdate = Permission::create(['name' => 'interviewerUpdate']);
@@ -100,69 +88,69 @@ class RoleAndPermissionSeeder extends Seeder
         $topicUpdate = Permission::create(['name' => 'topicUpdate']);
         $topicDelete = Permission::create(['name' => 'topicDelete']);
         $topicShow = Permission::create(['name' => 'topicShow']);
-      
+
 
         $super_admin->givePermissionTo([
 
-            $barChart,
+            $dashboardView,
 
             $userList, $userCreate, $userUpdate, $userDelete, $userShow,
 
-            $agencyList, $agencyCreate, $agencyUpdate, $agencyDelete, $agencyShow,                     
-            
+            $agencyList, $agencyCreate, $agencyUpdate, $agencyDelete, $agencyShow,
+
             $candidateList,$candidateCreate,$candidateUpdate,$candidateDelete,$candidateShow,
-            
+
             $candidateDetail,
 
             $candidateInterviewRateShow,
 
             $candidateSearch,
 
-            $interviewCreate,   
+            $interviewCreate,
 
-            $interviewProcessCreate,$interviewProcessSearchAssignId,$interviewProcessUpdate,
+            $interviewProcessCreate,$interviewProcessSearchAssignId,$interviewProcessUpdate,$interviewProcessTerminate,
 
             $interviewerList,$interviewerCreate,$interviewerUpdate,$interviewerDelete,$interviewerShow,
 
             $departmentList,$departmentCreate,$departmentUpdate,$departmentDelete,$departmentShow,
 
             $languageList,$languageCreate,$languageUpdate,$languageDelete,$languageShow,
-            
+
             $positionList,$positionCreate,$positionUpdate,$positionDelete,$positionShow,
-            
+
             $rateList,$rateCreate,$rateUpdate,$rateDelete,$rateShow ,
-            
+
             $topicList,$topicCreate,$topicUpdate,$topicDelete,$topicShow
         ]);
 
         $admin->givePermissionTo([
 
-            $barChart,
-            
+            $dashboardView,
+
             $userList,
-            
+
             $agencyList,
 
             $candidateList,
 
             $candidateSearch,
-            
+
             $interviewerList,
 
             $departmentList,
 
             $languageList,
-            
+
             $positionList,
-            
+
             $rateList,
-            
+
             $topicList
         ]);
 
         $moderator->givePermissionTo([
             $candidateList,
         ]);
-       
+
     }
 }

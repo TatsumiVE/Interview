@@ -5,17 +5,16 @@ namespace App\Services\InterviewProcess;
 use App\Models\Interview;
 
 use App\Models\InterviewStage;
-
 use App\Models\InterviewAssign;
-use App\Services\InterviewProcess\InterviewProcessServiceInterface;
-use Carbon\Carbon;
+
 use Illuminate\Support\Facades\DB;
+use App\Services\InterviewProcess\InterviewProcessServiceInterface;
 
 class InterviewProcessService implements InterviewProcessServiceInterface
 {
   public function store($request)
   {
-    DB::transaction(function () use ($request) {
+    return   DB::transaction(function () use ($request) {
 
       $stage = InterviewStage::create([
         'stage_name' => $request['stage_name'],
@@ -32,24 +31,21 @@ class InterviewProcessService implements InterviewProcessServiceInterface
       $interviewAssigns = [];
 
       foreach ($interviewers as $interviewer) {
+
         $interviewAssign = InterviewAssign::create([
           'interview_id' => $interview->id,
           'interviewer_id' => $interviewer['interviewer_id'],
-          // 'interviewer_id' => $interviewer,
         ]);
         $interviewAssigns[] = $interviewAssign;
       }
-
-
-      return $interviewAssigns;
     });
   }
 
-  public function interviewSummerize($request, $candidateID, $stageID)
+
+  public function interviewSummarize($request, $candidateId, $stageId)
   {
-    $result = Interview::with('candidate', 'interviewStage')
-      ->where('candidate_id', $candidateID)
-      ->where('interview_stage_id', $stageID)->first();
+    $result = Interview::with('candidate', 'interviewStage')->where('candidate_id', $candidateId)
+      ->where('interview_stage_id', $stageId)->first();
     return $result->update($request);
   }
 }

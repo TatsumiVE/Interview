@@ -27,11 +27,12 @@ class CandidateController extends Controller
         $this->candidateRepo = $candidateRepo;
         $this->candidateService = $candidateService;
 
-        // $this->middleware('permission:candidateList', ['only' => ['index']]);
-        // $this->middleware('permission:candidateagencyCreate', ['only' => ['store']]);
-        // $this->middleware('permission:candidateUpdate', ['only' => ['update']]);
-        // $this->middleware('permission:candidateDelete', ['only' => ['destroy']]);
-        // $this->middleware('permission:candidateShow', ['only' => ['show']]);
+
+        $this->middleware('permission:candidateList', ['only' => ['index']]);
+        $this->middleware('permission:candidateCreate', ['only' => ['store']]);
+        $this->middleware('permission:candidateUpdate', ['only' => ['update']]);
+        $this->middleware('permission:candidateDelete', ['only' => ['destroy']]);
+        $this->middleware('permission:candidateShow', ['only' => ['show']]);
     }
 
     public function index()
@@ -50,7 +51,7 @@ class CandidateController extends Controller
     {
         try {
             $data = $this->candidateService->store($request);
-            return $this->success(200, "success", "New Candidate Created Successfully");
+            return $this->success(201, "success", "New Candidate Created Successfully");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
@@ -72,27 +73,7 @@ class CandidateController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $validatedData = $request->validate([
-                'name' => 'required',
-                'email' => 'required|email|unique:candidates,email' . $id,
-                'gender' => 'required',
-                'phone_number' => 'required',
-                'residential_address' => 'required',
-                'date_of_birth' => 'required|date|before_or_equal:' . now()->subYear()->format('Y-m-d'),
-                'cv_path'  => 'required',
-                'willingness_to_travel' => '',
-                'expected_salary' => '',
-                'last_salary' => '',
-                'earliest_starting_date' => '',
-                'position_id' => 'required|exists:positions,id',
-                'agency_id' => 'required| exists:agencies,id',
-                'status' => '',
-                'data.*.experience.month' => 'required|integer|between:1,12',
-                'data.*.experience.year' => 'required|integer|between:0,30',
-                'data.*.devlanguage_id' => 'required',
-            ]);
-
-            $data = $this->candidateService->update($validatedData, $id);
+            $data = $this->candidateService->update($request, $id);
             return $this->success(200, $data, 'Candidate updated successfully');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

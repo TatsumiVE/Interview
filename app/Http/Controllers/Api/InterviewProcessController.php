@@ -65,11 +65,11 @@ class InterviewProcessController extends Controller
     // }
 
 
-    //interview summerize 
-    public function interviewSummerize(InterviewResultRequest  $request,  $candidateID, $stageID)
+    //interview summarize 
+    public function interviewSummarize(InterviewResultRequest  $request,  $candidateID, $stageID)
     {
         try {
-            $data = $this->interviewProcessService->interviewSummerize($request->validated(), $candidateID, $stageID);
+            $data = $this->interviewProcessService->interviewSummarize($request->validated(), $candidateID, $stageID);
             return $this->success(200, $data, "Updated Success Interviews result");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

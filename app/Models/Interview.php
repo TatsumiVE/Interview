@@ -19,7 +19,8 @@ class Interview extends Model
         'interview_result',
         'record_path',
         'candidate_id',
-        'interview_stage_id'
+        'interview_stage_id',
+        'record_path'
     ];
 
     protected $hidden = [

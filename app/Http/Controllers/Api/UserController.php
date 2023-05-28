@@ -12,9 +12,7 @@ use App\Services\User\UserServiceInterface;
 use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+
 
 class UserController extends Controller
 {
@@ -26,11 +24,12 @@ class UserController extends Controller
         $this->userRepo = $userRepo;
         $this->userService = $userService;
 
-        // $this->middleware('permission:userList',['only'=>['index']]);
-        // $this->middleware('permission:userCreate',['only'=>['store']]);
-        // $this->middleware('permission:userUpdate',['only'=>['update']]);
-        // $this->middleware('permission:userDelete',['only'=>['destroy']]);
-        // $this->middleware('permission:userShow',['only'=>['show']]);
+
+        $this->middleware('permission:userList', ['only' => ['index']]);
+        $this->middleware('permission:userCreate', ['only' => ['store']]);
+        $this->middleware('permission:userUpdate', ['only' => ['update']]);
+        $this->middleware('permission:userDelete', ['only' => ['destroy']]);
+        $this->middleware('permission:userShow', ['only' => ['show']]);
     }
 
     public function index()
@@ -69,8 +68,6 @@ class UserController extends Controller
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
-
-
     public function update(Request $request, $id)
     {
         try {
