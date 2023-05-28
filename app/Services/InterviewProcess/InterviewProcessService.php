@@ -35,7 +35,7 @@ class InterviewProcessService implements InterviewProcessServiceInterface
       foreach ($interviewers as $interviewer) {
         $interviewAssign = InterviewAssign::create([
           'interview_id' => $interview->id,
-          'interviewer_id' => $interviewer,
+          'interviewer_id' => $interviewer['interviewer_id'],
         ]);
         $interviewAssigns[] = $interviewAssign;
       }

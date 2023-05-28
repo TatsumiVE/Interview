@@ -15,7 +15,7 @@ class BarChartController extends Controller
     public function __construct()
     {      
 
-        $this->middleware('permission:barChart',['only'=>['index']]);
+        // $this->middleware('permission:barChart',['only'=>['index']]);
         
     }
     public function index(){

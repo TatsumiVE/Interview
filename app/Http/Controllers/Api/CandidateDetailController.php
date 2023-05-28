@@ -19,7 +19,7 @@ class CandidateDetailController extends Controller
     {
         $this->candidateDetailRepo = $candidateDetailRepo;
 
-        $this->middleware('permission:candidateDetail',['only'=>['candidateDetail']]);
+        // $this->middleware('permission:candidateDetail',['only'=>['candidateDetail']]);
 
     }
     public function candidateDetail($id)
