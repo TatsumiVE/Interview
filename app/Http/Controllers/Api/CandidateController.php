@@ -26,11 +26,11 @@ class CandidateController extends Controller
         $this->candidateRepo = $candidateRepo;
         $this->candidateService = $candidateService;
 
-        // $this->middleware('permission:candidateList',['only'=>['index']]);
-        // $this->middleware('permission:candidateagencyCreate',['only'=>['store']]);
-        // $this->middleware('permission:candidateUpdate',['only'=>['update']]);
-        // $this->middleware('permission:candidateDelete',['only'=>['destroy']]);
-        // $this->middleware('permission:candidateShow',['only'=>['show']]);
+        $this->middleware('permission:candidateList',['only'=>['index']]);
+        $this->middleware('permission:candidateCreate',['only'=>['store']]);
+        $this->middleware('permission:candidateUpdate',['only'=>['update']]);
+        $this->middleware('permission:candidateDelete',['only'=>['destroy']]);
+        $this->middleware('permission:candidateShow',['only'=>['show']]);
     }
 
     public function index()
@@ -106,7 +106,7 @@ class CandidateController extends Controller
             $data = '';
             return $this->success(200, $data, 'Candidate deleted successfully');
         } else {
-            $msg = 'Cannot delete because there is are relationships remaining';
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
             return $this->error(500, $msg, 'Internal Server Error');
         }
     }

@@ -25,7 +25,7 @@ class InterviewService implements InterviewServiceInterface
 
         ]);
 
-        DB::transaction(function () use ($validatedData) {
+      return  DB::transaction(function () use ($validatedData) {
             Remark::create([
                 'interview_stage_id' => $validatedData['interview_stage_id'],
                 'comment' => $validatedData['comment'],

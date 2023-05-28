@@ -21,11 +21,11 @@ class PositionController extends Controller
         $this->positionRepo = $positionRepo;
         $this->positionService = $positionService;
 
-        // $this->middleware('permission:positionList',['only'=>['index']]);
-        // $this->middleware('permission:positionCreate',['only'=>['store']]);
-        // $this->middleware('permission:positionUpdate',['only'=>['update']]);
-        // $this->middleware('permission:positionDelete',['only'=>['destroy']]);
-        // $this->middleware('permission:positionShow',['only'=>['show']]);
+        $this->middleware('permission:positionList',['only'=>['index']]);
+        $this->middleware('permission:positionCreate',['only'=>['store']]);
+        $this->middleware('permission:positionUpdate',['only'=>['update']]);
+        $this->middleware('permission:positionDelete',['only'=>['destroy']]);
+        $this->middleware('permission:positionShow',['only'=>['show']]);
     }
 
 
@@ -88,7 +88,7 @@ class PositionController extends Controller
             $data = '';
             return $this->success(200, $data, "Position  successfully deleted.");
         } else {
-            $msg = 'Can not delete because there are relationships remaining';
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
             return $this->error(500, $msg, 'Internal Server Error');
         }
     }

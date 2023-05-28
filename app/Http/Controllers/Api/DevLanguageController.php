@@ -26,11 +26,11 @@ class DevLanguageController extends Controller
         $this->DevLanguageRepo = $DevLanguageRepo;
         $this->DevLanguageService = $DevLanguageService;
 
-        // $this->middleware('permission:languageList',['only'=>['index']]);
-        // $this->middleware('permission:languageCreate',['only'=>['store']]);
-        // $this->middleware('permission:languageUpdate',['only'=>['update']]);
-        // $this->middleware('permission:languageDelete',['only'=>['destroy']]);
-        // $this->middleware('permission:languageShow',['only'=>['show']]);
+        $this->middleware('permission:languageList',['only'=>['index']]);
+        $this->middleware('permission:languageCreate',['only'=>['store']]);
+        $this->middleware('permission:languageUpdate',['only'=>['update']]);
+        $this->middleware('permission:languageDelete',['only'=>['destroy']]);
+        $this->middleware('permission:languageShow',['only'=>['show']]);
     }
     /**
      * Display a listing of the resource.
@@ -111,7 +111,7 @@ class DevLanguageController extends Controller
             $data = '';
             return $this->success(200, $data, 'Language successfully deleted');
         } else {
-            $msg = 'Cannot delete because there are relationship remaining';
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
             return $this->error(500, $msg, 'Internal Server Error');
         }
     }

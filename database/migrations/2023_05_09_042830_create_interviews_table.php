@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('interview_summarize')->nullable();
             $table->date('interview_result_date')->nullable();
             $table->integer('interview_result')->nullable();
+            $table->string('record_path')->nullable();
+
             $table->foreignId('candidate_id')->constrained();
             $table->foreignId('interview_stage_id')->constrained();
             $table->timestamps();

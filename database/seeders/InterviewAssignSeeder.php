@@ -16,7 +16,6 @@ class InterviewAssignSeeder extends Seeder
     public function run()
     {
 
-        // //for candidate 1  stage 1
         // InterviewAssign::create([
         //     'interview_id' => 1,
         //     'interviewer_id' => 1
@@ -32,7 +31,7 @@ class InterviewAssignSeeder extends Seeder
         //     'interviewer_id' => 3
         // ]);
 
-        // //for candidate 1 stage 2
+
         // InterviewAssign::create([
         //     'interview_id' => 2,
         //     'interviewer_id' => 1
@@ -45,23 +44,6 @@ class InterviewAssignSeeder extends Seeder
 
         // InterviewAssign::create([
         //     'interview_id' => 2,
-        //     'interviewer_id' => 3
-        // ]);
-
-
-        // //for candidate 2 stage 1
-        // InterviewAssign::create([
-        //     'interview_id' => 3,
-        //     'interviewer_id' => 1
-        // ]);
-
-        // InterviewAssign::create([
-        //     'interview_id' => 3,
-        //     'interviewer_id' => 2
-        // ]);
-
-        // InterviewAssign::create([
-        //     'interview_id' => 3,
         //     'interviewer_id' => 3
         // ]);
     }

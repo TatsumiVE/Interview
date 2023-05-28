@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use Exception;
+use App\Models\Candidate;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InterviewResultRequest;
-
-
-use App\Repositories\InterviewProcess\InterviewProcessRepoInterface;
 use App\Services\InterviewProcess\InterviewProcessServiceInterface;
+use App\Repositories\InterviewProcess\InterviewProcessRepoInterface;
 
 class InterviewProcessController extends Controller
 {
@@ -24,6 +23,11 @@ class InterviewProcessController extends Controller
         {
             $this->interviewProcessRepo= $interviewProcessRepo;
             $this->interviewProcessService = $interviewProcessService;
+
+            $this->middleware('permission:interviewProcessCreate',['only'=>['store']]);
+            $this->middleware('permission:interviewProcessSearchAssignId',['only'=>['searchInterviewAssignId']]);
+            $this->middleware('permission:interviewProcessUpdate', ['only' => ['interviewSummerize']]);
+            $this->middleware('permission:interviewProcessTerminate', ['only' => ['terminateProcess']]);
         }
         public function store(Request $request)
         {
@@ -46,23 +50,29 @@ class InterviewProcessController extends Controller
         };
     }
 
-    // public function showAssessment($showAssessment)
-    // {
-    //     try {
-    //         $data = $this->interviewProcessRepo->showAssessment($showAssessment);
-    //         return $this->success(200, $data, 'success ');
-    //     } catch (Exception $e) {
-    //         return $this->error(500, $e->getMessage(), 'Internal Server Error');
-    //     };
-    // }
+    public function interviewSummarize(InterviewResultRequest  $request,  $candidateId, $stageId)
+    {
+        try {
+            $data = $this->interviewProcessService->interviewSummarize($request->all(), $candidateId, $stageId);
+            return $this->success(200, $data, "Updated Success Interviews result");
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        };
+    }
 
-        public function update(InterviewResultRequest  $request, $id)
-        {
-            try {
-                $data = $this->interviewProcessService->update($request->validated(), $id);
-                return $this->success(200, $data, "Updated Success Interviews result");
-            } catch (Exception $e) {
-                return $this->error(500, $e->getMessage(), 'Internal Server Error');
-            };
-        }
+
+    public function terminateProcess($candidateId)
+    {
+        try {
+
+            $candidate = Candidate::findOrFail($candidateId);
+            $candidate->status = 1;
+            $data = $candidate->save();
+            return $this->success(200, $data, "Candidate Terminate Successfully");
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        };
+    }
+
+
 }

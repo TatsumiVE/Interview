@@ -16,6 +16,47 @@ class RemarkSeeder extends Seeder
     public function run()
     {
 
-       
+        // Remark::create([
+        //     'comment' => 'This person is well',
+        //     'grade' => 1,
+        //     'interview_stage_id' => 1,
+        //     'interview_assign_id' => 1
+        // ]);
+
+        // Remark::create([
+        //     'comment' => 'This person is good',
+        //     'grade' => 2,
+        //     'interview_stage_id' => 1,
+        //     'interview_assign_id' => 2
+        // ]);
+
+        // Remark::create([
+        //     'comment' => 'This person is well',
+        //     'grade' => 3,
+        //     'interview_stage_id' => 1,
+        //     'interview_assign_id' => 3
+        // ]);
+
+
+        // Remark::create([
+        //     'comment' => 'This person is well',
+        //     'grade' => 4,
+        //     'interview_stage_id' => 2,
+        //     'interview_assign_id' => 4
+        // ]);
+
+        // Remark::create([
+        //     'comment' => 'This person is well',
+        //     'grade' => 3,
+        //     'interview_stage_id' => 2,
+        //     'interview_assign_id' => 5
+        // ]);
+
+        // Remark::create([
+        //     'comment' => 'This person is well',
+        //     'grade' => 3,
+        //     'interview_stage_id' => 2,
+        //     'interview_assign_id' => 6
+        // ]);
     }
 }

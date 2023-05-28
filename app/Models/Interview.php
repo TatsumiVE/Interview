@@ -18,7 +18,8 @@ class Interview extends Model
         'interview_result_date',
         'interview_result',
         'candidate_id',
-        'interview_stage_id'
+        'interview_stage_id',
+        'record_path'
     ];
 
     protected $hidden = [

@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\Interview;
@@ -15,11 +16,12 @@ class InterviewSeeder extends Seeder
     public function run()
     {
 
-        // //for candidate 1  stage 1
+        //for candidate 1  stage 1
         // Interview::create([
         //     'interview_summarize' => 'WELL',
         //     'interview_result_date' => '2023-05-04',
         //     'interview_result' => 5,
+        //     'record_path' => 'https://docs.google.com/document/d/1j6Z7nIBAqaYVH4u8LD09d2SqCMCLLsogjUrh1t8RguE/edit',
         //     'candidate_id' => 1,
         //     'interview_stage_id' => 1
         // ]);
@@ -30,17 +32,9 @@ class InterviewSeeder extends Seeder
         //     'interview_summarize' => 'NORMAL',
         //     'interview_result_date' => '2023-05-04',
         //     'interview_result' => 5,
+        //     'record_path' => 'https://docs.google.com/document/d/1j6Z7nIBAqaYVH4u8LD09d2SqCMCLLsogjUrh1t8RguE/edit',
         //     'candidate_id' => 1,
         //     'interview_stage_id' => 2
-        // ]);
-
-        // //for candidate 2 stage 1
-        // Interview::create([
-        //     'interview_summarize' => 'NORMAL',
-        //     'interview_result_date' => '2023-05-04',
-        //     'interview_result' => 5,
-        //     'candidate_id' => 2,
-        //     'interview_stage_id' => 1
         // ]);
     }
 }

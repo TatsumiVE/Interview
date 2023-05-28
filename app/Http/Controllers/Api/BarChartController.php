@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\DB;
 class BarChartController extends Controller
 {
     use ApiResponser;
+
+    public function __construct()
+    {
+
+        $this->middleware('permission:dashboardView',['only'=>['index']]);
+
+    }
     public function index(){
         try {
             $candidateCounts = SpecificLanguage::select('devlanguage_id', DB::raw('COUNT(candidate_id) as count'))
