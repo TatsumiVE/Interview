@@ -14,18 +14,18 @@ class InterviewService implements InterviewServiceInterface
     {
 
         $validatedData = $request->validate([
-            'interview_stage_id' => 'required',
-            'comment' => 'required',
+            'interview_stage_id' => 'required|exists:interview_stages,id',
+            'comment' => 'required|string',
             'grade' => 'required',
-            'interview_assign_id' => 'required',
-            'candidate_id' => 'required',
+            'interview_assign_id' => 'required|exists:interview_assigns,id',
+            'candidate_id' => 'required|exists:candidates,id',
             'data' => 'required|array',
-            'data.*.topic_id' => 'required',
-            'data.*.rate_id' => 'required',
+            'data.*.topic_id' => 'required|exists:topics,id',
+            'data.*.rate_id' => 'required|exists:rates,id',
 
         ]);
 
-      return  DB::transaction(function () use ($validatedData) {
+        return  DB::transaction(function () use ($validatedData) {
             Remark::create([
                 'interview_stage_id' => $validatedData['interview_stage_id'],
                 'comment' => $validatedData['comment'],
@@ -47,9 +47,5 @@ class InterviewService implements InterviewServiceInterface
                 ]);
             }
         });
-
-    }
-    public function update($data, $id)
-    {
     }
 }

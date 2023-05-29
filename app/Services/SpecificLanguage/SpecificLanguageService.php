@@ -10,7 +10,4 @@ class SpecificLanguageService implements SpecificLanguageServiceInterface
   {
     $data = Candidate::where('id', $data)->first();
   }
-  public function update($data, $id)
-  {
-  }
 }

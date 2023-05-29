@@ -23,11 +23,11 @@ class InterviewerController extends Controller
         $this->interviewerRepo = $interviewerRepo;
         $this->interviewerService = $interviewerService;
 
-        // $this->middleware('permission:interviewerList',['only'=>['index']]);
-        // $this->middleware('permission:interviewerCreate',['only'=>['store']]);
-        // $this->middleware('permission:interviewerUpdate',['only'=>['update']]);
-        // $this->middleware('permission:interviewerDelete',['only'=>['destroy']]);
-        // $this->middleware('permission:interviewerShow',['only'=>['show']]);
+        $this->middleware('permission:interviewerList', ['only' => ['index']]);
+        $this->middleware('permission:interviewerCreate', ['only' => ['store']]);
+        $this->middleware('permission:interviewerUpdate', ['only' => ['update']]);
+        $this->middleware('permission:interviewerDelete', ['only' => ['destroy']]);
+        $this->middleware('permission:interviewerShow', ['only' => ['show']]);
     }
 
 

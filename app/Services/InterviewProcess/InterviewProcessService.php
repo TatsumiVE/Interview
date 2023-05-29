@@ -14,27 +14,36 @@ class InterviewProcessService implements InterviewProcessServiceInterface
 {
   public function store($request)
   {
-    return   DB::transaction(function () use ($request) {
+    $validatedData = $request->validate([
+      'stage_name' => 'required|string',
+      'interview_date' => 'required|date',
+      'interview_time' => 'required',
+      'location' => 'required',
+      'candidate_id' => 'required|numeric',
+      'interviewer_id' => 'required|array',
+    ]);
+    return  DB::transaction(function () use ($validatedData) {
 
       $stage = InterviewStage::create([
-        'stage_name' => $request['stage_name'],
-        'interview_date' => $request['interview_date'],
-        'interview_time' => $request['interview_time'],
-        'location' => $request['location'],
+        'stage_name' => $validatedData['stage_name'],
+        'interview_date' => $validatedData['interview_date'],
+        'interview_time' => $validatedData['interview_time'],
+        'location' => $validatedData['location'],
       ]);
 
       $interview = Interview::create([
-        'candidate_id' => $request['candidate_id'],
+        'candidate_id' => $validatedData['candidate_id'],
         'interview_stage_id' => $stage->id,
       ]);
-      $interviewers = $request->input('interviewer_id', []);
+      // $interviewers = $validatedData['interviewer_id'];
+      // dd($interviewers);
       $interviewAssigns = [];
 
-      foreach ($interviewers as $interviewer) {
+      foreach ($validatedData['interviewer_id'] as $interviewer) {
 
         $interviewAssign = InterviewAssign::create([
           'interview_id' => $interview->id,
-          'interviewer_id' => $interviewer['interviewer_id'],
+          'interviewer_id' => $interviewer,
         ]);
         $interviewAssigns[] = $interviewAssign;
       }
@@ -44,7 +53,8 @@ class InterviewProcessService implements InterviewProcessServiceInterface
 
   public function interviewSummarize($request, $candidateId, $stageId)
   {
-    $result = Interview::with('candidate', 'interviewStage')->where('candidate_id', $candidateId)
+    $result = Interview::with('candidate', 'interviewStage')
+      ->where('candidate_id', $candidateId)
       ->where('interview_stage_id', $stageId)->first();
     return $result->update($request);
   }

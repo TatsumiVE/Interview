@@ -55,12 +55,8 @@ Route::middleware('auth:sanctum')->group(function () {
   Route::apiResource('departments', DepartmentController::class);
   Route::apiResource('positions', PositionController::class);
   Route::apiResource('dev-languages', DevLanguageController::class);
-  Route::apiResource('candidates', CandidateController::class);
   Route::post('candidates/searchs', [CandidateSearchController::class, 'search']);
-
-
-
-  Route::apiResource('interviewers', InterviewerController::class);
-
+  Route::apiResource('candidates', CandidateController::class);
   Route::apiResource('interviews', InterviewController::class);
+  Route::apiResource('interviewers', InterviewerController::class);
 });

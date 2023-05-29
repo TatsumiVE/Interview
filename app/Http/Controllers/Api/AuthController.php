@@ -38,11 +38,4 @@ class AuthController extends Controller
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
-
-    public function logout(Request $request)
-    {
-        $request->user()->currentAccessToken()->delete();
-        $data = "";
-        return $this->success(200, $data, 'User Token delete successfully.');
-    }
 }

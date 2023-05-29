@@ -26,8 +26,6 @@ class CandidateController extends Controller
     {
         $this->candidateRepo = $candidateRepo;
         $this->candidateService = $candidateService;
-
-
         $this->middleware('permission:candidateList', ['only' => ['index']]);
         $this->middleware('permission:candidateCreate', ['only' => ['store']]);
         $this->middleware('permission:candidateUpdate', ['only' => ['update']]);
@@ -58,11 +56,11 @@ class CandidateController extends Controller
     }
 
 
-    public function show(Candidate $candidate, InterviewStage $stagename)
+    public function show(Candidate $candidate)
     {
 
         try {
-            $data = $this->candidateRepo->show($candidate, $stagename);
+            $data = $this->candidateRepo->show($candidate);
             return $this->success(200, $data, 'Candidate Data retrieved  successfully');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

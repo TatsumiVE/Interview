@@ -90,12 +90,15 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TopicRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         try {
-            $data = $this->topicService->update($request->validated(), $id);
-            return $this->success(200, $data, "Topic updated");
+            $validateData = $request->validate([
+                'name'  => 'required|string|unique:topics,name,' . $id,
+            ]);
+            $data = $this->topicService->update($validateData, $id);
+            return $this->success(200, $data, "Topic updated successfully");
         } catch (Exception $e) {
             return $this->error($e->getCode(), [], $e->getMessage());
         }
@@ -107,16 +110,16 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Topic $topic)
     {
 
-
-        try {
-            $data = Topic::where('id', $id)->first();
-            $data->delete();
-            return $this->success(200, $data, "Delete topic success");
-        } catch (Exception $e) {
-            return $this->error($e->getCode(), [], $e->getMessage());
+        if (count($topic->assessmentResults) == 0) {
+            $topic->delete();
+            $data = '';
+            return $this->success(200, $data, "Topic deleted successfully.");
+        } else {
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
+            return $this->error(500, $msg, 'Internal Server Error');
         }
     }
 }
