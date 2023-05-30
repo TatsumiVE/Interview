@@ -45,7 +45,7 @@ Route::middleware(['cors'])->group(function () {
 Route::middleware(['cors', 'auth:sanctum'])->group(function () {
   Route::get('candidates/{id}', [CandidateDetailController::class, 'candidateDetail']);
   Route::get('candidates-detail', [CandidateDetailController::class, 'index']);
-  Route::get('candidate/stageName/{stageName}', [CandidateDetailController::class, 'getCandidatesByStageName']);
+  Route::get('candidate/stage/{stageName}', [CandidateDetailController::class, 'getCandidatesByStageName']);
   Route::post('interview-process', [InterviewProcessController::class, 'store']);
   Route::post('interview-process/result/{candiateId}/{stageId}', [InterviewProcessController::class, 'interviewSummarize']);
   //find AssignI
@@ -64,4 +64,5 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
   Route::apiResource('candidates', CandidateController::class);
   Route::apiResource('interviews', InterviewController::class);
   Route::apiResource('interviewers', InterviewerController::class);
+  Route::get('candidate-barchart', [BarChartController::class, 'index']);
 });
