@@ -36,9 +36,13 @@ use App\Http\Controllers\Api\InterviewProcessController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::middleware(['cors'])->group(function () {
+    Route::post('auth/login', [AuthController::class, 'userLogin']);
+    Route::post('auth/checkToken', [AuthController::class, 'checkToken']);
 
-Route::post('auth/login', [AuthController::class, 'UserLogin']);
-Route::middleware('auth:sanctum')->group(function () {
+});
+
+Route::middleware(['cors','auth:sanctum'])->group(function () {
     Route::get('candidates/{id}', [CandidateDetailController::class, 'candidateDetail']);
     Route::post('interview-process', [InterviewProcessController::class, 'store']);
 
@@ -64,3 +68,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('interviews', InterviewController::class);
 });
+
+
+
+
+
+
