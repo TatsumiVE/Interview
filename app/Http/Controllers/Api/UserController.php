@@ -70,8 +70,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $validateData = $request->validate([
-                
+            $validateData = $request->validate([                
                 'role' => 'required'
             ]);
 

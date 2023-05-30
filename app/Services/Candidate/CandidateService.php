@@ -33,7 +33,7 @@ class CandidateService implements CandidateServiceInterface
       'data.*.devlanguage_id' => 'required',
     ]);
 
-    DB::transaction(function () use ($validatedData) {
+    return DB::transaction(function () use ($validatedData) {
 
       $candidate = Candidate::create($validatedData);
 
@@ -73,9 +73,8 @@ class CandidateService implements CandidateServiceInterface
     ]);
 
 
-
     // $result = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
-    DB::transaction(function () use ($validatedData, $id) {
+   return DB::transaction(function () use ($validatedData, $id) {
 
       $candidate = Candidate::findOrFail($id);
 
