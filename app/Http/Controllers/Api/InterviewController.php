@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use Exception;
+use App\Models\Interviewer;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\InterviewResource;
-use App\Models\Interviewer;
 use App\Services\Interview\InterviewServiceInterface;
 use App\Repositories\Interview\InterviewRepoInterface;
 
@@ -28,8 +29,8 @@ class InterviewController extends Controller
         $this->interviewRepo = $interviewRepo;
         $this->interviewService = $interviewerService;
 
-        // $this->middleware('permission:interviewList', ['only' => ['index']]);
-        // $this->middleware('permission:interviewCreate', ['only' => ['store']]);
+        $this->middleware('permission:interviewList', ['only' => ['index']]);
+        $this->middleware('permission:interviewCreate', ['only' => ['store']]);
         // $this->middleware('permission:interviewShow', ['only' => ['show']]);
     }
     public function index()
@@ -38,7 +39,7 @@ class InterviewController extends Controller
             $data = $this->interviewRepo->get();
             return $this->success(200, $data, 'success');
         } catch (Exception $e) {
-
+            Log::channel('web_daily_error')->error('Error retrieving Interview-Candidate data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
@@ -56,9 +57,9 @@ class InterviewController extends Controller
         //assessment create
         try {
             $this->interviewService->store($request);
-            return $this->success(200, 'Done', "New Assement Form Created");
+            return $this->success(200, 'Done', "New Interview-Candidate Assessment  Created");
         } catch (Exception $e) {
-
+            Log::channel('web_daily_error')->error('Error creating Interview-Candidate Assessment: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
@@ -70,17 +71,17 @@ class InterviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Interviewer $id)
-    {
+    // public function show(Interviewer $id)
+    // {
 
 
-        try {
-            $data = $this->interviewRepo->show($id);
-            return $this->success(200, $data, 'success');
-        } catch (Exception $e) {
-            return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        };
-    }
+    //     try {
+    //         $data = $this->interviewRepo->show($id);
+    //         return $this->success(200, $data, 'success');
+    //     } catch (Exception $e) {
+    //         return $this->error(500, $e->getMessage(), 'Internal Server Error');
+    //     };
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -89,10 +90,10 @@ class InterviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    // public function update(Request $request, $id)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -100,8 +101,8 @@ class InterviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    // public function destroy($id)
+    // {
+    //     //
+    // }
 }

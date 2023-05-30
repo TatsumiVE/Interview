@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
+use App\Models\Department;
+use App\Traits\ApiResponser;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Http\Resources\DepartmentResource;
-use App\Models\Department;
-use App\Repositories\Department\DepartmentRepoInterface;
 use App\Services\Department\DepartmentServiceInterface;
-use App\Traits\ApiResponser;
-use Exception;
-use Illuminate\Http\Request;
+use App\Repositories\Department\DepartmentRepoInterface;
 
 class DepartmentController extends Controller
 {
@@ -34,6 +35,7 @@ class DepartmentController extends Controller
             $data = $this->departmentRepo->get();
             return $this->success(200, DepartmentResource::collection($data), "Department retrieved successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Department data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -46,8 +48,9 @@ class DepartmentController extends Controller
 
             $data = $this->departmentService->store($validateData);
 
-            return $this->success(200, new DepartmentResource($data), "Department created successfully.");
+            return $this->success(201, new DepartmentResource($data), "Department created successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error creating Department: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -58,6 +61,7 @@ class DepartmentController extends Controller
             $data = $this->departmentRepo->show($id);
             return $this->success(200, new DepartmentResource($data), "Department showed successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving department data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -73,6 +77,7 @@ class DepartmentController extends Controller
             $data = $this->departmentService->update($validateData, $id);
             return $this->success(200, $data, "Department updated successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error updating department: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -80,13 +85,18 @@ class DepartmentController extends Controller
 
     public function destroy(Department $department)
     {
-        if (count($department->interviewers) == 0) {
-            $department->delete();
-            $data = '';
-            return $this->success('200, $data, "Department deleted successfully.');
-        } else {
-            $msg = 'Sorry,cannot delete because there are some relationships remaining';
-            return $this->error(500, $msg, 'Internal Server Error');
+        try {
+            if (count($department->interviewers) == 0) {
+                $department->delete();
+                $data = '';
+                return $this->success('200, $data, "Department deleted successfully.');
+            } else {
+                $msg = 'Sorry,cannot delete because there are some relationships remaining';
+                return $this->error(500, $msg, 'Internal Server Error');
+            }
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error deleting department: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 }

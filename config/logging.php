@@ -125,6 +125,14 @@ return [
         ],
 
 
+        'web_daily_error' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/web_daily_error.log'),
+            'level' => 'debug',
+
+        ],
+
+
     ],
 
 ];

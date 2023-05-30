@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
+use App\Models\Position;
+use App\Traits\ApiResponser;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PositionRequest;
 use App\Http\Resources\PositionResource;
-use App\Models\Position;
-use App\Repositories\Position\PositionRepoInterface;
 use App\Services\Position\PositionServiceInterface;
-use App\Traits\ApiResponser;
-use Exception;
-use Illuminate\Http\Request;
+use App\Repositories\Position\PositionRepoInterface;
 
 class PositionController extends Controller
 {
@@ -35,6 +36,7 @@ class PositionController extends Controller
             $data = $this->positionRepo->get();
             return $this->success(200, PositionResource::collection($data), "Position retrieved successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Position data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -48,6 +50,7 @@ class PositionController extends Controller
 
             return $this->success(200, $data, "Position created successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error creating Position data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -58,6 +61,7 @@ class PositionController extends Controller
             $data = $this->positionRepo->show($id);
             return $this->success(200, new PositionResource($data), "Position showed successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Position data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -73,6 +77,7 @@ class PositionController extends Controller
             $data = $this->positionService->update($validateData, $id);
             return $this->success(200, $data, "Position updated successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error updating Position data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -80,16 +85,21 @@ class PositionController extends Controller
 
     public function destroy(Position $position)
     {
-        if (
-            count($position->candidates) == 0 ||
-            count($position->interviewers) == 0
-        ) {
-            $position->delete();
-            $data = '';
-            return $this->success(200, $data, "Position  successfully deleted.");
-        } else {
-            $msg = 'Sorry,cannot delete because there are some relationships remaining';
-            return $this->error(500, $msg, 'Internal Server Error');
+        try {
+            if (
+                count($position->candidates) == 0 ||
+                count($position->interviewers) == 0
+            ) {
+                $position->delete();
+                $data = '';
+                return $this->success(200, $data, "Position  successfully deleted.");
+            } else {
+                $msg = 'Sorry,cannot delete because there are some relationships remaining';
+                return $this->error(500, $msg, 'Internal Server Error');
+            }
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error deleting Position: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 }

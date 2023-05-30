@@ -19,7 +19,7 @@ class CandidateService implements CandidateServiceInterface
       'gender' => 'required',
       'phone_number' => 'required|regex:/^[0-9]{10,}$/|unique:candidates,phone_number',
       'residential_address' => 'required',
-      'date_of_birth' => 'required|date|before_or_equal:' . now()->subYear()->format('Y-m-d'),
+      'date_of_birth' => 'required|date|before_or_equal:' . now()->subYear()->format('d-m-Y'),
       'cv_path'  => 'required',
       'willingness_to_travel' => '',
       'expected_salary' => '',
@@ -54,11 +54,11 @@ class CandidateService implements CandidateServiceInterface
 
     $validatedData = $request->validate([
       'name' => 'required',
-      'email' => 'required|email|unique:candidates,email,' . $id,
+      'email' => 'required|email',
       'gender' => 'required',
       'phone_number' => 'required',
       'residential_address' => 'required',
-      'date_of_birth' => 'required|date|before_or_equal:' . now()->subYear()->format('Y-m-d'),
+      'date_of_birth' => 'required|date|before_or_equal:' . now()->subYear()->format('d-m-Y'),
       'cv_path'  => 'required',
       'willingness_to_travel' => '',
       'expected_salary' => '',
@@ -67,16 +67,15 @@ class CandidateService implements CandidateServiceInterface
       'position_id' => 'required|exists:positions,id',
       'agency_id' => 'required| exists:agencies,id',
       'status' => '',
-      'data..experience.month' => 'required|integer|between:1,12',
-      'data..experience.year' => 'required|integer|between:0,30',
-      'data..devlanguage_id' => 'required',
+      'data.*.experience.month' => 'required|integer|between:1,12',
+      'data.*.experience.year' => 'required|integer|between:0,30',
+      'data.*.devlanguage_id' => 'required',
     ]);
 
 
 
     // $result = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
     return DB::transaction(function () use ($validatedData, $id) {
-
       $candidate = Candidate::findOrFail($id);
 
       $candidate->update($validatedData);

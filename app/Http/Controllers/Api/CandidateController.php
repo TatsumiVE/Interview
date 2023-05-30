@@ -6,10 +6,11 @@ use Exception;
 use App\Models\Candidate;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use App\Models\InterviewStage;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CandidateRequest;
 use App\Http\Resources\CandidateResource;
-use App\Models\InterviewStage;
 use App\Services\Candidate\CandidateServiceInterface;
 use App\Repositories\Candidate\CandidateRepoInterface;
 
@@ -40,6 +41,8 @@ class CandidateController extends Controller
 
             return $this->success(200, $data, 'Candidate Data retrieved successfully');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving candidate data: ' . $e->getMessage());
+
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
@@ -51,6 +54,7 @@ class CandidateController extends Controller
             $data = $this->candidateService->store($request);
             return $this->success(201, "success", "New Candidate Created Successfully");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error creating candidate: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
@@ -63,6 +67,7 @@ class CandidateController extends Controller
             $data = $this->candidateRepo->show($candidate);
             return $this->success(200, $data, 'Candidate Data retrieved  successfully');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving candidate data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
@@ -74,6 +79,7 @@ class CandidateController extends Controller
             $data = $this->candidateService->update($request, $id);
             return $this->success(200, $data, 'Candidate updated successfully');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error updating candidate: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
@@ -81,13 +87,18 @@ class CandidateController extends Controller
 
     public function destroy(Candidate $candidate)
     {
-        if (count($candidate->specificLanguages) == 0 || count($candidate->assessments) == 0 || count($candidate->interviews) == 0) {
-            $candidate->delete();
-            $data = '';
-            return $this->success(200, $data, 'Candidate deleted successfully');
-        } else {
-            $msg = 'Sorry,cannot delete because there are some relationships remaining';
-            return $this->error(500, $msg, 'Internal Server Error');
+        try {
+            if (count($candidate->specificLanguages) == 0 || count($candidate->assessments) == 0 || count($candidate->interviews) == 0) {
+                $candidate->delete();
+                $data = '';
+                return $this->success(200, $data, 'Candidate deleted successfully');
+            } else {
+                $msg = 'Sorry, cannot delete because there are some relationships remaining';
+                return $this->error(500, $msg, 'Internal Server Error');
+            }
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error deleting candidate: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 }

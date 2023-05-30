@@ -19,7 +19,41 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 {
   public function get()
   {
+    $candidates = Candidate::with('specificLanguages.devlanguage')->get();
+
+    $result = [];
+    foreach ($candidates as $candidate) {
+      $interviewStages = Interview::with('interviewStage', 'interviewAssign.interviewer.position', 'interviewAssign.interviewer.department', 'interviewAssign.assessment.assessmentResult', 'interviewAssign.remarks')
+        ->where('candidate_id', $candidate->id)
+        ->get();
+
+      $candidateData = [
+        'candidate' => $candidate,
+        'interview' => $interviewStages,
+      ];
+
+      $result[] = $candidateData;
+    }
+
+    return $result;
   }
+
+  public function getCandidatesByStageName($stageName)
+  {
+    $candidateCount = Candidate::whereHas('interviews', function ($query) use ($stageName) {
+      $query->whereHas('interviewStage', function ($query) use ($stageName) {
+        $query->where('stage_name', $stageName);
+      });
+    })->count();
+
+    return $candidateCount;
+  }
+
+
+
+
+
+
 
 
   //   public function show($id)

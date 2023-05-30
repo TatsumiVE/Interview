@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Traits\ApiResponser;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\TopicRequest;
-use Illuminate\Http\Request;
-use App\Http\Resources\TopicResource;
-use App\Models\Topic;
-use App\Repositories\Topic\TopicRepoInterface;
-use App\Services\Topic\TopicServiceInterface;
 use Exception;
+use App\Models\Topic;
+use App\Traits\ApiResponser;
+use Illuminate\Http\Request;
+use App\Http\Requests\TopicRequest;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\TopicResource;
+use App\Services\Topic\TopicServiceInterface;
+use App\Repositories\Topic\TopicRepoInterface;
 
 class TopicController extends Controller
 {
@@ -43,6 +44,7 @@ class TopicController extends Controller
             $data = $this->topicRepo->get();
             return $this->success(200, TopicResource::collection($data));
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Topic data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -61,6 +63,7 @@ class TopicController extends Controller
             $data = $this->topicService->store($request->validated());
             return $this->success(200, new TopicResource($data));
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error creating Topic: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -73,12 +76,11 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-
-
         try {
             $data = $this->topicRepo->show($id);
             return $this->success(200, new TopicResource($data));
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Topic data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -100,6 +102,7 @@ class TopicController extends Controller
             $data = $this->topicService->update($validateData, $id);
             return $this->success(200, $data, "Topic updated successfully");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error updating topic: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -112,14 +115,18 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
-
-        if (count($topic->assessmentResults) == 0) {
-            $topic->delete();
-            $data = '';
-            return $this->success(200, $data, "Topic deleted successfully.");
-        } else {
-            $msg = 'Sorry,cannot delete because there are some relationships remaining';
-            return $this->error(500, $msg, 'Internal Server Error');
+        try {
+            if (count($topic->assessmentResults) == 0) {
+                $topic->delete();
+                $data = '';
+                return $this->success(200, $data, "Topic deleted successfully.");
+            } else {
+                $msg = 'Sorry,cannot delete because there are some relationships remaining';
+                return $this->error(500, $msg, 'Internal Server Error');
+            }
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error deleting Topic: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 }

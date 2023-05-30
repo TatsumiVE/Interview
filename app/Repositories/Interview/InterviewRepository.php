@@ -19,11 +19,11 @@ class InterviewRepository implements InterviewRepoInterface
             ->where('status', 0)
             ->get();
     }
-    public function show($id)
-    {
-        // view api  for interviewer side
-        // return Interview::with('candidate', 'interviewStage.assessment.assessmentResult.topic', 'interviewStage.assessment.assessmentResult.rate', 'interviewStage.remarks')
-        //     ->where('candidate_id', $id)
-        //     ->get();
-    }
+    // public function show($id)
+    // {
+    //     view api  for interviewer side
+    //     return Interview::with('candidate', 'interviewStage.assessment.assessmentResult.topic', 'interviewStage.assessment.assessmentResult.rate', 'interviewStage.remarks')
+    //         ->where('candidate_id', $id)
+    //         ->get();
+    // }
 }

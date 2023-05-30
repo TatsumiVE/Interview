@@ -44,6 +44,7 @@ class DevLanguageController extends Controller
             $data = $this->DevLanguageRepo->get();
             return $this->success(200, DevLanguageResource::collection($data), 'Language data retrieved successfully');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving DevLanguage data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
@@ -60,7 +61,7 @@ class DevLanguageController extends Controller
             $data = $this->DevLanguageService->store($request->validated());
             return $this->success(200, new DevLanguageResource($data));
         } catch (Exception $e) {
-
+            Log::channel('web_daily_error')->error('Error creating DevLanguage: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -77,7 +78,7 @@ class DevLanguageController extends Controller
             $data = $this->DevLanguageRepo->show($id);
             return $this->success(200, new DevLanguageResource($data), 'success');
         } catch (Exception $e) {
-
+            Log::channel('web_daily_error')->error('Error retrieving DevLanguage data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -94,6 +95,7 @@ class DevLanguageController extends Controller
             $data = $this->DevLanguageService->update($request->all(), $id);
             return $this->success(200, $data, "Language updated successfully");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error updating DevLangugage: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -106,13 +108,18 @@ class DevLanguageController extends Controller
      */
     public function destroy(Devlanguage $devlanguage)
     {
-        if (count($devlanguage->specificLanguages) == 0) {
-            $devlanguage->delete();
-            $data = '';
-            return $this->success(200, $data, 'Language successfully deleted');
-        } else {
-            $msg = 'Sorry,cannot delete because there are some relationships remaining';
-            return $this->error(500, $msg, 'Internal Server Error');
+        try {
+            if (count($devlanguage->specificLanguages) == 0) {
+                $devlanguage->delete();
+                $data = '';
+                return $this->success(200, $data, 'Language successfully deleted');
+            } else {
+                $msg = 'Sorry,cannot delete because there are some relationships remaining';
+                return $this->error(500, $msg, 'Internal Server Error');
+            }
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error deleting agency: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 }

@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use App\Models\Candidate;
+use App\Models\Interview;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InterviewResultRequest;
-use App\Models\Interview;
 use App\Services\InterviewProcess\InterviewProcessServiceInterface;
 use App\Repositories\InterviewProcess\InterviewProcessRepoInterface;
 
@@ -37,6 +38,8 @@ class InterviewProcessController extends Controller
 
             return $this->success(200, "success", "New InterviewAssign Created");
         } catch (Exception $e) {
+
+            Log::channel('web_daily_error')->error('Error creating InterviewAssign: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
@@ -47,6 +50,7 @@ class InterviewProcessController extends Controller
             $data = $this->interviewProcessRepo->showAssign($candidateId, $interviewerId);
             return $this->success(200, $data, 'success ');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving InterviewAssignID : ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
@@ -71,6 +75,7 @@ class InterviewProcessController extends Controller
             $data = $this->interviewProcessService->interviewSummarize($request->validated(), $candidateID, $stageID);
             return $this->success(200, $data, "Updated Success Interviews result");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error creating InterviewSummerize data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
@@ -106,6 +111,7 @@ class InterviewProcessController extends Controller
             $data = $candidate->save();
             return $this->success(200, $data, "Candidate Terminate Successfully");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error terminate Candidate data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }

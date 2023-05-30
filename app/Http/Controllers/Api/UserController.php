@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
-
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use App\Repositories\User\UserRepoInterface;
-use App\Services\User\UserServiceInterface;
-use App\Traits\ApiResponser;
 use Exception;
+use App\Models\User;
+
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use App\Services\User\UserServiceInterface;
+use App\Repositories\User\UserRepoInterface;
 
 
 class UserController extends Controller
@@ -38,6 +39,7 @@ class UserController extends Controller
             $data = $this->userRepo->get();
             return $this->success(200, UserResource::collection($data), "User retrieved successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving User data: ' . $e->getMessage());
             return $this->sendError(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -55,6 +57,7 @@ class UserController extends Controller
 
             return $this->success(200, new UserResource($data), 'User created successfully.');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error creating User data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -65,6 +68,7 @@ class UserController extends Controller
             $user = $this->userRepo->show($id);
             return $this->success(200, new UserResource($user), 'User showed successfully.');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving User data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -79,6 +83,7 @@ class UserController extends Controller
 
             return $this->success(200, new UserResource($data), 'User updated successfully.');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error updating user data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -86,14 +91,19 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        if (count($user->interviewer) == 0) {
-            $user->delete();
-            $data = '';
+        try {
+            if (count($user->interviewer) == 0) {
+                $user->delete();
+                $data = '';
 
-            return $this->success(200, $data, "Interviewer deleted successfully.");
-        } else {
-            $msg = 'Sorry,cannot delete because there are some relationships remaining';
-            return $this->error(500, $msg, 'Internal Server Error');
+                return $this->success(200, $data, "Interviewer deleted successfully.");
+            } else {
+                $msg = 'Sorry,cannot delete because there are some relationships remaining';
+                return $this->error(500, $msg, 'Internal Server Error');
+            }
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error deleting user: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 }
