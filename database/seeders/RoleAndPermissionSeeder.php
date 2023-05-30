@@ -145,7 +145,21 @@ class RoleAndPermissionSeeder extends Seeder
 
             $rateList,
 
-            $topicList
+            $topicList,   $interviewCreate,
+
+            $interviewProcessCreate,$interviewProcessSearchAssignId,$interviewProcessUpdate,$interviewProcessTerminate,
+
+            $interviewerList,$interviewerCreate,$interviewerUpdate,$interviewerDelete,$interviewerShow,
+
+            $departmentList,$departmentCreate,$departmentUpdate,$departmentDelete,$departmentShow,
+
+            $languageList,$languageCreate,$languageUpdate,$languageDelete,$languageShow,
+
+            $positionList,$positionCreate,$positionUpdate,$positionDelete,$positionShow,
+
+            $rateList,$rateCreate,$rateUpdate,$rateDelete,$rateShow ,
+
+            $topicList,$topicCreate,$topicUpdate,$topicDelete,$topicShow
         ]);
 
         $moderator->givePermissionTo([

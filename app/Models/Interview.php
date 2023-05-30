@@ -17,6 +17,7 @@ class Interview extends Model
         'interview_summarize',
         'interview_result_date',
         'interview_result',
+        'record_path',
         'candidate_id',
         'interview_stage_id',
         'record_path'

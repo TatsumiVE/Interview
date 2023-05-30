@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Traits\ApiResponser;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\TopicRequest;
-use Illuminate\Http\Request;
-use App\Http\Resources\TopicResource;
-use App\Models\Topic;
-use App\Repositories\Topic\TopicRepoInterface;
-use App\Services\Topic\TopicServiceInterface;
 use Exception;
+use App\Models\Topic;
+use App\Traits\ApiResponser;
+use Illuminate\Http\Request;
+use App\Http\Requests\TopicRequest;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\TopicResource;
+use App\Services\Topic\TopicServiceInterface;
+use App\Repositories\Topic\TopicRepoInterface;
 
 class TopicController extends Controller
 {
@@ -29,12 +30,11 @@ class TopicController extends Controller
         $this->topicRepo = $topicRepo;
         $this->topicService = $topicService;
 
-        // $this->middleware('permission:topicList',['only'=>['index']]);
-        // $this->middleware('permission:topicCreate',['only'=>['store']]);
-        // $this->middleware('permission:topicUpdate',['only'=>['update']]);
-        // $this->middleware('permission:topicDelete',['only'=>['destroy']]);
-        // $this->middleware('permission:topicShow',['only'=>['show']]);
-
+        $this->middleware('permission:topicList', ['only' => ['index']]);
+        $this->middleware('permission:topicCreate', ['only' => ['store']]);
+        $this->middleware('permission:topicUpdate', ['only' => ['update']]);
+        $this->middleware('permission:topicDelete', ['only' => ['destroy']]);
+        $this->middleware('permission:topicShow', ['only' => ['show']]);
     }
     public function index()
     {
@@ -44,6 +44,7 @@ class TopicController extends Controller
             $data = $this->topicRepo->get();
             return $this->success(200, TopicResource::collection($data));
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Topic data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -62,6 +63,7 @@ class TopicController extends Controller
             $data = $this->topicService->store($request->validated());
             return $this->success(200, new TopicResource($data));
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error creating Topic: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -74,12 +76,11 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-
-
         try {
             $data = $this->topicRepo->show($id);
             return $this->success(200, new TopicResource($data));
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Topic data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -91,13 +92,17 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TopicRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         try {
-            $data = $this->topicService->update($request->validated(), $id);
-            return $this->success(200, $data, "Topic updated");
+            $validateData = $request->validate([
+                'name'  => 'required|string|unique:topics,name,' . $id,
+            ]);
+            $data = $this->topicService->update($validateData, $id);
+            return $this->success(200, $data, "Topic updated successfully");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error updating topic: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
         }
     }
@@ -108,16 +113,20 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Topic $topic)
     {
-
-
         try {
-            $data = Topic::where('id', $id)->first();
-            $data->delete();
-            return $this->success(200, $data, "Delete topic success");
+            if (count($topic->assessmentResults) == 0) {
+                $topic->delete();
+                $data = '';
+                return $this->success(200, $data, "Topic deleted successfully.");
+            } else {
+                $msg = 'Sorry,cannot delete because there are some relationships remaining';
+                return $this->error(500, $msg, 'Internal Server Error');
+            }
         } catch (Exception $e) {
-            return $this->error($e->getCode(), [], $e->getMessage());
+            Log::channel('web_daily_error')->error('Error deleting Topic: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 }

@@ -18,9 +18,8 @@ class PermissionController extends Controller
     private $permissionRepo, $permissionService;
     public function __construct(PermissionRepoInterface $permissionRepo, PermissionServiceInterface $permissionService)
     {
-        // $this->permissionRepo = $permissionRepo;
-        // $this->permissionService = $permissionService;
-        
+        $this->permissionRepo = $permissionRepo;
+        $this->permissionService = $permissionService;
     }
     public function index()
     {

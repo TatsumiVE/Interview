@@ -28,12 +28,13 @@ class CandidateService implements CandidateServiceInterface
       'position_id' => 'required|exists:positions,id',
       'agency_id' => 'required| exists:agencies,id',
       'status' => '',
+
       'data.*.experience.month' => 'required|integer|between:1,12',
       'data.*.experience.year' => 'required|integer|between:0,30',
       'data.*.devlanguage_id' => 'required',
     ]);
 
-    return DB::transaction(function () use ($validatedData) {
+    return  DB::transaction(function () use ($validatedData) {
 
       $candidate = Candidate::create($validatedData);
 
@@ -54,7 +55,7 @@ class CandidateService implements CandidateServiceInterface
 
     $validatedData = $request->validate([
       'name' => 'required',
-      'email' => 'required|email|unique:candidates,email,' . $id,
+      'email' => 'required|email',
       'gender' => 'required',
       'phone_number' => 'required',
       'residential_address' => 'required',
@@ -67,15 +68,14 @@ class CandidateService implements CandidateServiceInterface
       'position_id' => 'required|exists:positions,id',
       'agency_id' => 'required| exists:agencies,id',
       'status' => '',
-      'data..experience.month' => 'required|integer|between:1,12',
-      'data..experience.year' => 'required|integer|between:0,30',
-      'data..devlanguage_id' => 'required',
+      'data.*.experience.month' => 'required|integer|between:1,12',
+      'data.*.experience.year' => 'required|integer|between:0,30',
+      'data.*.devlanguage_id' => 'required',
     ]);
 
 
     // $result = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
-   return DB::transaction(function () use ($validatedData, $id) {
-
+    return DB::transaction(function () use ($validatedData, $id) {
       $candidate = Candidate::findOrFail($id);
 
       $candidate->update($validatedData);

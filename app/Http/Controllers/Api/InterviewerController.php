@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use Exception;
+use App\Models\Interviewer;
 use App\Traits\ApiResponser;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InterviewerRequest;
 use App\Http\Resources\InterviewerResource;
-use App\Models\Interviewer;
 use App\Services\Interviewer\InterviewerServiceInterface;
 use App\Repositories\Interviewer\InterviewerRepoInterface;
-use Illuminate\Http\Request;
 
 class InterviewerController extends Controller
 {
@@ -23,11 +24,11 @@ class InterviewerController extends Controller
         $this->interviewerRepo = $interviewerRepo;
         $this->interviewerService = $interviewerService;
 
-        // $this->middleware('permission:interviewerList',['only'=>['index']]);
-        // $this->middleware('permission:interviewerCreate',['only'=>['store']]);
-        // $this->middleware('permission:interviewerUpdate',['only'=>['update']]);
-        // $this->middleware('permission:interviewerDelete',['only'=>['destroy']]);
-        // $this->middleware('permission:interviewerShow',['only'=>['show']]);
+        $this->middleware('permission:interviewerList', ['only' => ['index']]);
+        $this->middleware('permission:interviewerCreate', ['only' => ['store']]);
+        $this->middleware('permission:interviewerUpdate', ['only' => ['update']]);
+        $this->middleware('permission:interviewerDelete', ['only' => ['destroy']]);
+        $this->middleware('permission:interviewerShow', ['only' => ['show']]);
     }
 
 
@@ -35,10 +36,12 @@ class InterviewerController extends Controller
     public function index()
     {
         try {
+
             $data = $this->interviewerRepo->get();
             return $this->success(200, InterviewerResource::collection($data), "Interviewer retrieved successfully.");
-        } catch (Exception $exception) {
-            return $this->error(500, $exception->getMessage(), 'Internal Server Error.');
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Interviewer data: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
 
@@ -48,8 +51,9 @@ class InterviewerController extends Controller
         try {
             $data = $this->interviewerService->store($request->validated());
             return $this->success(200, new InterviewerResource($data), "Interviewer Created successfully.");
-        } catch (Exception $exception) {
-            return $this->error(500, $exception->getMessage(), 'Internal Server Error.');
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error creating Interviewer: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
 
@@ -60,8 +64,9 @@ class InterviewerController extends Controller
             $data = $this->interviewerRepo->show($id);
 
             return $this->success(200, $data, "Interviewer show successfully.");
-        } catch (Exception $exception) {
-            return $this->error(500, $exception->getMessage(), 'Internal Server Error.');
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Interviewer data: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
 
@@ -78,21 +83,27 @@ class InterviewerController extends Controller
             ]);
 
             $data = $this->interviewerService->update($validateData, $id);
-            return $this->success(200,new InterviewerResource($data), "Interviewer updated successfully.");
-        } catch (Exception $exception) {
-            return $this->error(500, $exception->getMessage(), 'Internal Server Error.');
+            return $this->success(200, $data, "Interviewer updated successfully.");
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error updating Interviewer data: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
 
     public function destroy(Interviewer $interviewer)
     {
-        if (count($interviewer->interviewAssgins) == 0) {
-            $interviewer->delete();
-            $data = '';
-            return $this->success(200, $data, "Interviewer deleted successfully.");
-        } else {
-            $msg = 'Sorry,cannot delete because there are some relationships remaining';
-            return $this->error(500, $msg, 'Internal Server Error');
+        try {
+            if (count($interviewer->interviewAssgins) == 0) {
+                $interviewer->delete();
+                $data = '';
+                return $this->success(200, $data, "Interviewer deleted successfully.");
+            } else {
+                $msg = 'Sorry,cannot delete because there are some relationships remaining';
+                return $this->error(500, $msg, 'Internal Server Error');
+            }
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error deleting Interviewer: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 }

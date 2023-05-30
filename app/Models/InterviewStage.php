@@ -16,7 +16,6 @@ class InterviewStage extends Model
         'interview_time',
         'location',
 
-
     ];
     protected $hidden = [
         'created_at', 'updated_at'

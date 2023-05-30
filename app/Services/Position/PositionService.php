@@ -17,9 +17,4 @@ class PositionService implements PositionServiceInterface
         $position = Position::where('id', $id)->first();
         return $position->update($request);
     }
-
-    // public function destroy($id){
-    //     $position=Position::where('id',$id)->first();
-    //     return $position->delete();
-    // }
 }

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
+use App\Models\Agency;
+use App\Traits\ApiResponser;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AgencyRequest;
 use App\Http\Resources\AgencyResource;
-use App\Models\Agency;
-use App\Repositories\Agency\AgencyRepoInterface;
-use App\Services\Agency\AgencyServiceInterface;
-use App\Traits\ApiResponser;
-use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use App\Services\Agency\AgencyServiceInterface;
+use App\Repositories\Agency\AgencyRepoInterface;
 
 class AgencyController extends Controller
 {
@@ -25,11 +26,11 @@ class AgencyController extends Controller
         $this->agencyRepo = $agencyRepo;
         $this->agencyService = $agencyService;
 
-        $this->middleware('permission:agencyList',['only'=>['index']]);
-        $this->middleware('permission:agencyCreate',['only'=>['store']]);
-        $this->middleware('permission:agencyUpdate',['only'=>['update']]);
-        $this->middleware('permission:agencyDelete',['only'=>['destroy']]);
-        $this->middleware('permission:agencyShow',['only'=>['show']]);
+        $this->middleware('permission:agencyList', ['only' => ['index']]);
+        $this->middleware('permission:agencyCreate', ['only' => ['store']]);
+        $this->middleware('permission:agencyUpdate', ['only' => ['update']]);
+        $this->middleware('permission:agencyDelete', ['only' => ['destroy']]);
+        $this->middleware('permission:agencyShow', ['only' => ['show']]);
     }
 
     public function index()
@@ -38,9 +39,8 @@ class AgencyController extends Controller
             $data = $this->agencyRepo->get();
             return $this->success(200, AgencyResource::collection($data), 'Agency Reterived successfully');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Agency data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
-
-            // return Redirect::back()->withErrors($e->getMessage());
         };
     }
 
@@ -49,8 +49,9 @@ class AgencyController extends Controller
     {
         try {
             $data = $this->agencyService->store($request->validated());
-            return $this->success(200, new AgencyResource($data), "New Agency Created");
+            return $this->success(201, new AgencyResource($data), "New Agency Created");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error creating Agency: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
@@ -62,6 +63,7 @@ class AgencyController extends Controller
             $result = $this->agencyRepo->show($id);
             return $this->success(200, new AgencyResource($result), 'success');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Agency data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
@@ -74,6 +76,7 @@ class AgencyController extends Controller
             $data = $this->agencyService->update($request->validated(), $id);
             return $this->success(200, $data, 'success');
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error updating agency: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
@@ -81,13 +84,18 @@ class AgencyController extends Controller
 
     public function destroy(Agency $agency)
     {
-        if (count($agency->candidates) == 0) {
-            $agency->delete();
-            $data = '';
-            return $this->success(200, $data, 'Agency successfully deleted');
-        } else {
-            $msg = 'Cannot delete because there are candidates remaining';
-            return $this->error(500, $msg, 'Internal Server Error');
+        try {
+            if (count($agency->candidates) == 0) {
+                $agency->delete();
+                $data = '';
+                return $this->success(200, $data, 'Agency successfully deleted');
+            } else {
+                $msg = 'Cannot delete because there are candidates remaining';
+                return $this->error(500, $msg, 'Internal Server Error');
+            }
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error deleting agency: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 }

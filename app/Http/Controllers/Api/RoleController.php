@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleRequest;
-use App\Http\Resources\RoleResource;
-use App\Repositories\Role\RoleRepoInterface;
-use App\Services\Role\RoleServiceInterface;
-use App\Traits\ApiResponser;
 use Exception;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use App\Http\Requests\RoleRequest;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\RoleResource;
 use Spatie\Permission\Models\Permission;
+use App\Services\Role\RoleServiceInterface;
+use App\Repositories\Role\RoleRepoInterface;
 
 
 class RoleController extends Controller
@@ -30,6 +31,7 @@ class RoleController extends Controller
             $data = $this->roleRepo->get();
             return $this->success(200, RoleResource::collection($data), "Role retrieved successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Role data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -39,11 +41,10 @@ class RoleController extends Controller
     {
         try {
             $validateData = $request->validated();
-
             $data = $this->roleService->store($validateData);
-
             return $this->success(200, new RoleResource($data), "Role created successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error creating Role data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -54,6 +55,7 @@ class RoleController extends Controller
             $data = $this->roleRepo->show($id);
             return $this->success(200, new RoleResource($data), "Role showed successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Role data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -69,8 +71,9 @@ class RoleController extends Controller
 
             $data = $this->roleService->update($validateData, $id);
 
-            return $this->success(200, new RoleResource($data), "Role updated successfully.");
+            return $this->success(200,  $data, "Role updated successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error updating Role: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
@@ -82,6 +85,7 @@ class RoleController extends Controller
             $data = $this->roleService->destroy($id);
             return $this->success(200, $data, "Role deleted successfully.");
         } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error deleting Role data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
