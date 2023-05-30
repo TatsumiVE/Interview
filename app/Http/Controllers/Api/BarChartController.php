@@ -15,14 +15,14 @@ class BarChartController extends Controller
     public function __construct()
     {
 
-        $this->middleware('permission:dashboardView',['only'=>['index']]);
-
+        $this->middleware('permission:dashboardView', ['only' => ['index']]);
     }
-    public function index(){
+    public function index()
+    {
         try {
             $candidateCounts = SpecificLanguage::select('devlanguage_id', DB::raw('COUNT(candidate_id) as count'))
-            ->groupBy('devlanguage_id')
-            ->get();
+                ->groupBy('devlanguage_id')
+                ->get();
             return $this->success(200, $candidateCounts, 'success');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

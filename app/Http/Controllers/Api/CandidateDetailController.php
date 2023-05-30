@@ -19,8 +19,7 @@ class CandidateDetailController extends Controller
     {
         $this->candidateDetailRepo = $candidateDetailRepo;
 
-        $this->middleware('permission:candidateDetail',['only'=>['candidateDetail']]);
-
+        $this->middleware('permission:candidateDetail', ['only' => ['candidateDetail']]);
     }
     public function candidateDetail($id)
     {
@@ -29,7 +28,7 @@ class CandidateDetailController extends Controller
 
             $data = $this->candidateDetailRepo->show($id);
 
-            return $this->success(200, $data, 'CandidateDetail data returned successfully');
+            return $this->success(200, $data, 'CandidateDetail Data retrieved successfully');
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

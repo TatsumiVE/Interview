@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Http\Resources\DepartmentResource;
+use App\Models\Department;
 use App\Repositories\Department\DepartmentRepoInterface;
 use App\Services\Department\DepartmentServiceInterface;
 use App\Traits\ApiResponser;
@@ -20,11 +21,11 @@ class DepartmentController extends Controller
         $this->departmentRepo = $departmentRepo;
         $this->departmentService = $departmentService;
 
-        $this->middleware('permission:departmentList',['only'=>['index']]);
-        $this->middleware('permission:departmentCreate',['only'=>['store']]);
-        $this->middleware('permission:departmentUpdate',['only'=>['update']]);
-        $this->middleware('permission:departmentDelete',['only'=>['destroy']]);
-        $this->middleware('permission:departmentShow',['only'=>['show']]);
+        $this->middleware('permission:departmentList', ['only' => ['index']]);
+        $this->middleware('permission:departmentCreate', ['only' => ['store']]);
+        $this->middleware('permission:departmentUpdate', ['only' => ['update']]);
+        $this->middleware('permission:departmentDelete', ['only' => ['destroy']]);
+        $this->middleware('permission:departmentShow', ['only' => ['show']]);
     }
 
     public function index()
@@ -77,13 +78,15 @@ class DepartmentController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Department $department)
     {
-        try {
-            $data = $this->departmentService->destroy($id);
-            return $this->success(200, $data, "Department deleted successfully.");
-        } catch (Exception $e) {
-            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+        if (count($department->interviewers) == 0) {
+            $department->delete();
+            $data = '';
+            return $this->success('200, $data, "Department deleted successfully.');
+        } else {
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
+            return $this->error(500, $msg, 'Internal Server Error');
         }
     }
 }

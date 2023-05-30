@@ -10,16 +10,15 @@ class CandidateRepository implements CandidateRepoInterface
   public function get()
   {
     return Candidate::with(['position', 'agency', 'specificLanguages.devlanguage', 'interviews.interviewStage'])
-      ->where('status', 0)
       ->orderBy('id')
       ->get();
   }
-  public function show($id)
+  public function show($candidateId)
   {
 
-    return Candidate::with(['position', 'agency', 'specificLanguages.devlanguage', 'interviews.interviewStage',])
-    ->where('status', 0)
-    ->where('id', $id)
-    ->first();
+
+    return Candidate::with(['position', 'agency', 'specificLanguages.devlanguage', 'interviews.interviewStage'])
+      ->where('id', $candidateId)
+      ->first();
   }
 }

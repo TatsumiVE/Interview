@@ -13,7 +13,7 @@ class UserService implements UserServiceInterface
     public function store($request)
     {
         return DB::transaction(function () use ($request) {
-            // $request['password'] = Hash::make($request['password']);
+            $request['password'] = Hash::make($request['password']);
             $user = User::create($request);
             if (isset($request['role'])) {
                 $user->assignRole($request['role']);
@@ -24,9 +24,9 @@ class UserService implements UserServiceInterface
 
     public function update($request, $id)
     {
-        return DB::transaction(function () use ($request,$id) {
+        return DB::transaction(function () use ($request, $id) {
             $user = User::where('id', $id)->first();
-            $user->update($request);
+           
             if (isset($request['role'])) {
                 $user->syncRoles($request['role']);
             }
@@ -34,9 +34,9 @@ class UserService implements UserServiceInterface
         });
     }
 
-    public function destroy($id)
-    {
-        $user = User::where('id', $id)->first();
-        return  $user->delete();
-    }
+    // public function destroy($id)
+    // {
+    //     $user = User::where('id', $id)->first();
+    //     return  $user->delete();
+    // }
 }

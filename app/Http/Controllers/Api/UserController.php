@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Repositories\User\UserRepoInterface;
 use App\Services\User\UserServiceInterface;
 use App\Traits\ApiResponser;
@@ -22,11 +23,13 @@ class UserController extends Controller
     {
         $this->userRepo = $userRepo;
         $this->userService = $userService;
-        $this->middleware('permission:userList',['only'=>['index']]);
-        $this->middleware('permission:userCreate',['only'=>['store']]);
-        $this->middleware('permission:userUpdate',['only'=>['update']]);
-        $this->middleware('permission:userDelete',['only'=>['destroy']]);
-        $this->middleware('permission:userShow',['only'=>['show']]);
+
+
+        $this->middleware('permission:userList', ['only' => ['index']]);
+        $this->middleware('permission:userCreate', ['only' => ['store']]);
+        $this->middleware('permission:userUpdate', ['only' => ['update']]);
+        $this->middleware('permission:userDelete', ['only' => ['destroy']]);
+        $this->middleware('permission:userShow', ['only' => ['show']]);
     }
 
     public function index()
@@ -69,7 +72,6 @@ class UserController extends Controller
     {
         try {
             $validateData = $request->validate([
-                'interviewer_id'=>'required|exists:interviewers,id',
                 'role' => 'required'
             ]);
 
@@ -82,14 +84,16 @@ class UserController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        try {
-            $data = $this->userService->destroy($id);
+        if (count($user->interviewer) == 0) {
+            $user->delete();
+            $data = '';
 
-            return $this->success(200, $data, 'User deleted successfully.');
-        } catch (Exception $e) {
-            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+            return $this->success(200, $data, "Interviewer deleted successfully.");
+        } else {
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
+            return $this->error(500, $msg, 'Internal Server Error');
         }
     }
 }

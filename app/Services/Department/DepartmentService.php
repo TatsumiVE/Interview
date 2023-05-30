@@ -15,9 +15,4 @@ class DepartmentService implements DepartmentServiceInterface
     $department = Department::where('id', $id)->first();
     return $department->update($request);
   }
-
-  public function destroy($id){
-    $department = Department::where('id', $id)->first();
-    return $department->delete();
-  }
 }

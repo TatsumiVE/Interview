@@ -20,7 +20,6 @@ class PermissionController extends Controller
     {
         $this->permissionRepo = $permissionRepo;
         $this->permissionService = $permissionService;
-        
     }
     public function index()
     {

@@ -29,12 +29,11 @@ class RateController extends Controller
         $this->rateRepo = $rateRepo;
         $this->rateService = $rateService;
 
-        $this->middleware('permission:rateList',['only'=>['index']]);
-        $this->middleware('permission:rateCreate',['only'=>['store']]);
-        $this->middleware('permission:rateUpdate',['only'=>['update']]);
-        $this->middleware('permission:rateDelete',['only'=>['destroy']]);
-        $this->middleware('permission:rateShow',['only'=>['show']]);
-
+        $this->middleware('permission:rateList', ['only' => ['index']]);
+        $this->middleware('permission:rateCreate', ['only' => ['store']]);
+        $this->middleware('permission:rateUpdate', ['only' => ['update']]);
+        $this->middleware('permission:rateDelete', ['only' => ['destroy']]);
+        $this->middleware('permission:rateShow', ['only' => ['show']]);
     }
     public function index()
     {
@@ -110,16 +109,17 @@ class RateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Rate $rate)
     {
 
 
-        try {
-            $data = Rate::where('id', $id)->first();
-            $data->delete();
-            return $this->success(200, $data, "Delete Rate success");
-        } catch (Exception $e) {
-            return $this->error($e->getCode(), [], $e->getMessage());
+        if (count($rate->assessmentResults) == 0) {
+            $rate->delete();
+            $data = '';
+            return $this->success('200, $data, "Rate deleted successfully.');
+        } else {
+            $msg = 'Sorry,cannot delete because there are some relationships remaining';
+            return $this->error(500, $msg, 'Internal Server Error');
         }
     }
 }

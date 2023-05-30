@@ -6,5 +6,4 @@ interface InterviewRepoInterface
 {
   public function get();
   public function show($id);
-
 }

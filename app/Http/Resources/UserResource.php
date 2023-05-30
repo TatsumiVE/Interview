@@ -16,14 +16,22 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        $role = Role::whereIn('id', $this->roles->pluck('id'))->get();
+        $roles = Role::whereIn('id', $this->roles->pluck('id'))->get();
+
+    $roleData = $roles->map(function ($role) {
         return [
-            'id'=>$this->id,
-            'interviewer_id'=>new InterviewerResource($this->whenLoaded('interviewer')),
-            'password'=>$this->password,
-            'role'=>$role->pluck('name'),           
-            'token'=>$this->token,
+            'id' => $role->id,
+            'name' => $role->name,
         ];
+    });
+
+    return [
+        'id' => $this->id,
+        'interviewer_id' => new InterviewerResource($this->whenLoaded('interviewer')),
+        'password' => $this->password,
+        'role' => $roleData,
+        'token' => $this->token,
+    ];
 
     }
 }

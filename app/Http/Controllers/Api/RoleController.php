@@ -69,7 +69,7 @@ class RoleController extends Controller
 
             $data = $this->roleService->update($validateData, $id);
 
-            return $this->success(200, new RoleResource($data), "Role updated successfully.");
+            return $this->success(200,  $data, "Role updated successfully.");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }

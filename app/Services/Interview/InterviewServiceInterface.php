@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Services\Interview;
-Interface InterviewServiceInterface{
+
+interface InterviewServiceInterface
+{
     public function store($data);
-    public function update($data,$id);
 }

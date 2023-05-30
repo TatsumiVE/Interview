@@ -25,11 +25,11 @@ class AgencyController extends Controller
         $this->agencyRepo = $agencyRepo;
         $this->agencyService = $agencyService;
 
-        $this->middleware('permission:agencyList',['only'=>['index']]);
-        $this->middleware('permission:agencyCreate',['only'=>['store']]);
-        $this->middleware('permission:agencyUpdate',['only'=>['update']]);
-        $this->middleware('permission:agencyDelete',['only'=>['destroy']]);
-        $this->middleware('permission:agencyShow',['only'=>['show']]);
+        $this->middleware('permission:agencyList', ['only' => ['index']]);
+        $this->middleware('permission:agencyCreate', ['only' => ['store']]);
+        $this->middleware('permission:agencyUpdate', ['only' => ['update']]);
+        $this->middleware('permission:agencyDelete', ['only' => ['destroy']]);
+        $this->middleware('permission:agencyShow', ['only' => ['show']]);
     }
 
     public function index()
@@ -49,7 +49,7 @@ class AgencyController extends Controller
     {
         try {
             $data = $this->agencyService->store($request->validated());
-            return $this->success(200, new AgencyResource($data), "New Agency Created");
+            return $this->success(201, new AgencyResource($data), "New Agency Created");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };

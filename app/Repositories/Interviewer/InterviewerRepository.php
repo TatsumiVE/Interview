@@ -10,10 +10,10 @@ class InterviewerRepository implements InterviewerRepoInterface
 {
     public function get()
     {
-        return Interviewer::with('department','position')->get();
-       }
+        return Interviewer::with('department', 'position')->get();
+    }
     public function show($id)
     {
-        return Interviewer::where('id', $id)->first();
+        return Interviewer::with('department', 'position')->where('id', $id)->first();
     }
 }
