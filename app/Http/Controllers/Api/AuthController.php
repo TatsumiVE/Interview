@@ -16,7 +16,7 @@ class AuthController extends Controller
 {
     use ApiResponser;
 
-    public function UserLogin(Request $request)
+    public function userLogin(Request $request)
     {
         try {
             $interviewer = Interviewer::where('email', $request->email)->first();
@@ -38,4 +38,23 @@ class AuthController extends Controller
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
+
+    public function checkToken(Request $request)
+    {
+        try {
+            $token = $request->bearerToken();
+
+            if (!$token) {
+                return response()->json(['valid' => false], 401);
+            }
+
+            $isValid = Auth::guard('sanctum')->check();
+
+            return response()->json(['valid' => $isValid], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
 }

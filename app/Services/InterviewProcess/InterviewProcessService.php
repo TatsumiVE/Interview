@@ -35,8 +35,7 @@ class InterviewProcessService implements InterviewProcessServiceInterface
         'candidate_id' => $validatedData['candidate_id'],
         'interview_stage_id' => $stage->id,
       ]);
-      // $interviewers = $validatedData['interviewer_id'];
-      // dd($interviewers);
+
       $interviewAssigns = [];
 
       foreach ($validatedData['interviewer_id'] as $interviewer) {

@@ -3,6 +3,7 @@
 namespace App\Repositories\Candidate;
 
 use App\Models\Candidate;
+use App\Models\Interview;
 
 class CandidateRepository implements CandidateRepoInterface
 {

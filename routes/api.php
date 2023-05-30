@@ -37,15 +37,16 @@ use App\Http\Controllers\Api\InterviewProcessController;
 |
 */
 
-Route::post('auth/login', [AuthController::class, 'UserLogin']);
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['cors'])->group(function () {
+  Route::post('auth/login', [AuthController::class, 'userLogin']);
+  Route::post('auth/checkToken', [AuthController::class, 'checkToken']);
+});
+
+Route::middleware(['cors', 'auth:sanctum'])->group(function () {
   Route::get('candidates/{id}', [CandidateDetailController::class, 'candidateDetail']);
   Route::get('candidates-detail', [CandidateDetailController::class, 'index']);
-  Route::get('get-candidates-by-stageName/{stageName}', [CandidateDetailController::class, 'getCandidatesByStageName']);
-
-
+  Route::get('candidate/stageName/{stageName}', [CandidateDetailController::class, 'getCandidatesByStageName']);
   Route::post('interview-process', [InterviewProcessController::class, 'store']);
-
   Route::post('interview-process/result/{candiateId}/{stageId}', [InterviewProcessController::class, 'interviewSummarize']);
   //find AssignI
   Route::get('interview-process/{candiateId}/{interviewerId}', [InterviewProcessController::class, 'searchInterviewAssignId']);
