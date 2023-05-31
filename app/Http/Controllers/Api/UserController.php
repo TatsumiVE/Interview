@@ -31,6 +31,7 @@ class UserController extends Controller
         $this->middleware('permission:userUpdate', ['only' => ['update']]);
         $this->middleware('permission:userDelete', ['only' => ['destroy']]);
         $this->middleware('permission:userShow', ['only' => ['show']]);
+        $this->middleware('permission:userStatus', ['only' => ['userStatus']]);
     }
 
     public function index()
@@ -87,6 +88,20 @@ class UserController extends Controller
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
+    public function userStatus($userId)
+    {
+        try {
+
+            $user = User::findOrFail($userId);
+            $user->status = $user->status == 1 ? 0 : 1;
+            $data = $user->save();
+            return $this->success(200, $data, "User Terminate Successfully");
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error terminate Candidate data: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        };
+    }
+
 
 
     public function destroy(User $user)

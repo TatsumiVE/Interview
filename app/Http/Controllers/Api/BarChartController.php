@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Interview;
 use Exception;
+
+use App\Models\Interview;
 use App\Traits\ApiResponser;
 use App\Models\SpecificLanguage;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ class BarChartController extends Controller
     public function __construct()
     {
         $this->middleware('permission:dashboardView', ['only' => ['index', 'candidateCountByStage']]);
+
         // $this->middleware('permission:barChart', ['only' => ['index']]);
         // $this->middleware('permission:pieChart', ['only' => ['candidateCountByStage']]);
     }
