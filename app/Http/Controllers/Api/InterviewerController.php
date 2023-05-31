@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InterviewerRequest;
 use App\Http\Resources\InterviewerResource;
+
 use App\Services\Interviewer\InterviewerServiceInterface;
 use App\Repositories\Interviewer\InterviewerRepoInterface;
+use Illuminate\Support\Facades\Validator;
 
 class InterviewerController extends Controller
 {
@@ -81,14 +83,41 @@ class InterviewerController extends Controller
                 'position_id' => 'required|exists:positions,id',
                 'department_id' => 'required|exists:departments,id',
             ]);
+            // if ($validateData->fails()) {
+            //     $errors = $validator->errors()->all();
+            //     return $this->error(422, $errors, 'Validation Error.');
+            // }
 
             $data = $this->interviewerService->update($validateData, $id);
             return $this->success(200, $data, "Interviewer updated successfully.");
         } catch (Exception $e) {
-            Log::channel('web_daily_error')->error('Error updating Interviewer data: ' . $e->getMessage());
+
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }
     }
+
+//     public function update(Request $request, $id)
+// {
+//     try {
+//         $validator =Validator ::make($request->all(), [
+//             'name' => 'required',
+//             'email' => 'required|email|unique:interviewers,email,' . $id,
+//             'position_id' => 'required|exists:positions,id',
+//             'department_id' => 'required|exists:departments,id',
+//         ]);
+
+//         if ($validator->fails()) {
+//             $errors = $validator->errors()->all();
+//             return $this->error(422, $errors, 'Validation Error.');
+//         }
+
+//         $data = $this->interviewerService->update($request->all(), $id);
+//         return $this->success(200, $data, "Interviewer updated successfully.");
+//     } catch (Exception $e) {
+//         return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+//     }
+// }
+
 
     public function destroy(Interviewer $interviewer)
     {
