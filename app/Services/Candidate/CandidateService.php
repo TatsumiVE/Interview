@@ -74,7 +74,6 @@ class CandidateService implements CandidateServiceInterface
     ]);
 
 
-
     // $result = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
     return DB::transaction(function () use ($validatedData, $id) {
       $candidate = Candidate::findOrFail($id);
