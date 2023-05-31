@@ -183,7 +183,7 @@ class RoleAndPermissionSeeder extends Seeder
             $getAllCandidates, $getCandidateById, $getCandidatesByStageName,
 
             $candidateSearch,
-            $interviewProcessCreate, $interviewProcessSearchAssignId,
+            $interviewProcessSearchAssignId,
             $interviewSummarize, $interviewProcessTerminate,
 
 

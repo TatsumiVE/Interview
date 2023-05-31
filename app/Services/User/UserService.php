@@ -26,7 +26,6 @@ class UserService implements UserServiceInterface
     {
         return DB::transaction(function () use ($request, $id) {
             $user = User::where('id', $id)->first();
-           
             if (isset($request['role'])) {
                 $user->syncRoles($request['role']);
             }

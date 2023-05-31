@@ -16,7 +16,7 @@ class InterviewService implements InterviewServiceInterface
         $validatedData = $request->validate([
             'interview_stage_id' => 'required|exists:interview_stages,id',
             'comment' => 'required|string',
-            'grade' => 'required',
+            'grade' => 'required|integer',
             'interview_assign_id' => 'required|exists:interview_assigns,id',
             'candidate_id' => 'required|exists:candidates,id',
             'data' => 'required|array',
