@@ -8,7 +8,7 @@ class PositionRepository implements PositionRepoInterface
 {
   public function get()
   {
-    return Position::orderBy('id')->all();
+    return Position::orderBy('id')->get();
   }
   public function show($id)
   {
