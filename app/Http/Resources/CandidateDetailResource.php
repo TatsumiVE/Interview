@@ -17,7 +17,7 @@ class CandidateDetailResource extends JsonResource
 
         return [
             'rate_id' => new RateResource($this->whenLoaded('rates')),
-            'candidate_id' => new CandidateResource($this->whenLoaded('candidate')),
+            // 'candidate_id' => new CandidateResource($this->whenLoaded('candidate')),
             'interviewer_id' => new InterviewerResource($this->whenLoaded('interviewer')),
             'topic_id' => new TopicResource($this->whenLoaded('topics')),
             'interview_stage_id' => new InterviewStageResource($this->whenLoaded('interviewStage')),

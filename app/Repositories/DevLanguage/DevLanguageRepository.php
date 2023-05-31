@@ -9,7 +9,7 @@ class DevLanguageRepository implements DevLanguageRepoInterface
 {
     public function get()
     {
-        return Devlanguage::all();
+        return Devlanguage::orderBy('id')->get();
     }
     public function show($id)
     {
