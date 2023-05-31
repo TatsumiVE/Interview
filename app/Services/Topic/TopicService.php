@@ -7,26 +7,19 @@ use Exception;
 
 class TopicService implements TopicServiceInterface
 {
-    public function store($data){
-     try{
-       return Topic::create($data);
-     }catch(Exception $exception){
-        throw new Exception($exception->getMessage());
-     }
+  public function store($data)
+  {
+    try {
+      return Topic::create($data);
+    } catch (Exception $exception) {
+      throw new Exception($exception->getMessage());
     }
+  }
 
-    // public function update($request,$id){
-    //   try{
-    //     $result = Topic::where('id',$id)->first();
-    //     return $result->update($request);
-    //   }catch(Exception $exception){
-    //     throw new Exception($exception->getMessage());
-    //   }
-    // }
-    public function update($data,$id){
+  public function update($data, $id)
+  {
 
-        $result=Topic::where('id',$id)->first();
-        return $result->update($data);
-    }
-
+    $result = Topic::where('id', $id)->first();
+    return $result->update($data);
+  }
 }
