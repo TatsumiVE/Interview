@@ -32,7 +32,7 @@ class RoleAndPermissionSeeder extends Seeder
         $agencyShow = Permission::create(['name' => 'agencyShow']);
 
 
-        $dashbordView = Permission::create(['name' => 'dashbordView']);
+        $dashboardView = Permission::create(['name' => 'dashboardView']);
 
         $candidateList = Permission::create(['name' => 'candidateList']);
         $candidateCreate = Permission::create(['name' => 'candidateCreate']);
@@ -98,7 +98,7 @@ class RoleAndPermissionSeeder extends Seeder
         //super_admin=HR
         $super_admin->givePermissionTo([
 
-            $dashbordView,
+            $dashboardView,
 
             $userList, $userCreate, $userUpdate, $userDelete, $userShow,
 
@@ -130,10 +130,10 @@ class RoleAndPermissionSeeder extends Seeder
             $topicList, $topicCreate, $topicUpdate, $topicDelete, $topicShow,
         ]);
 
-        //admin=ManagementTeam 
+        //admin=ManagementTeam
         $admin->givePermissionTo([
 
-            $dashbordView,
+            $dashboardView,
 
             $userList,  $userShow,
 
@@ -164,9 +164,9 @@ class RoleAndPermissionSeeder extends Seeder
             $topicList,  $topicShow,
         ]);
 
-        //moderator = interviwer 
+        //moderator = interviwer
         $moderator->givePermissionTo([
-            $dashbordView,
+            $dashboardView,
 
             $userList, $userShow,
 
