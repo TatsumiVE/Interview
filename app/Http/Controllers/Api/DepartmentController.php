@@ -25,8 +25,8 @@ class DepartmentController extends Controller
         $this->middleware('permission:departmentList', ['only' => ['index']]);
         $this->middleware('permission:departmentCreate', ['only' => ['store']]);
         $this->middleware('permission:departmentUpdate', ['only' => ['update']]);
-        $this->middleware('permission:departmentDelete', ['only' => ['destroy']]);
         $this->middleware('permission:departmentShow', ['only' => ['show']]);
+        $this->middleware('permission:departmentDelete', ['only' => ['destroy']]);
     }
 
     public function index()

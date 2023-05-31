@@ -45,12 +45,18 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
         $query->where('stage_name', $stageName);
       });
     })->count();
-
     return $candidateCount;
   }
 
 
-
+  public function show($id)
+  {
+    $data = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
+    $interviewStage = Interview::with('interviewStage', 'interviewAssign.interviewer.position', 'interviewAssign.interviewer.department', 'interviewAssign.assessment.assessmentResult', 'interviewAssign.remarks')->where('candidate_id', $data->id)->get();
+    $result['candidate'] = $data;
+    $result['interview'] = $interviewStage;
+    return $result;
+  }
 
 
 
@@ -79,12 +85,5 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 
   //     // return $result;
   // }
-  public function show($id)
-  {
-    $data = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
-    $interviewStage = Interview::with('interviewStage', 'interviewAssign.interviewer.position', 'interviewAssign.interviewer.department', 'interviewAssign.assessment.assessmentResult', 'interviewAssign.remarks')->where('candidate_id', $data->id)->get();
-    $result['candidate'] = $data;
-    $result['interview'] = $interviewStage;
-    return $result;
-  }
+
 }

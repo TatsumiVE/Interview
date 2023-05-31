@@ -18,20 +18,20 @@ class UserResource extends JsonResource
     {
         $roles = Role::whereIn('id', $this->roles->pluck('id'))->get();
 
-    $roleData = $roles->map(function ($role) {
+        $roleData = $roles->map(function ($role) {
+            return [
+                'id' => $role->id,
+                'name' => $role->name,
+            ];
+        });
+
         return [
-            'id' => $role->id,
-            'name' => $role->name,
+            'id' => $this->id,
+            'interviewer_id' => new InterviewerResource($this->whenLoaded('interviewer')),
+            'password' => $this->password,
+            'status' => $this->status,
+            'role' => $roleData,
+            'token' => $this->token,
         ];
-    });
-
-    return [
-        'id' => $this->id,
-        'interviewer_id' => new InterviewerResource($this->whenLoaded('interviewer')),
-        'password' => $this->password,
-        'role' => $roleData,
-        'token' => $this->token,
-    ];
-
     }
 }

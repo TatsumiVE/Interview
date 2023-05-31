@@ -29,7 +29,8 @@ class InterviewProcessController extends Controller
         $this->interviewProcessService = $interviewProcessService;
         $this->middleware('permission:interviewProcessCreate', ['only' => ['store']]);
         $this->middleware('permission:interviewProcessSearchAssignId', ['only' => ['searchInterviewAssignId']]);
-        $this->middleware('permission:interviewProcessUpdate', ['only' => ['update']]);
+        $this->middleware('permission:interviewSummarize', ['only' => ['interviewSummarize']]);
+        $this->middleware('permission:interviewProcessTerminate', ['only' => ['terminateProcess']]);
     }
     public function store(Request $request)
     {

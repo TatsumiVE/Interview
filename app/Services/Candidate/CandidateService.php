@@ -19,7 +19,7 @@ class CandidateService implements CandidateServiceInterface
       'gender' => 'required',
       'phone_number' => 'required|regex:/^[0-9]{10,}$/|unique:candidates,phone_number',
       'residential_address' => 'required',
-      'date_of_birth' => 'required|date|before_or_equal:' . now()->subYear()->format('Y-m-d'),
+      'date_of_birth' => 'required|date',
       'cv_path'  => 'required',
       'willingness_to_travel' => '',
       'expected_salary' => '',
@@ -28,7 +28,6 @@ class CandidateService implements CandidateServiceInterface
       'position_id' => 'required|exists:positions,id',
       'agency_id' => 'required| exists:agencies,id',
       'status' => '',
-
       'data.*.experience.month' => 'required|integer|between:1,12',
       'data.*.experience.year' => 'required|integer|between:0,30',
       'data.*.devlanguage_id' => 'required',

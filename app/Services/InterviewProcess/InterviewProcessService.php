@@ -15,12 +15,12 @@ class InterviewProcessService implements InterviewProcessServiceInterface
   public function store($request)
   {
     $validatedData = $request->validate([
-      'stage_name' => 'required|string',
+      'stage_name' => 'required',
       'interview_date' => 'required',
       'interview_time' =>  'required',
       'location' => 'required|integer',
-      'candidate_id' => 'required|numeric',
-      'interviewer_id' => 'required|array',
+      'candidate_id' => 'required|exists:candidates,id',
+      'interviewer_id' => 'required|array|exists:interviewers,id',
     ]);
     return  DB::transaction(function () use ($validatedData) {
 

@@ -30,8 +30,7 @@ class InterviewController extends Controller
         $this->interviewService = $interviewerService;
 
         $this->middleware('permission:interviewList', ['only' => ['index']]);
-        $this->middleware('permission:interviewCreate', ['only' => ['store']]);
-        // $this->middleware('permission:interviewShow', ['only' => ['show']]);
+        $this->middleware('permission:remarkAssessmentCreate', ['only' => ['store']]);
     }
     public function index()
     {

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('interviewer_id');
+            $table->integer('status')->default(0);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

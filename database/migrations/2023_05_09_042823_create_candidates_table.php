@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('gender');
             $table->string('phone_number');
             $table->string('residential_address');
-            $table->string('date_of_birth');
+            $table->date('date_of_birth');
             $table->string('cv_path');
             $table->boolean('willingness_to_travel')->nullable();
             $table->integer('expected_salary')->nullable();

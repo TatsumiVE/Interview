@@ -21,8 +21,7 @@ class CandidateSearchController extends Controller
     {
         $this->candidateSearchService = $candidateSearchService;
 
-        // $this->middleware('permission:candidateSearch',['only'=>['search']]);
-
+        $this->middleware('permission:candidateSearch', ['only' => ['search']]);
     }
 
     public function search(CandidateSearchRequest $request)

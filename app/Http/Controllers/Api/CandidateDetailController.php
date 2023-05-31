@@ -20,7 +20,11 @@ class CandidateDetailController extends Controller
     {
         $this->candidateDetailRepo = $candidateDetailRepo;
 
-        $this->middleware('permission:candidateDetail', ['only' => ['candidateDetail']]);
+        $this->middleware('permission:getAllCandidates', ['only' => ['index']]);
+
+        $this->middleware('permission:getCandidateById', ['only' => ['candidateDetail']]);
+
+        $this->middleware('permission:getCandidatesByStageName', ['only' => ['getCandidatesByStageName']]);
     }
 
     public function index()

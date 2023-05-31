@@ -16,9 +16,10 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     protected $fillable = [
-        'interviewer_id',      
-        'password',       
-       
+        'interviewer_id',
+        'password',
+        'status',
+
     ];
 
 
@@ -26,12 +27,13 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-  
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function interviewer(){
+    public function interviewer()
+    {
         return $this->belongsTo(Interviewer::class);
     }
 }

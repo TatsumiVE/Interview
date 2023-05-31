@@ -8,13 +8,13 @@ class UserRepository implements UserRepoInterface
 {
     public function get()
     {
-        return User::with('interviewer')->get();
+        $user = User::with('interviewer')->get();
+        return $user;
     }
 
 
     public function show($id)
     {
         return User::with('interviewer')->where('id', $id)->first();
-
     }
 }
