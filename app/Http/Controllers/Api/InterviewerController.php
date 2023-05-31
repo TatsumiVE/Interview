@@ -83,10 +83,10 @@ class InterviewerController extends Controller
             ]);
 
             $data = $this->interviewerService->update($validateData, $id);
-            return $this->success(200, $data, "Interviewer updated successfully.");
+            return $this->success(200, new InterviewerResource($data), "Interviewer updated successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error updating Interviewer data: ' . $e->getMessage());
-            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+            return $this->error(500, new InterviewerResource($data), 'Internal Server Error.');
         }
     }
 
