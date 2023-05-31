@@ -8,11 +8,12 @@ use Spatie\Permission\Models\Role;
 
 class DepartmentRepository implements DepartmentRepoInterface
 {
-  public function get(){
-    return Department::all();
+  public function get()
+  {
+    return Department::orderBy('id')->get();
   }
-  public function show($id){
-    return Department::where('id',$id)->first();
+  public function show($id)
+  {
+    return Department::where('id', $id)->first();
   }
-
 }

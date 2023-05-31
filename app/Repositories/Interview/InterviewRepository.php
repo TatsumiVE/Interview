@@ -15,8 +15,8 @@ class InterviewRepository implements InterviewRepoInterface
     public function get()
     {
         return Candidate::with(['position', 'agency', 'specificLanguages.devlanguage', 'interviews.interviewStage'])
-            ->orderBy('id')
             ->where('status', 0)
+            ->orderBy('id')
             ->get();
     }
     // public function show($id)
