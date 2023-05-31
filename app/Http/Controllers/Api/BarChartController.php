@@ -16,9 +16,9 @@ class BarChartController extends Controller
 
     public function __construct()
     {
-
-        $this->middleware('permission:barChart', ['only' => ['index']]);
-        $this->middleware('permission:pieChart', ['only' => ['candidateCountByStage']]);
+        $this->middleware('permission:dashbordView', ['only' => ['index', 'candidateCountByStage']]);
+        // $this->middleware('permission:barChart', ['only' => ['index']]);
+        // $this->middleware('permission:pieChart', ['only' => ['candidateCountByStage']]);
     }
     public function index()
     {
@@ -35,9 +35,9 @@ class BarChartController extends Controller
 
     public function candidateCountByStage()
     {
-        $candidateCount= Interview::select('interview_stage_id', DB::raw('COUNT(candidate_id) as count'))
-        ->groupBy('interview_stage_id')
-        ->get();
+        $candidateCount = Interview::select('interview_stage_id', DB::raw('COUNT(candidate_id) as count'))
+            ->groupBy('interview_stage_id')
+            ->get();
         return $this->success(200, $candidateCount, 'success');
     }
 }
