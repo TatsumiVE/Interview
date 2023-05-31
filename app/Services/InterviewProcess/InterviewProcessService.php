@@ -15,7 +15,7 @@ class InterviewProcessService implements InterviewProcessServiceInterface
   public function store($request)
   {
     $validatedData = $request->validate([
-      'stage_name' => 'required|string',
+      'stage_name' => 'required',
       'interview_date' => 'required',
       'interview_time' =>  'required',
       'location' => 'required|integer',
