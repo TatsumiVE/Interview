@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Interview;
 use Exception;
 use App\Traits\ApiResponser;
 use App\Models\SpecificLanguage;
@@ -29,5 +30,13 @@ class BarChartController extends Controller
             Log::channel('web_daily_error')->error('Error retrieving BarChart data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
+    }
+
+    public function candidateCountByStage()
+    {
+        $candidateCount= Interview::select('interview_stage_id', DB::raw('COUNT(candidate_id) as count'))
+        ->groupBy('interview_stage_id')
+        ->get();
+        return $this->success(200, $candidateCount, 'success');
     }
 }

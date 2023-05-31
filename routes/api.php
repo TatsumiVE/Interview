@@ -65,4 +65,6 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
   Route::apiResource('interviews', InterviewController::class);
   Route::apiResource('interviewers', InterviewerController::class);
   Route::get('candidate-barchart', [BarChartController::class, 'index']);
+  Route::get('candidate-piechart', [BarChartController::class, 'candidateCountByStage']);
+
 });
