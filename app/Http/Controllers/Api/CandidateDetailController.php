@@ -24,7 +24,7 @@ class CandidateDetailController extends Controller
 
         $this->middleware('permission:getCandidateById', ['only' => ['candidateDetail']]);
 
-        $this->middleware('permission:getCandidatesByStageName', ['only' => ['getCandidatesByStageName']]);
+      
     }
 
     public function index()
@@ -49,14 +49,5 @@ class CandidateDetailController extends Controller
         };
     }
 
-    public function getCandidatesByStageName($stageName)
-    {
-        try {
-            $data = $this->candidateDetailRepo->getCandidatesByStageName($stageName);
-            return $this->success(200, $data, 'CandidateDetail By StageName Data retrieved successfully');
-        } catch (Exception $e) {
-            Log::channel('web_daily_error')->error('Error retrieving CandidateDetail By StageName  data: ' . $e->getMessage());
-            return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        };
-    }
+  
 }

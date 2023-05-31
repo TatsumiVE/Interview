@@ -31,7 +31,8 @@ class RoleAndPermissionSeeder extends Seeder
         $agencyDelete = Permission::create(['name' => 'agencyDelete']);
         $agencyShow = Permission::create(['name' => 'agencyShow']);
 
-        $dashboardView = Permission::create(['name' => 'dashboardView']);
+        $barChart = Permission::create(['name' => 'barChart']);
+        $pieChart = Permission::create(['name'=>'pieChart']);
 
 
         $candidateList = Permission::create(['name' => 'candidateList']);
@@ -42,20 +43,16 @@ class RoleAndPermissionSeeder extends Seeder
 
 
 
-
         $candidateSearch = Permission::create(['name' => 'candidateSearch']);
 
         $candidateInterviewRateShow = Permission::create(['name' => 'candidateInterviewRateShow']);
 
         $getAllCandidates = Permission::create(['name' => 'getAllCandidates']);
         $getCandidateById = Permission::create(['name' => 'getCandidateById']);
-        $getCandidatesByStageName = Permission::create(['name' => 'getCandidatesByStageName']);
 
         $interviewList = Permission::create(['name' => 'interviewList']);
         $remarkAssessmentCreate = Permission::create(['name' => 'remarkAssessmentCreate']);
-
-
-
+       
 
         $interviewProcessCreate = Permission::create(['name' => 'interviewProcessCreate']);
         $interviewProcessSearchAssignId = Permission::create(['name' => 'interviewProcessSearchAssignId']);
@@ -102,7 +99,7 @@ class RoleAndPermissionSeeder extends Seeder
         //super_admin=HR
         $super_admin->givePermissionTo([
 
-            $dashboardView,
+            $barChart, $pieChart,
 
             $userList, $userCreate, $userUpdate, $userDelete, $userShow,
 
@@ -112,7 +109,7 @@ class RoleAndPermissionSeeder extends Seeder
 
             $candidateInterviewRateShow,
 
-            $getAllCandidates, $getCandidateById, $getCandidatesByStageName,
+            $getAllCandidates, $getCandidateById, 
 
             $candidateSearch,
             $interviewProcessCreate, $interviewProcessSearchAssignId,
@@ -137,7 +134,7 @@ class RoleAndPermissionSeeder extends Seeder
         //admin=ManagementTeam 
         $admin->givePermissionTo([
 
-            $dashboardView,
+            $barChart, $pieChart,
 
             $userList,  $userShow,
 
@@ -146,7 +143,7 @@ class RoleAndPermissionSeeder extends Seeder
             $candidateList,  $candidateShow,
             $candidateInterviewRateShow,
 
-            $getAllCandidates, $getCandidateById, $getCandidatesByStageName,
+            $getAllCandidates, $getCandidateById,
 
             $candidateSearch,
             $interviewProcessSearchAssignId,
@@ -170,7 +167,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         //moderator = interviwer 
         $moderator->givePermissionTo([
-            $dashboardView,
+            $barChart, $pieChart,
 
             $userList, $userShow,
 
@@ -180,7 +177,7 @@ class RoleAndPermissionSeeder extends Seeder
 
             $candidateInterviewRateShow,
 
-            $getAllCandidates, $getCandidateById, $getCandidatesByStageName,
+            $getAllCandidates, $getCandidateById, 
 
             $candidateSearch,
             $interviewProcessSearchAssignId,

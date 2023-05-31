@@ -17,7 +17,8 @@ class BarChartController extends Controller
     public function __construct()
     {
 
-        $this->middleware('permission:dashboardView', ['only' => ['index']]);
+        $this->middleware('permission:barChart', ['only' => ['index']]);
+        $this->middleware('permission:pieChart', ['only' => ['candidateCountByStage']]);
     }
     public function index()
     {

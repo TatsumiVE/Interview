@@ -48,7 +48,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
 
   Route::post('interview-process', [InterviewProcessController::class, 'store']);
   Route::post('interview-process/result/{candiateId}/{stageId}', [InterviewProcessController::class, 'interviewSummarize']);
-  Route::get('candidate-barchart', [BarChartController::class, 'index']);
+
   //find AssignI
   Route::get('interview-process/{candiateId}/{interviewerId}', [InterviewProcessController::class, 'searchInterviewAssignId']);
   Route::post('interview-process/terminate/{candidateId}', [InterviewProcessController::class, 'terminateProcess']);

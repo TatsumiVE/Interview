@@ -38,15 +38,6 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
     return $result;
   }
 
-  public function getCandidatesByStageName($stageName)
-  {
-    $candidateCount = Candidate::whereHas('interviews', function ($query) use ($stageName) {
-      $query->whereHas('interviewStage', function ($query) use ($stageName) {
-        $query->where('stage_name', $stageName);
-      });
-    })->count();
-    return $candidateCount;
-  }
 
 
   public function show($id)
