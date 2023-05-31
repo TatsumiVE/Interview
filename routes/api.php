@@ -52,6 +52,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
   //find AssignI
   Route::get('interview-process/{candiateId}/{interviewerId}', [InterviewProcessController::class, 'searchInterviewAssignId']);
   Route::post('interview-process/terminate/{candidateId}', [InterviewProcessController::class, 'terminateProcess']);
+  Route::post('user/{userId}', [UserController::class, 'userStatus']);
   Route::apiResource('users', UserController::class);
   Route::apiResource('roles', RoleController::class);
   Route::apiResource('permissions', PermissionController::class);
@@ -67,5 +68,4 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
   Route::apiResource('interviewers', InterviewerController::class);
   Route::get('candidate-barchart', [BarChartController::class, 'index']);
   Route::get('candidate-piechart', [BarChartController::class, 'candidateCountByStage']);
-
 });

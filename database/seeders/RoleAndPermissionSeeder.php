@@ -24,7 +24,7 @@ class RoleAndPermissionSeeder extends Seeder
         $userUpdate = Permission::create(['name' => 'userUpdate']);
         $userDelete = Permission::create(['name' => 'userDelete']);
         $userShow = Permission::create(['name' => 'userShow']);
-
+        $userStatus = Permission::create(['name' => 'userStatus']);
         $agencyList = Permission::create(['name' => 'agencyList']);
         $agencyCreate = Permission::create(['name' => 'agencyCreate']);
         $agencyUpdate = Permission::create(['name' => 'agencyUpdate']);
@@ -100,7 +100,7 @@ class RoleAndPermissionSeeder extends Seeder
 
             $dashboardView,
 
-            $userList, $userCreate, $userUpdate, $userDelete, $userShow,
+            $userList, $userCreate, $userUpdate, $userDelete, $userShow, $userStatus,
 
             $agencyList, $agencyCreate, $agencyUpdate, $agencyDelete, $agencyShow,
 
@@ -135,7 +135,7 @@ class RoleAndPermissionSeeder extends Seeder
 
             $dashboardView,
 
-            $userList,  $userShow,
+            $userList,  $userShow, $userStatus,
 
             $agencyList,  $agencyShow,
 
