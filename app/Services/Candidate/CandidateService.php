@@ -47,6 +47,7 @@ class CandidateService implements CandidateServiceInterface
 
         ]);
       }
+
     });
   }
   public function update($request, $id)

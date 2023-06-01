@@ -19,8 +19,7 @@ class BarChartController extends Controller
     {
         $this->middleware('permission:dashboardView', ['only' => ['index', 'candidateCountByStage']]);
 
-        // $this->middleware('permission:barChart', ['only' => ['index']]);
-        // $this->middleware('permission:pieChart', ['only' => ['candidateCountByStage']]);
+      
     }
     public function index()
     {
