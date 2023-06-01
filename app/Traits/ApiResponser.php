@@ -21,7 +21,7 @@ trait ApiResponser
 	 * @param  int|null  $code
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	protected function success(int $code = 200, $data, $message)
+	protected function success(int $code = 200, $data = null, $message)
 	{
 		// modify here
 		return response()->json([
