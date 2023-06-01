@@ -39,7 +39,7 @@ class CandidateController extends Controller
         try {
             $data = $this->candidateRepo->get();
 
-            return $this->success(200, $data, 'Candidate Data retrieved successfully');
+            return $this->success(200, $data , 'Candidate Data retrieved successfully');
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving candidate data: ' . $e->getMessage());
 
@@ -51,8 +51,8 @@ class CandidateController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = $this->candidateService->store($request);
-            return $this->success(201, "success", "New Candidate Created Successfully");
+         $response=$this->candidateService->store($request);
+            return $this->success(200,$response, "New Candidate Created Successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating candidate: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

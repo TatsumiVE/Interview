@@ -21,17 +21,13 @@ trait ApiResponser
 	 * @param  int|null  $code
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-
-
-
-	protected function success(int $code = 200, $data = null, $message = null)
+	protected function success(int $code = 200, $data = null)
 	{
 		// modify here
 		return response()->json([
 			'status' => 'success',
 			'status_code' => $code,
-			'data' => $data,
-			'message' => $message
+			'data' => $data
 		], $code);
 	}
 
@@ -54,17 +50,16 @@ trait ApiResponser
 		], $code);
 	}
 
-	// protected function paginate(int $code = 200, $data = null, $page = null)
-	// {
-	//     // modify here
-	// 	return response()->json([
-	// 		'status' => 'success',
-	// 		'status_code' => $code,
-	// 		'data' => [
-	// 			'list_data' => $data,
-	// 			'page' => $page
-	// 		]
-	// 	], $code);
-	// }
-
+	protected function paginate(int $code = 200, $data = null, $page = null)
+	{
+		// modify here
+		return response()->json([
+			'status' => 'success',
+			'status_code' => $code,
+			'data' => [
+				'list_data' => $data,
+				'page' => $page
+			]
+		], $code);
+	}
 }

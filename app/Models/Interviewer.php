@@ -30,10 +30,7 @@ class Interviewer extends Model
     {
         return $this->belongsTo(Position::class);
     }
-    // public function assessment()
-    // {
-    //     return $this->belongsTo(Assessment::class);
-    // }
+   
 
     public function interviewAssgins()
     {
