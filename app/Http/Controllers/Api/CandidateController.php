@@ -52,6 +52,7 @@ class CandidateController extends Controller
     {
         try {
          $response=$this->candidateService->store($request);
+
             return $this->success(200,$response, "New Candidate Created Successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating candidate: ' . $e->getMessage());
