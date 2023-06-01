@@ -43,7 +43,7 @@ class RateController extends Controller
         try {
             $data = $this->rateRepo->get();
 
-            return $this->success(200, RateResource::collection($data));
+            return $this->success(200, RateResource::collection($data),"Rate Retrieved Successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Rate data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -62,7 +62,7 @@ class RateController extends Controller
 
         try {
             $data = $this->rateService->store($request->validated());
-            return $this->success(200, new RateResource($data));
+            return $this->success(200, new RateResource($data),"New Rate Created Successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating Rate data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -81,7 +81,7 @@ class RateController extends Controller
 
         try {
             $data = $this->rateRepo->show($id);
-            return $this->success(200, new RateResource($data));
+            return $this->success(200, new RateResource($data),"Rate Showed Successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Rate data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -101,7 +101,7 @@ class RateController extends Controller
 
         try {
             $data = $this->rateService->update($request->validated(), $id);
-            return $this->success(200, $data, "Update Rate Success");
+            return $this->success(200, $data, "Rate Updated Successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error updating Rate data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -121,7 +121,7 @@ class RateController extends Controller
             if (count($rate->assessmentResults) == 0) {
                 $rate->delete();
                 $data = '';
-                return $this->success('200, $data, "Rate deleted successfully.');
+                return $this->success(200, $data, "Rate deleted successfully.");
             } else {
                 $msg = 'Sorry,cannot delete because there are some relationships remaining';
                 return $this->error(500, $msg, 'Internal Server Error');

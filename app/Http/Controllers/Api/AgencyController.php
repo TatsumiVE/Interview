@@ -49,7 +49,7 @@ class AgencyController extends Controller
     {
         try {
             $data = $this->agencyService->store($request->validated());
-            return $this->success(201, new AgencyResource($data), "New Agency Created");
+            return $this->success(201, new AgencyResource($data), "Agency created successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating Agency: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
@@ -61,7 +61,7 @@ class AgencyController extends Controller
     {
         try {
             $result = $this->agencyRepo->show($id);
-            return $this->success(200, new AgencyResource($result), 'success');
+            return $this->success(200, new AgencyResource($result), 'Agency showed successfully');
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Agency data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
@@ -74,7 +74,7 @@ class AgencyController extends Controller
         try {
 
             $data = $this->agencyService->update($request->validated(), $id);
-            return $this->success(200, $data, 'success');
+            return $this->success(200, $data, 'Agency updated successfully');
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error updating agency: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
@@ -88,7 +88,7 @@ class AgencyController extends Controller
             if (count($agency->candidates) == 0) {
                 $agency->delete();
                 $data = '';
-                return $this->success(200, $data, 'Agency successfully deleted');
+                return $this->success(200, $data, 'Agency deleted successfully');
             } else {
                 $msg = 'Cannot delete because there are candidates remaining';
                 return $this->error(500, $msg, 'Internal Server Error');
