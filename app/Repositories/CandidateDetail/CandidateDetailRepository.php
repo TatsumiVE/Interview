@@ -25,7 +25,7 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
     foreach ($candidates as $candidate) {
       $interviewStages = Interview::with('interviewStage', 'interviewAssign.interviewer.position', 'interviewAssign.interviewer.department', 'interviewAssign.assessment.assessmentResult', 'interviewAssign.remarks')
         ->where('candidate_id', $candidate->id)
-        ->orderBy('id')
+        ->orderBy('id'.'desc')
         ->get();
 
       $candidateData = [

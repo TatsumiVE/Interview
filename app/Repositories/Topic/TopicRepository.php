@@ -11,7 +11,7 @@ class TopicRepository implements TopicRepoInterface
     public function get()
     {
         try {
-            return Topic::orderBy('id')->get();
+            return Topic::orderBy('id','desc')->get();
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }

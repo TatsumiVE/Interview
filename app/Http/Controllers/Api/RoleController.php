@@ -29,7 +29,7 @@ class RoleController extends Controller
     {
         try {
             $data = $this->roleRepo->get();
-            return $this->success(200, RoleResource::collection($data), "Role retrieved successfully.");
+            return $this->success(201, RoleResource::collection($data), "Role retrieved successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Role data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
@@ -42,7 +42,7 @@ class RoleController extends Controller
         try {
             $validateData = $request->validated();
             $data = $this->roleService->store($validateData);
-            return $this->success(200, new RoleResource($data), "Role created successfully.");
+            return $this->success(201, new RoleResource($data), "Role created successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating Role data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');

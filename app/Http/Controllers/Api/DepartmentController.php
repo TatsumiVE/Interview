@@ -89,7 +89,7 @@ class DepartmentController extends Controller
             if (count($department->interviewers) == 0) {
                 $department->delete();
                 $data = '';
-                return $this->success('200, $data, "Department deleted successfully.');
+                return $this->success(200, $data, "Department deleted successfully.");
             } else {
                 $msg = 'Sorry,cannot delete because there are some relationships remaining';
                 return $this->error(500, $msg, 'Internal Server Error');

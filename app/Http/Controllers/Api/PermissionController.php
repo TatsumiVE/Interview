@@ -39,7 +39,7 @@ class PermissionController extends Controller
 
             $data = $this->permissionService->store($validateData);
 
-            return $this->success(200, new PermissionResource($data), "Permission created successfully.");
+            return $this->success(201, new PermissionResource($data), "Permission created successfully.");
         } catch (Exception $e) {
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');
         }

@@ -52,6 +52,7 @@ class InterviewerController extends Controller
     {
         try {
             $data = $this->interviewerService->store($request->validated());
+           
             return $this->success(200, new InterviewerResource($data), "Interviewer Created successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating Interviewer: ' . $e->getMessage());
@@ -98,22 +99,23 @@ class InterviewerController extends Controller
     try {
         $validator =Validator ::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email|unique:interviewers,email,' . $id,
-            'position_id' => 'required|exists:positions,id',
+            'email' => 'required|email|unique:interviewers,email,' . $id,           
             'department_id' => 'required|exists:departments,id',
+            'position_id' => 'required|exists:positions,id',
         ]);
 
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            return $this->error(422, $errors, 'Validation Error.');
-        }
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                return $this->error(422, $errors, 'Validation Error.');
+            }
 
-        $data = $this->interviewerService->update($request->all(), $id);
-        return $this->success(200, $data, "Interviewer updated successfully.");
-    } catch (Exception $e) {
-        return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+            $data = $this->interviewerService->update($request->all(), $id);
+            return $this->success(200, $data, "Interviewer updated successfully.");
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+        }
     }
-}
+
 
 
     public function destroy(Interviewer $interviewer)

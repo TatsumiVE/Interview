@@ -26,7 +26,7 @@ class UserRequest extends FormRequest
         return [
             'interviewer_id'=>'required|exists:interviewers,id|unique:users,interviewer_id',
             'password' => 'required|confirmed',
-            //'password_confirmation' => 'required',
+            'password_confirmation' => 'required',
             'role'=>'required|exists:roles,id',
         ];
     }

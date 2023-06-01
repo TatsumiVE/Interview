@@ -59,7 +59,7 @@ class DevLanguageController extends Controller
     {
         try {
             $data = $this->DevLanguageService->store($request->validated());
-            return $this->success(200, new DevLanguageResource($data));
+            return $this->success(201, new DevLanguageResource($data), "New Language Created Successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating DevLanguage: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -76,7 +76,7 @@ class DevLanguageController extends Controller
 
         try {
             $data = $this->DevLanguageRepo->show($id);
-            return $this->success(200, new DevLanguageResource($data), 'success');
+            return $this->success(200, new DevLanguageResource($data), 'Language Show Successfully');
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving DevLanguage data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());

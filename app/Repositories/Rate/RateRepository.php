@@ -10,7 +10,7 @@ class RateRepository implements RateRepoInterface
 {
     public function get()
     {
-        return Rate::orderBy('id')->get();
+        return Rate::orderBy('id','desc')->get();
     }
 
     public function show($id)

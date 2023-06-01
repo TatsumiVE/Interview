@@ -10,7 +10,7 @@ class InterviewerRepository implements InterviewerRepoInterface
 {
     public function get()
     {
-        return Interviewer::with('department', 'position')->orderBy('id')->get();
+        return Interviewer::with('department', 'position')->orderBy('id','desc')->get();
     }
     public function show($id)
     {
