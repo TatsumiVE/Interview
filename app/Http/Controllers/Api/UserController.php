@@ -56,7 +56,7 @@ class UserController extends Controller
 
             $data['token'] =  $data->createToken('App')->plainTextToken;
 
-            return $this->success(200, new UserResource($data), 'User created successfully.');
+            return $this->success(201, new UserResource($data), 'User created successfully.');
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating User data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');

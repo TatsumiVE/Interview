@@ -37,7 +37,7 @@ class InterviewProcessController extends Controller
         try {
             $response = $this->interviewProcessService->store($request);
             // dd($response);
-            return $this->success(200, $response, "New InterviewAssign Created");
+            return $this->success(201, $response, "New InterviewAssign Created");
         } catch (Exception $e) {
 
             Log::channel('web_daily_error')->error('Error creating InterviewAssign: ' . $e->getMessage());
@@ -82,21 +82,7 @@ class InterviewProcessController extends Controller
     }
 
 
-    // public function checkInterviewStage(Interview  $interview)
-    // {
-    //     $candidate = $interview->candidate;
-    //     $interviewStageId = $interview->interview_stage_id;
 
-    //     if ($interviewStageId == 1) {
-    //         $msg = 'Candidate is in stage 1';
-    //         return $this->success(200, [], $msg);
-    //     } elseif ($interviewStageId == 2) {
-    //         $msg = 'Candidate is in stage 2';
-    //         return $this->success(200, [], $msg);
-    //     }
-    //     $msg = 'Invalid interview or candidate not found';
-    //     return $this->error(500, $msg, 'Internal Server Error');
-    // }
 
 
 

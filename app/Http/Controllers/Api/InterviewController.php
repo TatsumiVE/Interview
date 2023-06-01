@@ -56,7 +56,7 @@ class InterviewController extends Controller
         //assessment create
         try {
             $this->interviewService->store($request);
-            return $this->success(200, 'Done', "New Interview-Candidate Assessment  Created");
+            return $this->success(201, 'Done', "New Interview-Candidate Assessment  Created");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating Interview-Candidate Assessment: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

@@ -5,10 +5,11 @@ namespace App\Services\Candidate;
 use App\Models\Candidate;
 use App\Models\SpecificLanguage;
 use Illuminate\Support\Facades\DB;
+use App\Traits\ApiResponser;
 
 class CandidateService implements CandidateServiceInterface
 {
-
+  use ApiResponser;
 
   //   public function store($request)
   //   {
@@ -80,6 +81,12 @@ class CandidateService implements CandidateServiceInterface
       'data.*.experience.year' => 'required|integer|between:0,30',
       'data.*.devlanguage_id' => 'required',
     ]);
+
+
+    if ($validatedData->fails()) {
+      $errors =  $validatedData->errors()->all();
+      return $this->error(422, $errors, 'Validation Error.');
+    }
 
     $candidate = null;
 
