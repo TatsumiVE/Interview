@@ -15,11 +15,11 @@ class CandidateService implements CandidateServiceInterface
 
     $validatedData = $request->validate([
       'name' => 'required',
-      'email' => 'required|email|unique:candidates,email',
+      'email' => 'required|email',
       'gender' => 'required',
-      'phone_number' => 'required|regex:/^[0-9]{10,}$/|unique:candidates,phone_number',
+      'phone_number' => 'required',
       'residential_address' => 'required',
-      'date_of_birth' => 'required|date',
+      'date_of_birth' => 'required',
       'cv_path'  => 'required',
       'willingness_to_travel' => '',
       'expected_salary' => '',
@@ -32,8 +32,8 @@ class CandidateService implements CandidateServiceInterface
       'data.*.experience.year' => 'required|integer|between:0,30',
       'data.*.devlanguage_id' => 'required',
     ]);
-
-    return  DB::transaction(function () use ($validatedData) {
+    $candidate = null;
+    DB::transaction(function () use ($validatedData, &$candidate) {
 
       $candidate = Candidate::create($validatedData);
 
@@ -47,7 +47,7 @@ class CandidateService implements CandidateServiceInterface
 
         ]);
       }
-
+      return $candidate;
     });
   }
   public function update($request, $id)

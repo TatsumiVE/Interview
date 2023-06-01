@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PositionRequest;
 use App\Http\Resources\PositionResource;
+use App\Http\Controllers\Api\BaseController;
 use App\Services\Position\PositionServiceInterface;
 use App\Repositories\Position\PositionRepoInterface;
 
@@ -48,7 +49,7 @@ class PositionController extends Controller
             $validateData = $request->validated();
             $data = $this->positionService->store($validateData);
 
-            return $this->success(200, $data, "Position created successfully.");
+            return $this->success(201, $data, "Position created successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating Position data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error.');

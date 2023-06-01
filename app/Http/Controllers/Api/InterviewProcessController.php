@@ -35,9 +35,9 @@ class InterviewProcessController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->interviewProcessService->store($request);
-
-            return $this->success(200, "success", "New InterviewAssign Created");
+            $response = $this->interviewProcessService->store($request);
+            // dd($response);
+            return $this->success(200, $response, "New InterviewAssign Created");
         } catch (Exception $e) {
 
             Log::channel('web_daily_error')->error('Error creating InterviewAssign: ' . $e->getMessage());
