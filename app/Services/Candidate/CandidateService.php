@@ -67,7 +67,7 @@ class CandidateService implements CandidateServiceInterface
       'gender' => 'required',
       'phone_number' => 'required|regex:/^[0-9]{10,}$/|unique:candidates,phone_number',
       'residential_address' => 'required',
-      'date_of_birth' => 'required|date|before_or_equal:' . now()->subYear()->format('m-d-Y'),
+      'date_of_birth' => 'required|date|before_or_equal:2005-12-31',
       'cv_path'  => 'required',
       'willingness_to_travel' => '',
       'expected_salary' => '',
@@ -81,11 +81,6 @@ class CandidateService implements CandidateServiceInterface
       'data.*.devlanguage_id' => 'required',
     ]);
 
-
-    if ($validatedData->fails()) {
-      $errors =  $validatedData->errors()->all();
-      return $this->error(422, $errors, 'Validation Error.');
-    }
 
     $candidate = null;
 
