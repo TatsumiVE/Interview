@@ -14,46 +14,48 @@ namespace App\Traits;
 trait ApiResponser
 {
 	/**
-     * Return a success JSON response.
-     *
-     * @param  array|string  $data
-     * @param  string  $message
-     * @param  int|null  $code
-     * @return \Illuminate\Http\JsonResponse
-     */
-	protected function success(int $code = 200, $data = null,$message)
+	 * Return a success JSON response.
+	 *
+	 * @param  array|string  $data
+	 * @param  string  $message
+	 * @param  int|null  $code
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	protected function success(int $code = 200, $data = null, $message)
 	{
-        // modify here
+		// modify here
 		return response()->json([
 			'status' => 'success',
 			'status_code' => $code,
 			'data' => $data,
-            'message'=>$message
+			'message' => $message
 		], $code);
 	}
 
+
+
 	/**
-     * Return an error JSON response.
-     *
-     * @param  string  $message
-     * @param  int  $code
-     * @param  array|string|null  $data
-     * @return \Illuminate\Http\JsonResponse
-     */
+	 * Return an error JSON response.
+	 *
+	 * @param  string  $message
+	 * @param  int  $code
+	 * @param  array|string|null  $data
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	protected function error(int $code, $data = null, $message = null)
 	{
-        // modify here
+		// modify here
 		return response()->json([
 			'status' => 'error',
 			'status_code' => $code,
 			'data' => $data,
-            'err_msg' => $message
+			'err_msg' => $message
 		], $code);
 	}
 
 	protected function paginate(int $code = 200, $data = null, $page = null)
 	{
-        // modify here
+		// modify here
 		return response()->json([
 			'status' => 'success',
 			'status_code' => $code,

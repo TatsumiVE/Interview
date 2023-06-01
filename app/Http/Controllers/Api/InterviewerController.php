@@ -104,17 +104,17 @@ class InterviewerController extends Controller
             'position_id' => 'required|exists:positions,id',
         ]);
 
-        if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            return $this->error(422, $errors, 'Validation Error.');
-        }
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                return $this->error(422, $errors, 'Validation Error.');
+            }
 
-        $data = $this->interviewerService->update($request->all(), $id);
-        return $this->success(200, $data, "Interviewer updated successfully.");
-    } catch (Exception $e) {
-        return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+            $data = $this->interviewerService->update($request->all(), $id);
+            return $this->success(200, $data, "Interviewer updated successfully.");
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+        }
     }
-}
 
 
 

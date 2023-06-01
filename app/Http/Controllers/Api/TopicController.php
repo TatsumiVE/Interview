@@ -42,7 +42,7 @@ class TopicController extends Controller
 
         try {
             $data = $this->topicRepo->get();
-            return $this->success(200, TopicResource::collection($data),"Topic retrieved successfully");
+            return $this->success(200, TopicResource::collection($data), "Topic retrieved successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Topic data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -61,7 +61,7 @@ class TopicController extends Controller
 
         try {
             $data = $this->topicService->store($request->validated());
-            return $this->success(200, new TopicResource($data),"New Topic Created Successfully");
+            return $this->success(201, new TopicResource($data), "New Topic Created Successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating Topic: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -78,7 +78,7 @@ class TopicController extends Controller
     {
         try {
             $data = $this->topicRepo->show($id);
-            return $this->success(200, new TopicResource($data),"Success to Show Topic");
+            return $this->success(200, new TopicResource($data), "Success to Show Topic");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Topic data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());

@@ -43,7 +43,7 @@ class RateController extends Controller
         try {
             $data = $this->rateRepo->get();
 
-            return $this->success(200, RateResource::collection($data),"Rate Retrieved Successfully");
+            return $this->success(200, RateResource::collection($data), "Rate Retrieved Successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Rate data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -62,7 +62,7 @@ class RateController extends Controller
 
         try {
             $data = $this->rateService->store($request->validated());
-            return $this->success(200, new RateResource($data),"New Rate Created Successfully");
+            return $this->success(201, new RateResource($data), "New Rate Created Successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating Rate data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
