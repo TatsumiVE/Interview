@@ -21,8 +21,7 @@ class InterviewerResource extends JsonResource
             'email'=>$this->email,
             'department_id' => new DepartmentResource($this->whenLoaded('department')),
             'position_id'=>new PositionResource($this->whenLoaded('position')),
-           
-           
+            
         ];
 
         // return [

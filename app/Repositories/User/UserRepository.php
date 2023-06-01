@@ -12,7 +12,6 @@ class UserRepository implements UserRepoInterface
         return $user;
     }
 
-
     public function show($id)
     {
         return User::with('interviewer')->where('id', $id)->first();
