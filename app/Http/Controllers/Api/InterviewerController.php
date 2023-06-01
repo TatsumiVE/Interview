@@ -12,6 +12,7 @@ use App\Http\Requests\InterviewerRequest;
 use App\Http\Resources\InterviewerResource;
 use App\Services\Interviewer\InterviewerServiceInterface;
 use App\Repositories\Interviewer\InterviewerRepoInterface;
+use Illuminate\Auth\Events\Validated;
 
 class InterviewerController extends Controller
 {
@@ -86,7 +87,7 @@ class InterviewerController extends Controller
             return $this->success(200, new InterviewerResource($data), "Interviewer updated successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error updating Interviewer data: ' . $e->getMessage());
-            return $this->error(500, new InterviewerResource($data), 'Internal Server Error.');
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
 
