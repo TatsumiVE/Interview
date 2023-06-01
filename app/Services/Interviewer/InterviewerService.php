@@ -12,7 +12,7 @@ class InterviewerService implements InterviewerServiceInterface
     }
     public function update($data, $id)
     {
-        $result = Interviewer::where('id', $id)->first();
+        $result = Interviewer::findOrFail($id);
         return $result->update($data);
     }
 }

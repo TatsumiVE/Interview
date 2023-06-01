@@ -10,7 +10,7 @@ class DepartmentRepository implements DepartmentRepoInterface
 {
   public function get()
   {
-    return Department::orderBy('id')->get();
+    return Department::orderBy('id','desc')->get();
   }
   public function show($id)
   {
