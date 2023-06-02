@@ -134,25 +134,14 @@ class RoleAndPermissionSeeder extends Seeder
 
         //admin=ManagementTeam
         $admin->givePermissionTo([
-
             $dashboardView,
-
-            $userList,  $userShow, $userStatus,
-
+            $userList,  $userShow,
             $agencyList,  $agencyShow,
-
             $candidateList,  $candidateShow,
             $candidateInterviewRateShow,
-
             $getAllCandidates, $getCandidateById, $candidatesAll,
-
             $candidateSearch,
-            $interviewProcessSearchAssignId,
-            $interviewSummarize, $interviewProcessTerminate,
-
-
-            $interviewList,  $remarkAssessmentCreate,
-
+            $interviewList,
             $interviewerList,  $interviewerShow,
 
             $departmentList, $departmentShow,
@@ -160,44 +149,19 @@ class RoleAndPermissionSeeder extends Seeder
             $languageList, $languageShow,
 
             $positionList,  $positionShow,
-
             $rateList, $rateShow,
-
             $topicList,  $topicShow,
         ]);
 
         //moderator = interviwer
         $moderator->givePermissionTo([
-            $dashboardView,
-
-            $userList, $userShow,
-
-            $agencyList, $agencyShow,
-
-            $candidateList, $candidateShow,
-
-            $candidateInterviewRateShow,
-
             $getAllCandidates, $getCandidateById, $candidatesAll,
-
             $candidateSearch,
             $interviewProcessSearchAssignId,
-            $interviewSummarize, $interviewProcessTerminate,
-
-
             $interviewList,  $remarkAssessmentCreate,
-
-            $interviewerList, $interviewerShow,
-
-            $departmentList, $departmentShow,
-
-            $languageList, $languageShow,
-
-            $positionList, $positionShow,
-
-            $rateList, $rateShow,
-
-            $topicList, $topicShow,
+            $languageList,
+            $rateList,
+            $topicList,
         ]);
     }
 }

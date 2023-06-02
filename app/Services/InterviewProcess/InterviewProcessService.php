@@ -19,7 +19,7 @@ class InterviewProcessService implements InterviewProcessServiceInterface
       'interview_date' => 'required',
       'interview_time' =>  'required',
       'location' => 'required|integer',
-      'candidate_id' => 'required|exists:candidates,id',
+      'candidate_id' => 'required',
       'interviewer_id' => 'required|array|exists:interviewers,id',
     ]);
     return  DB::transaction(function () use ($validatedData) {

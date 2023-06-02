@@ -85,7 +85,7 @@ class AgencyController extends Controller
     public function destroy(Agency $agency)
     {
         try {
-            if (count($agency->candidates) == 0) {
+            if (count($agency->candidates) === 0) {
                 $agency->delete();
                 $data = '';
                 return $this->success(200, $data, 'Agency deleted successfully');

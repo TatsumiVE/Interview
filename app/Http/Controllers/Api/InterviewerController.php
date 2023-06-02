@@ -119,7 +119,7 @@ class InterviewerController extends Controller
     public function destroy(Interviewer $interviewer)
     {
         try {
-            if (count($interviewer->interviewAssgins) == 0) {
+            if (count($interviewer->interviewAssgins) === 0) {
                 $interviewer->delete();
                 $data = '';
                 return $this->success(200, $data, "Interviewer deleted successfully.");

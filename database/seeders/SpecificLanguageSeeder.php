@@ -15,17 +15,17 @@ class SpecificLanguageSeeder extends Seeder
      */
     public function run()
     {
-        SpecificLanguage::create([
-            'experience' => 1,
-            'devlanguage_id' => 1,
-            'candidate_id' => 1
-        ]);
+        // SpecificLanguage::create([
+        //     'experience' => 1,
+        //     'devlanguage_id' => 1,
+        //     'candidate_id' => 1
+        // ]);
 
 
-        SpecificLanguage::create([
-            'experience' => 2,
-            'devlanguage_id' => 2,
-            'candidate_id' => 1
-        ]);
+        // SpecificLanguage::create([
+        //     'experience' => 2,
+        //     'devlanguage_id' => 2,
+        //     'candidate_id' => 1
+        // ]);
     }
 }
