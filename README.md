@@ -17,7 +17,7 @@
 
 # Demo Credentials
 
-**super_admin:** John@gmail.com
+**super_admin:** john@gmail.com
 <br/>**Password:** password
 
 **admin:** david@gmail.com
