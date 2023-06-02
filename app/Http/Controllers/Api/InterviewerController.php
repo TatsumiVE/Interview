@@ -52,7 +52,6 @@ class InterviewerController extends Controller
     {
         try {
             $data = $this->interviewerService->store($request->validated());
-           
             return $this->success(200, new InterviewerResource($data), "Interviewer Created successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating Interviewer: ' . $e->getMessage());
@@ -94,14 +93,14 @@ class InterviewerController extends Controller
     // }
 
     public function update(Request $request, $id)
-{
-    try {
-        $validator =Validator ::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email|unique:interviewers,email,' . $id,           
-            'department_id' => 'required|exists:departments,id',
-            'position_id' => 'required|exists:positions,id',
-        ]);
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => 'required|email|unique:interviewers,email,' . $id,
+                'department_id' => 'required|exists:departments,id',
+                'position_id' => 'required|exists:positions,id',
+            ]);
 
             if ($validator->fails()) {
                 $errors = $validator->errors()->all();

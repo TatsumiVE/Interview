@@ -40,7 +40,7 @@ class CandidateDetailController extends Controller
     {
         try {
             $data = $this->candidateDetailRepo->candidatesAll();
-            return $this->success(200, $data, 'Candidate Status One Data Reterived successfully');
+            return $this->success(200, $data, 'Candidates All Data Reterived successfully');
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Candidate data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
