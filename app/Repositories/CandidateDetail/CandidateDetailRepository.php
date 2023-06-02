@@ -19,13 +19,12 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 {
   public function get()
   {
-    $candidates = Candidate::with('specificLanguages.devlanguage')->get();
+    $candidates = Candidate::with('specificLanguages.devlanguage')->where('status',0)->get();
 
     $result = [];
     foreach ($candidates as $candidate) {
       $interviewStages = Interview::with('interviewStage', 'interviewAssign.interviewer.position', 'interviewAssign.interviewer.department', 'interviewAssign.assessment.assessmentResult', 'interviewAssign.remarks')
         ->where('candidate_id', $candidate->id)
-        ->orderBy('id'.'desc')
         ->get();
 
       $candidateData = [
