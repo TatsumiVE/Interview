@@ -5,6 +5,11 @@
 
 - Clone the repository with git clone
 
+# Frontend
+
+- Run **npm install**
+- Run **npm run dev**
+
 # Backend 
 
 - Copy **.env.example** file to **.env** and edit database credentials there(**cp .env.example .env**)
