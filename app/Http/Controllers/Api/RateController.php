@@ -81,7 +81,7 @@ class RateController extends Controller
 
         try {
             $data = $this->rateRepo->show($id);
-            return $this->success(200, new RateResource($data), "Sucess to Show");
+            return $this->success(200, new RateResource($data),"Rate Showed Successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Rate data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());
@@ -101,7 +101,7 @@ class RateController extends Controller
 
         try {
             $data = $this->rateService->update($request->validated(), $id);
-            return $this->success(200, $data, "Update Rate Success");
+            return $this->success(200, $data, "Rate Updated Successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error updating Rate data: ' . $e->getMessage());
             return $this->error($e->getCode(), [], $e->getMessage());

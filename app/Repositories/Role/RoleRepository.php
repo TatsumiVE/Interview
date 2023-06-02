@@ -8,7 +8,7 @@ class RoleRepository implements RoleRepoInterface
 {
   public function get()
   {
-    return Role::orderBy('id')->get();
+    return Role::orderBy('id','desc')->get();
   }
   public function show($id)
   {

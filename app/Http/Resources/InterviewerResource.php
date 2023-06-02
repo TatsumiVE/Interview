@@ -21,6 +21,19 @@ class InterviewerResource extends JsonResource
             'email'=>$this->email,
             'department_id' => new DepartmentResource($this->whenLoaded('department')),
             'position_id'=>new PositionResource($this->whenLoaded('position')),
+            
         ];
+
+        // return [
+        //     'id' => $this->id, // Make sure $this refers to a valid object with the id property
+        //     'name' => $this->name,
+        //     'email' => $this->email,
+        //     'department_id' => $this->whenLoaded('department')
+        //         ? new DepartmentResource($this->department)
+        //         : null,
+        //     'position_id' => $this->whenLoaded('position')
+        //         ? new PositionResource($this->position)
+        //         : null,
+        // ];
     }
 }

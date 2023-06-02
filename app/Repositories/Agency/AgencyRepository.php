@@ -10,7 +10,7 @@ class AgencyRepository implements AgencyRepoInterface
   public function get()
   {
 
-    return Agency::orderBy('id')->get();
+    return Agency::orderBy('id','desc')->get();
   }
   public function show($id)
   {
