@@ -6,4 +6,5 @@ interface CandidateDetailRepoInterface
 {
   public function get();
   public function show($id);
+  public function candidatesAll();
 }
