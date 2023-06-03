@@ -135,7 +135,7 @@ class RoleAndPermissionSeeder extends Seeder
 
             $dashboardView,
 
-            $userList,  $userShow, $userStatus,
+            $userList,  $userShow,
 
             $agencyList,  $agencyShow,
 
