@@ -19,7 +19,7 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 {
   public function get()
   {
-    $candidates = Candidate::with('specificLanguages.devlanguage')->get();
+    $candidates = Candidate::with('specificLanguages.devlanguage', 'position', 'agency')->where('status', 0)->get();
 
     $result = [];
     foreach ($candidates as $candidate) {
@@ -34,7 +34,26 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 
       $result[] = $candidateData;
     }
+    return $result;
+  }
 
+  public function candidatesAll()
+  {
+    $candidates = Candidate::with('specificLanguages.devlanguage', 'position', 'agency')->get();
+
+    $result = [];
+    foreach ($candidates as $candidate) {
+      $interviewStages = Interview::with('interviewStage', 'interviewAssign.interviewer.position', 'interviewAssign.interviewer.department', 'interviewAssign.assessment.assessmentResult', 'interviewAssign.remarks')
+        ->where('candidate_id', $candidate->id)
+        ->get();
+
+      $candidateData = [
+        'candidate' => $candidate,
+        'interview' => $interviewStages,
+      ];
+
+      $result[] = $candidateData;
+    }
     return $result;
   }
 
@@ -42,7 +61,7 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 
   public function show($id)
   {
-    $data = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
+    $data = Candidate::with('specificLanguages.devlanguage', 'position', 'agency')->where('id', $id)->first();
     $interviewStage = Interview::with('interviewStage', 'interviewAssign.interviewer.position', 'interviewAssign.interviewer.department', 'interviewAssign.assessment.assessmentResult', 'interviewAssign.remarks')->where('candidate_id', $data->id)->get();
     $result['candidate'] = $data;
     $result['interview'] = $interviewStage;

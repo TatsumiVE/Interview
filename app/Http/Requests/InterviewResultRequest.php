@@ -25,7 +25,7 @@ class InterviewResultRequest extends FormRequest
     {
         return [
             'interview_summarize' => 'required',
-            'interview_result_date' => 'required|date_format:Y-m-d',
+            'interview_result_date' => 'required',
             'interview_result' => 'required',
             'record_path' => 'required'
         ];
