@@ -65,7 +65,7 @@ class CandidateService implements CandidateServiceInterface
       'name' => 'required',
       'email' => 'required|email',
       'gender' => 'required',
-      'phone_number' => 'required|regex:/^[0-9]{10,}$/|unique:candidates,phone_number',
+      'phone_number' => 'required|regex:/^[0-9]{10,}$/',
       'residential_address' => 'required',
       'date_of_birth' => 'required|date|before_or_equal:2005-12-31',
       'cv_path'  => 'required',
@@ -76,8 +76,8 @@ class CandidateService implements CandidateServiceInterface
       'position_id' => 'required|exists:positions,id',
       'agency_id' => 'required| exists:agencies,id',
       'status' => '',
-      'data.*.experience.month' => '',
-      'data.*.devlanguage_id' => '',
+      'data.*.experience.month' => 'required|integer',
+      'data.*.devlanguage_id' => 'required',
     ]);
 
 
@@ -87,7 +87,6 @@ class CandidateService implements CandidateServiceInterface
       $candidate = Candidate::create($validatedData);
 
       foreach ($validatedData['data'] as $requestData) {
-        // $experience = $requestData['experience']['month'] + $requestData['experience']['year'] * 12;
         SpecificLanguage::create([
           'experience' => $requestData['experience']['month'],
           'devlanguage_id' => $requestData['devlanguage_id'],
@@ -108,7 +107,7 @@ class CandidateService implements CandidateServiceInterface
       'name' => 'required',
       'email' => 'required|email',
       'gender' => 'required',
-      'phone_number' => 'required|regex:/^[0-9]{10,}$/|unique:candidates,phone_number',
+      'phone_number' => 'required|regex:/^[0-9]{10,}$/',
       'residential_address' => 'required',
       'date_of_birth' => 'required|date|before_or_equal:2005-12-31',
       'cv_path'  => 'required',
@@ -119,25 +118,18 @@ class CandidateService implements CandidateServiceInterface
       'position_id' => 'required|exists:positions,id',
       'agency_id' => 'required| exists:agencies,id',
       'status' => '',
-      'data.*.experience.month' => '',
-      'data.*.experience.year' => '',
-      'data.*.devlanguage_id' => '',
+      'data.*.experience.month' => 'required',
+      'data.*.devlanguage_id' => 'required',
     ]);
 
-
-    // $result = Candidate::with('specificLanguages.devlanguage')->where('id', $id)->first();
     return DB::transaction(function () use ($validatedData, $id) {
       $candidate = Candidate::findOrFail($id);
-
       $candidate->update($validatedData);
-
-      // Delete existing specific languages for the candidate
       $candidate->specificLanguages()->delete();
-
       foreach ($validatedData['data'] as $requestData) {
-        $experience = $requestData['experience']['month'] + $requestData['experience']['year'] * 12;
+
         SpecificLanguage::create([
-          'experience' => $experience,
+          'experience' => $requestData['experience']['month'],
           'devlanguage_id' => $requestData['devlanguage_id'],
           'candidate_id' => $candidate->id,
         ]);

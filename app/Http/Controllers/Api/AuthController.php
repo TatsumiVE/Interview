@@ -28,7 +28,7 @@ class AuthController extends Controller
                 $success['id'] = $interviewer->id;
                 $success['name'] =  $interviewer->name;
                 $success['role'] = $user->getRoleNames();
-                $success['permission'] = $user->getPermissionsViaRoles()->pluck('name');;
+                $success['permission'] = $user->getPermissionsViaRoles()->pluck('name');
                 return $this->success(200, $success, 'User login successfully.');
             } else {
                 return $this->error(401, ['error' => 'Unauthorized'], 'Unauthorized.');
@@ -48,6 +48,7 @@ class AuthController extends Controller
             }
 
             $isValid = Auth::guard('sanctum')->check();
+
 
             return response()->json(['valid' => $isValid], 200);
         } catch (\Exception $e) {
