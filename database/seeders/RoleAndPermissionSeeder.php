@@ -48,6 +48,8 @@ class RoleAndPermissionSeeder extends Seeder
 
         $getAllCandidates = Permission::create(['name' => 'getAllCandidates']);
         $getCandidateById = Permission::create(['name' => 'getCandidateById']);
+        $candidatesAll = Permission::create(['name' => 'candidatesAll']);
+
 
         $interviewList = Permission::create(['name' => 'interviewList']);
         $remarkAssessmentCreate = Permission::create(['name' => 'remarkAssessmentCreate']);
@@ -108,7 +110,7 @@ class RoleAndPermissionSeeder extends Seeder
 
             $candidateInterviewRateShow,
 
-            $getAllCandidates, $getCandidateById,
+            $getAllCandidates, $getCandidateById, $candidatesAll,
 
             $candidateSearch,
             $interviewProcessCreate, $interviewProcessSearchAssignId,
@@ -132,68 +134,31 @@ class RoleAndPermissionSeeder extends Seeder
 
 
         $admin->givePermissionTo([
-
             $dashboardView,
-
             $userList,  $userShow, $userStatus,
-
             $agencyList,  $agencyShow,
-
             $candidateList,  $candidateShow,
             $candidateInterviewRateShow,
-
-            $getAllCandidates, $getCandidateById,
-
-            $candidateSearch,
-           
-
-
-
-            $interviewList,  $remarkAssessmentCreate,
-
-            $interviewerList,  $interviewerShow,
-
+            $getAllCandidates, $getCandidateById, $candidatesAll,
+            $interviewList,
+            $interviewerList,
+            $interviewerShow,
             $departmentList, $departmentShow,
-
             $languageList, $languageShow,
-
             $positionList,  $positionShow,
-
             $rateList, $rateShow,
-
             $topicList,  $topicShow,
         ]);
 
         //moderator = interviwer
         $moderator->givePermissionTo([
             $dashboardView,
-
-            $userList, $userShow,
-
             $agencyList, $agencyShow,
-
             $candidateList, $candidateShow,
-
             $candidateInterviewRateShow,
-
-            $getAllCandidates, $getCandidateById,
-
-
-            $interviewProcessSearchAssignId,
-
-
-
+            $departmentList, $languageList,  $positionList,$rateList,  $topicList,  $agencyList,
+            $getAllCandidates, $getCandidateById, $candidatesAll,
             $interviewList,  $remarkAssessmentCreate,
-
-            $interviewerList,
-
-            $departmentList,
-
-            $languageList,
-
-            $positionList,
-            $rateList,
-            $topicList,
         ]);
     }
 }

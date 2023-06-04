@@ -65,7 +65,6 @@ class InterviewerController extends Controller
     {
         try {
             $data = $this->interviewerRepo->show($id);
-
             return $this->success(200, $data, "Interviewer show successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Interviewer data: ' . $e->getMessage());

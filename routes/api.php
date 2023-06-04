@@ -45,7 +45,7 @@ Route::middleware(['cors'])->group(function () {
 Route::middleware(['cors', 'auth:sanctum'])->group(function () {
   Route::get('candidates/{id}', [CandidateDetailController::class, 'candidateDetail']);
   Route::get('candidates-detail', [CandidateDetailController::class, 'index']);
-
+  Route::get('candidates-detail/all', [CandidateDetailController::class, 'candidatesAll']);
   Route::post('interview-process', [InterviewProcessController::class, 'store']);
   Route::post('interview-process/result/{candiateId}/{stageId}', [InterviewProcessController::class, 'interviewSummarize']);
 

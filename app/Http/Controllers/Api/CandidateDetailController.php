@@ -21,10 +21,8 @@ class CandidateDetailController extends Controller
         $this->candidateDetailRepo = $candidateDetailRepo;
 
         $this->middleware('permission:getAllCandidates', ['only' => ['index']]);
-
+        $this->middleware('permission:candidatesAll', ['only' => ['candidatesAll']]);
         $this->middleware('permission:getCandidateById', ['only' => ['candidateDetail']]);
-
-      
     }
 
     public function index()
@@ -32,6 +30,17 @@ class CandidateDetailController extends Controller
         try {
             $data = $this->candidateDetailRepo->get();
             return $this->success(200, $data, 'Candidate Reterived successfully');
+        } catch (Exception $e) {
+            Log::channel('web_daily_error')->error('Error retrieving Candidate data: ' . $e->getMessage());
+            return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        };
+    }
+
+    public function candidatesAll()
+    {
+        try {
+            $data = $this->candidateDetailRepo->candidatesAll();
+            return $this->success(200, $data, 'Candidate Status One Data Reterived successfully');
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error retrieving Candidate data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
@@ -48,6 +57,4 @@ class CandidateDetailController extends Controller
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
-
-  
 }

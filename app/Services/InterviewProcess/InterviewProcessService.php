@@ -50,11 +50,13 @@ class InterviewProcessService implements InterviewProcessServiceInterface
   }
 
 
-  public function interviewSummarize($request, $candidateId, $stageId)
+  public function interviewSummarize($request, $candidateId, $interviewId)
   {
-    $result = Interview::with('candidate', 'interviewStage')
-      ->where('candidate_id', $candidateId)
-      ->where('interview_stage_id', $stageId)->first();
+    
+
+    $result = Interview::
+      where('candidate_id', $candidateId)
+      ->where('id', $interviewId)->first();
     return $result->update($request);
   }
 }
