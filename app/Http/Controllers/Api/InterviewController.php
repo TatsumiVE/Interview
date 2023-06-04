@@ -64,44 +64,4 @@ class InterviewController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function show(Interviewer $id)
-    // {
-
-
-    //     try {
-    //         $data = $this->interviewRepo->show($id);
-    //         return $this->success(200, $data, 'success');
-    //     } catch (Exception $e) {
-    //         return $this->error(500, $e->getMessage(), 'Internal Server Error');
-    //     };
-    // }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
 }

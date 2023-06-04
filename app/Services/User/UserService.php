@@ -32,10 +32,4 @@ class UserService implements UserServiceInterface
             return $user;
         });
     }
-
-    // public function destroy($id)
-    // {
-    //     $user = User::where('id', $id)->first();
-    //     return  $user->delete();
-    // }
 }
