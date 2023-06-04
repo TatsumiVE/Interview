@@ -77,7 +77,6 @@ class CandidateService implements CandidateServiceInterface
       'agency_id' => 'required| exists:agencies,id',
       'status' => '',
       'data.*.experience.month' => '',
-      'data.*.experience.year' => '',
       'data.*.devlanguage_id' => '',
     ]);
 
@@ -88,9 +87,9 @@ class CandidateService implements CandidateServiceInterface
       $candidate = Candidate::create($validatedData);
 
       foreach ($validatedData['data'] as $requestData) {
-        $experience = $requestData['experience']['month'] + $requestData['experience']['year'] * 12;
+        // $experience = $requestData['experience']['month'] + $requestData['experience']['year'] * 12;
         SpecificLanguage::create([
-          'experience' => $experience,
+          'experience' => $requestData['experience']['month'],
           'devlanguage_id' => $requestData['devlanguage_id'],
           'candidate_id' => $candidate->id
         ]);
