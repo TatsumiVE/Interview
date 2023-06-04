@@ -88,7 +88,7 @@ class PositionController extends Controller
     {
         try {
             if (
-                count($position->candidates) == 0 ||
+                count($position->candidates) == 0 &&
                 count($position->interviewers) == 0
             ) {
                 $position->delete();

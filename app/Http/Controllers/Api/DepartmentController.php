@@ -86,7 +86,7 @@ class DepartmentController extends Controller
     public function destroy(Department $department)
     {
         try {
-            if (count($department->interviewers) == 0) {
+            if (count($department->interviewers) === 0) {
                 $department->delete();
                 $data = '';
                 return $this->success(200, $data, "Department deleted successfully.");

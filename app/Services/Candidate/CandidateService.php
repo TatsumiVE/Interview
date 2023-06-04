@@ -111,7 +111,7 @@ class CandidateService implements CandidateServiceInterface
       'gender' => 'required',
       'phone_number' => 'required|regex:/^[0-9]{10,}$/',
       'residential_address' => 'required',
-      'date_of_birth' => 'required|date|before_or_equal:' . now()->subYear()->format('Y-m-d'),
+      'date_of_birth' => 'required|date|before_or_equal:2005-12-31',
       'cv_path'  => 'required',
       'willingness_to_travel' => '',
       'expected_salary' => '',

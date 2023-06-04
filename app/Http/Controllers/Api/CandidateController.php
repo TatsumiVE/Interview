@@ -88,7 +88,7 @@ class CandidateController extends Controller
     public function destroy(Candidate $candidate)
     {
         try {
-            if (count($candidate->specificLanguages) == 0 || count($candidate->assessments) == 0 || count($candidate->interviews) == 0) {
+            if (count($candidate->specificLanguages) === 0 && count($candidate->assessments) === 0 && count($candidate->interviews) === 0) {
                 $candidate->delete();
                 $data = '';
                 return $this->success(200, $data, 'Candidate deleted successfully');
