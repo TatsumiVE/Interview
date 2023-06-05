@@ -61,7 +61,7 @@ class InterviewProcessController extends Controller
                 return response()->json($response, 422);
             }
 
-            $response = $this->interviewProcessService->store($validator);
+            $response = $this->interviewProcessService->store($request);
 
             // Clear the interviewer_id array from the request
             $request->merge(['interviewer_id' => []]);
@@ -88,16 +88,37 @@ class InterviewProcessController extends Controller
 
 
 
-    //interview summarize
-    public function interviewSummarize(InterviewResultRequest  $request,  $candidateID, $stageID)
+
+
+    public function interviewSummarize(Request $request,  $candidateID, $stageID)
     {
         try {
-            $data = $this->interviewProcessService->interviewSummarize($request->validated(), $candidateID, $stageID);
+            $validator = Validator::make($request->all(), [
+                'interview_summarize' => 'required',
+                'interview_result_date' => 'required',
+                'interview_result' => 'required',
+                'record_path' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                $errorResponse = $validator->errors();
+
+                $response = [
+                    'status' => 'error',
+                    'status_code' => 422,
+                    'data' => $errorResponse,
+                    'err_msg' => 'Validation Error.',
+                ];
+
+                return response()->json($response, 422);
+            }
+
+            $data = $this->interviewProcessService->interviewSummarize($request->all(), $candidateID, $stageID);
             return $this->success(200, $data, "Updated Success Interviews result");
         } catch (Exception $e) {
-            Log::channel('web_daily_error')->error('Error creating InterviewSummerize data: ' . $e->getMessage());
+            Log::channel('web_daily_error')->error('Error creating InterviewSummarize data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        };
+        }
     }
 
 
