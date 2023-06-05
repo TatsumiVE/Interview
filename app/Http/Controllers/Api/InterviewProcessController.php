@@ -10,11 +10,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Rules\UniqueIntegerArrayRule;
+use App\Rules\InterviewResultDateRule;
+use Illuminate\Support\Facades\Validator;
+
+use App\Rules\InterviewTimeRule;
 use App\Http\Requests\InterviewResultRequest;
 use App\Services\InterviewProcess\InterviewProcessServiceInterface;
 use App\Repositories\InterviewProcess\InterviewProcessRepoInterface;
-use Illuminate\Support\Facades\Validator;
-use App\Rules\UniqueIntegerArrayRule;
 
 class InterviewProcessController extends Controller
 {
@@ -42,12 +45,11 @@ class InterviewProcessController extends Controller
             $validator = Validator::make($request->all(), [
                 'stage_name' => 'required',
                 'interview_date' => 'required',
-                'interview_time' => 'required',
+                'interview_time' => ['required', new InterviewTimeRule],
                 'location' => 'required|integer',
                 'candidate_id' => ['required', 'exists:interviewers,id'],
                 'interviewer_id' => ['required', 'array', new UniqueIntegerArrayRule, 'exists:interviewers,id'],
             ]);
-
             if ($validator->fails()) {
                 $errorResponse = $validator->errors();
 
@@ -97,9 +99,8 @@ class InterviewProcessController extends Controller
                 'interview_summarize' => 'required',
                 'interview_result_date' => 'required',
                 'interview_result' => 'required',
-                'record_path' => 'required'
+                'record_path' => ['required', 'regex:/^https:\/\/drive\.google\.com\/file\/d\/[a-zA-Z0-9_-]+\/view\?usp=drivesdk$/'],
             ]);
-
             if ($validator->fails()) {
                 $errorResponse = $validator->errors();
 

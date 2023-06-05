@@ -2,10 +2,9 @@
 
 namespace App\Rules;
 
-use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Rule;
 
-class InterviewResultDateRule implements Rule
+class InterviewTimeRule implements Rule
 {
     /**
      * Create a new rule instance.
@@ -26,12 +25,15 @@ class InterviewResultDateRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        $today = Carbon::today()->format('m/d/y');
-        $tomorrow = Carbon::tomorrow()->format('m/d/y');
-        $selectedDate = Carbon::parse($value)->format('m/d/y');
+        // Convert time to 24-hour format
+        $selectedTime = date('H:i', strtotime($value));
 
-        return $selectedDate === $today || $selectedDate === $tomorrow;
+        // Define start and end times
+        $start = '09:00';
+        $end = '16:00';
 
+        // Check if selected time is between start and end times
+        return ($selectedTime >= $start && $selectedTime <= $end);
     }
 
     /**
@@ -41,6 +43,6 @@ class InterviewResultDateRule implements Rule
      */
     public function message()
     {
-        return 'The result date must be today or tomorrow.';
+        return 'The interview time from 9 am to 4 pm.';
     }
 }

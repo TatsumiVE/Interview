@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\InterviewResource;
+use Illuminate\Support\Facades\Validator;
 use App\Services\Interview\InterviewServiceInterface;
 use App\Repositories\Interview\InterviewRepoInterface;
 
@@ -50,18 +51,44 @@ class InterviewController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)
-    {
+     public function store(Request $request)
+     {
 
-        //assessment create
-        try {
-            $this->interviewService->store($request);
-            return $this->success(201, 'Done', "New Interview-Candidate Assessment  Created");
-        } catch (Exception $e) {
-            Log::channel('web_daily_error')->error('Error creating Interview-Candidate Assessment: ' . $e->getMessage());
-            return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        }
-    }
+         //assessment create
+         try {
+
+             $validator = Validator::make($request->all(), [
+                 'interview_stage_id' => 'required|exists:interview_stages,id',
+                 'comment' => 'required|string',
+                 'grade' => 'required|integer',
+                 'interview_assign_id' => 'required|exists:interview_assigns,id',
+                 'candidate_id' => 'required|exists:candidates,id',
+                 'data' => 'required | array',
+
+                 'data.*.topic_id' => 'required|exists:topics,id',
+                 'data.*.rate_id' => 'required|exists:rates,id',
+             ]);
+
+             if ($validator->fails()) {
+                 $errorResponse = $validator->errors();
+
+                 $response = [
+                     'status' => 'error',
+                     'status_code' => 422,
+                     'data' => $errorResponse,
+                     'err_msg' => 'Validation Error.',
+                 ];
+
+                 return response()->json($response, 422);
+             }
+             $response =  $this->interviewService->store($request->all());
+             // $request->merge(['data' => []]);
+             return $this->success(201,   $response, "New Interview-Candidate Assessment  Created");
+         } catch (Exception $e) {
+             Log::channel('web_daily_error')->error('Error creating Interview-Candidate Assessment: ' . $e->getMessage());
+             return $this->error(500, $e->getMessage(), 'Internal Server Error');
+         }
+     }
 
 
 }
