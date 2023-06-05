@@ -18,13 +18,15 @@ class RoleAndPermissionSeeder extends Seeder
         $super_admin = Role::create(['name' => 'SuperAdmin']);
         $admin = Role::create(['name' => 'Admin']);
         $moderator = Role::create(['name' => 'Moderator']);
-
+        $userView = Permission::create(['name' => 'userView']);
         $userList = Permission::create(['name' => 'userList']);
         $userCreate = Permission::create(['name' => 'userCreate']);
         $userUpdate = Permission::create(['name' => 'userUpdate']);
         $userDelete = Permission::create(['name' => 'userDelete']);
         $userShow = Permission::create(['name' => 'userShow']);
         $userStatus = Permission::create(['name' => 'userStatus']);
+
+        $agencyView = Permission::create(['name' => 'agencyView']);
         $agencyList = Permission::create(['name' => 'agencyList']);
         $agencyCreate = Permission::create(['name' => 'agencyCreate']);
         $agencyUpdate = Permission::create(['name' => 'agencyUpdate']);
@@ -34,6 +36,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         $dashboardView = Permission::create(['name' => 'dashboardView']);
 
+        $candidateView = Permission::create(['name' => 'candidateView']);
         $candidateList = Permission::create(['name' => 'candidateList']);
         $candidateCreate = Permission::create(['name' => 'candidateCreate']);
         $candidateUpdate = Permission::create(['name' => 'candidateUpdate']);
@@ -50,7 +53,7 @@ class RoleAndPermissionSeeder extends Seeder
         $getCandidateById = Permission::create(['name' => 'getCandidateById']);
         $candidatesAll = Permission::create(['name' => 'candidatesAll']);
 
-
+        $interviewView = Permission::create(['name' => 'interviewView']);
         $interviewList = Permission::create(['name' => 'interviewList']);
         $remarkAssessmentCreate = Permission::create(['name' => 'remarkAssessmentCreate']);
 
@@ -60,37 +63,40 @@ class RoleAndPermissionSeeder extends Seeder
         $interviewSummarize = Permission::create(['name' => 'interviewSummarize']);
         $interviewProcessTerminate = Permission::create(['name' => 'interviewProcessTerminate']);
 
-
+        $interviewerView = Permission::create(['name' => 'interviewerView']);
         $interviewerList = Permission::create(['name' => 'interviewerList']);
         $interviewerCreate = Permission::create(['name' => 'interviewerCreate']);
         $interviewerUpdate = Permission::create(['name' => 'interviewerUpdate']);
         $interviewerDelete = Permission::create(['name' => 'interviewerDelete']);
         $interviewerShow = Permission::create(['name' => 'interviewerShow']);
 
+        $departmentView = Permission::create(['name' => 'departmentView']);
         $departmentList = Permission::create(['name' => 'departmentList']);
         $departmentCreate = Permission::create(['name' => 'departmentCreate']);
         $departmentUpdate = Permission::create(['name' => 'departmentUpdate']);
         $departmentShow = Permission::create(['name' => 'departmentShow']);
         $departmentDelete = Permission::create(['name' => 'departmentDelete']);
 
+        $languageView = Permission::create(['name' => 'languageView']);
         $languageList = Permission::create(['name' => 'languageList']);
         $languageCreate = Permission::create(['name' => 'languageCreate']);
         $languageUpdate = Permission::create(['name' => 'languageUpdate']);
         $languageDelete = Permission::create(['name' => 'languageDelete']);
         $languageShow = Permission::create(['name' => 'languageShow']);
-
+        $positionView = Permission::create(['name' => 'positionView']);
         $positionList = Permission::create(['name' => 'positionList']);
         $positionCreate = Permission::create(['name' => 'positionCreate']);
         $positionUpdate = Permission::create(['name' => 'positionUpdate']);
         $positionDelete = Permission::create(['name' => 'positionDelete']);
         $positionShow = Permission::create(['name' => 'positionShow']);
 
+        $rateView = Permission::create(['name' => 'rateView']);
         $rateList = Permission::create(['name' => 'rateList']);
         $rateCreate = Permission::create(['name' => 'rateCreate']);
         $rateUpdate = Permission::create(['name' => 'rateUpdate']);
         $rateDelete = Permission::create(['name' => 'rateDelete']);
         $rateShow = Permission::create(['name' => 'rateShow']);
-
+        $topicView = Permission::create(['name' => 'topicView']);
         $topicList = Permission::create(['name' => 'topicList']);
         $topicCreate = Permission::create(['name' => 'topicCreate']);
         $topicUpdate = Permission::create(['name' => 'topicUpdate']);
@@ -100,11 +106,12 @@ class RoleAndPermissionSeeder extends Seeder
         //super_admin=HR
         $super_admin->givePermissionTo([
 
-            $dashboardView,
+            $dashboardView, $userView,
 
-            $userList, $userCreate, $userUpdate, $userDelete, $userShow, $userStatus,
+            $userList, $userCreate, $userUpdate, $userDelete, $userShow, $userStatus, $agencyView,
 
             $agencyList, $agencyCreate, $agencyUpdate, $agencyDelete, $agencyShow,
+            $candidateView,
 
             $candidateList, $candidateCreate, $candidateUpdate, $candidateDelete, $candidateShow,
 
@@ -117,48 +124,50 @@ class RoleAndPermissionSeeder extends Seeder
             $interviewSummarize, $interviewProcessTerminate,
 
 
-            $interviewList,  $remarkAssessmentCreate,
+            $interviewList,  $remarkAssessmentCreate, $interviewView, $interviewerView,
 
-            $interviewerList, $interviewerCreate, $interviewerUpdate, $interviewerDelete, $interviewerShow,
+            $interviewerList, $interviewerCreate, $interviewerUpdate, $interviewerDelete, $interviewerShow, $departmentView,
 
-            $departmentList, $departmentCreate, $departmentUpdate, $departmentDelete, $departmentShow,
+            $departmentList, $departmentCreate, $departmentUpdate, $departmentDelete, $departmentShow, $languageView,
 
-            $languageList, $languageCreate, $languageUpdate, $languageDelete, $languageShow,
+            $languageList, $languageCreate, $languageUpdate, $languageDelete, $languageShow, $positionView,
 
-            $positionList, $positionCreate, $positionUpdate, $positionDelete, $positionShow,
+            $positionList, $positionCreate, $positionUpdate, $positionDelete, $positionShow, $rateView,
 
-            $rateList, $rateCreate, $rateUpdate, $rateDelete, $rateShow,
+            $rateList, $rateCreate, $rateUpdate, $rateDelete, $rateShow, $topicView,
 
             $topicList, $topicCreate, $topicUpdate, $topicDelete, $topicShow,
         ]);
 
 
         $admin->givePermissionTo([
-            $dashboardView,
-            $userList,  $userShow, $userStatus,
-            $agencyList,  $agencyShow,
-            $candidateList,  $candidateShow,
+            $dashboardView, $userView,
+            $userList,  $userShow, $agencyView,
+            $agencyList,  $agencyShow, $candidateView,
+            $candidateList,
             $candidateInterviewRateShow,
             $getAllCandidates, $getCandidateById, $candidatesAll,
-            $interviewList,
-            $interviewerList,
-            $interviewerShow,
-            $departmentList, $departmentShow,
+            $interviewList, $interviewView,
+            $interviewerList, $interviewerView,
+            $interviewerShow, $departmentView,
+            $departmentList, $departmentShow, $languageView,
             $languageList, $languageShow,
-            $positionList,  $positionShow,
-            $rateList, $rateShow,
-            $topicList,  $topicShow,
+            $positionList,  $positionShow, $positionView,
+            $rateList, $rateShow, $rateView,
+            $topicList,  $topicShow, $topicView,
         ]);
 
         //moderator = interviwer
         $moderator->givePermissionTo([
             $dashboardView,
             $agencyList, $agencyShow,
-            $candidateList, $candidateShow,
-            $candidateInterviewRateShow,
-            $departmentList, $languageList,  $positionList, $rateList,  $topicList,  $agencyList,
-            $getAllCandidates, $getCandidateById, $candidatesAll,
-            $interviewList,  $remarkAssessmentCreate,
+            $candidateList, $languageList,
+            $candidateInterviewRateShow, $interviewView,
+            $languageView, $positionView, $topicView, $rateView,
+            $departmentList,  $positionList, $rateList, $topicList,
+
+            $getAllCandidates, $getCandidateById, $candidatesAll, $interviewerList,
+            $interviewList,  $remarkAssessmentCreate, $interviewProcessSearchAssignId
         ]);
     }
 }

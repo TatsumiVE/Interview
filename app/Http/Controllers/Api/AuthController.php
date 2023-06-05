@@ -28,6 +28,7 @@ class AuthController extends Controller
                 $user = Auth::user();
                 $success['token'] =  $user->createToken('User API')->plainTextToken;
                 $success['id'] = $interviewer->id;
+
                 $success['name'] =  $interviewer->name;
                 $success['role'] = $user->getRoleNames();
                 $success['permission'] = $user->getPermissionsViaRoles()->pluck('name');
