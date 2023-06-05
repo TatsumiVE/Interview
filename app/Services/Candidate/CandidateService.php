@@ -61,32 +61,32 @@ class CandidateService implements CandidateServiceInterface
 
   public function store($request)
   {
-    $validatedData = $request->validate([
-      'name' => 'required',
-      'email' => 'required|email',
-      'gender' => 'required',
-      'phone_number' => 'required|regex:/^[0-9]{10,}$/',
-      'residential_address' => 'required',
-      'date_of_birth' => 'required|date|before_or_equal:2005-12-31',
-      'cv_path'  => 'required',
-      'willingness_to_travel' => '',
-      'expected_salary' => '',
-      'last_salary' => '',
-      'earliest_starting_date' => '',
-      'position_id' => 'required|exists:positions,id',
-      'agency_id' => 'required| exists:agencies,id',
-      'status' => '',
-      'data.*.experience.month' => 'required|integer',
-      'data.*.devlanguage_id' => 'required',
-    ]);
+    // $validatedData = $request->validate([
+    //   'name' => 'required',
+    //   'email' => 'required|email',
+    //   'gender' => 'required',
+    //   'phone_number' => 'required|regex:/^[0-9]{10,}$/',
+    //   'residential_address' => 'required',
+    //   'date_of_birth' => 'required|date|before_or_equal:2005-12-31',
+    //   'cv_path'  => 'required',
+    //   'willingness_to_travel' => '',
+    //   'expected_salary' => '',
+    //   'last_salary' => '',
+    //   'earliest_starting_date' => '',
+    //   'position_id' => 'required|exists:positions,id',
+    //   'agency_id' => 'required| exists:agencies,id',
+    //   'status' => '',
+    //   'data.*.experience.month' => 'required|integer',
+    //   'data.*.devlanguage_id' => 'required',
+    // ]);
 
 
     $candidate = null;
 
-    DB::transaction(function () use ($validatedData, &$candidate) {
-      $candidate = Candidate::create($validatedData);
+    DB::transaction(function () use ($request, &$candidate) {
+      $candidate = Candidate::create($request);
 
-      foreach ($validatedData['data'] as $requestData) {
+      foreach ($request['data'] as $requestData) {
         SpecificLanguage::create([
           'experience' => $requestData['experience']['month'],
           'devlanguage_id' => $requestData['devlanguage_id'],
