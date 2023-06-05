@@ -13,6 +13,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\InterviewResultRequest;
 use App\Services\InterviewProcess\InterviewProcessServiceInterface;
 use App\Repositories\InterviewProcess\InterviewProcessRepoInterface;
+use Illuminate\Support\Facades\Validator;
+use App\Rules\UniqueIntegerArrayRule;
 
 class InterviewProcessController extends Controller
 {
@@ -34,16 +36,81 @@ class InterviewProcessController extends Controller
     }
     public function store(Request $request)
     {
+
         try {
-            $response = $this->interviewProcessService->store($request);
-            // dd($response);
+            $validatedData = Validator::make($request->all(), [
+                'stage_name' => 'required',
+                'interview_date' => 'required',
+                'interview_time' => 'required',
+                'location' => 'required|integer',
+                'candidate_id' => 'required',
+                'interviewer_id' => ['required', 'array', new UniqueIntegerArrayRule, 'exists:interviewers,id'],
+            ]);
+
+            if ($validatedData->fails()) {
+                $errors = $validatedData->errors()->toArray();
+                $errorResponse = [];
+
+                foreach ($errors as $field => $errorMessages) {
+                    $errorResponse[$field] = $errorMessages;
+                }
+
+                $response = [
+                    'status' => 'error',
+                    'status_code' => 422,
+                    'data' => (object) $errorResponse,
+                    'err_msg' => 'Validation Error.',
+                ];
+
+                return response()->json($response, 422);
+            }
+
+            $response = $this->interviewProcessService->store($validatedData);
+
             return $this->success(201, $response, "New InterviewAssign Created");
         } catch (Exception $e) {
-
             Log::channel('web_daily_error')->error('Error creating InterviewAssign: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        };
+        }
+
+
+
+
+
+        // try {
+        //     $validatedData = Validator::make($request->all(), [
+        //         'stage_name' => 'required',
+        //         'interview_date' => 'required',
+        //         'interview_time' => 'required',
+        //         'location' => 'required|integer',
+        //         'candidate_id' => 'required',
+        //         'interviewer_id' => 'required|array|exists:interviewers,id',
+        //     ]);
+
+        //     if ($validatedData->fails()) {
+        //         $errors = $validatedData->errors()->all();
+
+        //         $response = [
+        //             'status' => 'error',
+        //             'status_code' => 422,
+        //             'data' =>  $errors,
+        //             'err_msg' => 'Validation Error.',
+        //         ];
+
+        //         return response()->json($response, 422);
+        //     }
+
+        //     $response = $this->interviewProcessService->store($validatedData);
+
+        //     return $this->success(201, $response, "New InterviewAssign Created");
+        // } catch (Exception $e) {
+
+        //     Log::channel('web_daily_error')->error('Error creating InterviewAssign: ' . $e->getMessage());
+        //     return $this->error(500, $e->getMessage(), 'Internal Server Error');
+        // };
     }
+
+
 
     public function searchInterviewAssignId($candidateId, $interviewerId)
     {

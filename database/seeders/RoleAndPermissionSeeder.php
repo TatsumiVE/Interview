@@ -18,7 +18,7 @@ class RoleAndPermissionSeeder extends Seeder
         $super_admin = Role::create(['name' => 'SuperAdmin']);
         $admin = Role::create(['name' => 'Admin']);
         $moderator = Role::create(['name' => 'Moderator']);
-        $userView= Permission::create(['name' => 'userView']);
+        $userView = Permission::create(['name' => 'userView']);
         $userList = Permission::create(['name' => 'userList']);
         $userCreate = Permission::create(['name' => 'userCreate']);
         $userUpdate = Permission::create(['name' => 'userUpdate']);
@@ -49,7 +49,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         $candidateInterviewRateShow = Permission::create(['name' => 'candidateInterviewRateShow']);
 
-        $getAllCandidates = Permission::create(['name' => 'getAllCandidates']);
+        $getAllCandidates = Permission::create(['name' => 'getAllCandidates']); //
         $getCandidateById = Permission::create(['name' => 'getCandidateById']);
         $candidatesAll = Permission::create(['name' => 'candidatesAll']);
 
@@ -77,7 +77,7 @@ class RoleAndPermissionSeeder extends Seeder
         $departmentShow = Permission::create(['name' => 'departmentShow']);
         $departmentDelete = Permission::create(['name' => 'departmentDelete']);
 
-        $languageView=Permission::create(['name' => 'languageView']);
+        $languageView = Permission::create(['name' => 'languageView']);
         $languageList = Permission::create(['name' => 'languageList']);
         $languageCreate = Permission::create(['name' => 'languageCreate']);
         $languageUpdate = Permission::create(['name' => 'languageUpdate']);
@@ -106,9 +106,9 @@ class RoleAndPermissionSeeder extends Seeder
         //super_admin=HR
         $super_admin->givePermissionTo([
 
-            $dashboardView,$userView,
+            $dashboardView, $userView,
 
-            $userList, $userCreate, $userUpdate, $userDelete, $userShow, $userStatus,$agencyView,
+            $userList, $userCreate, $userUpdate, $userDelete, $userShow, $userStatus, $agencyView,
 
             $agencyList, $agencyCreate, $agencyUpdate, $agencyDelete, $agencyShow,
             $candidateView,
@@ -124,13 +124,13 @@ class RoleAndPermissionSeeder extends Seeder
             $interviewSummarize, $interviewProcessTerminate,
 
 
-            $interviewList,  $remarkAssessmentCreate,$interviewView,$interviewerView,
+            $interviewList,  $remarkAssessmentCreate, $interviewView, $interviewerView,
 
-            $interviewerList, $interviewerCreate, $interviewerUpdate, $interviewerDelete, $interviewerShow,$departmentView,
+            $interviewerList, $interviewerCreate, $interviewerUpdate, $interviewerDelete, $interviewerShow, $departmentView,
 
-            $departmentList, $departmentCreate, $departmentUpdate, $departmentDelete, $departmentShow,$languageView,
+            $departmentList, $departmentCreate, $departmentUpdate, $departmentDelete, $departmentShow, $languageView,
 
-            $languageList, $languageCreate, $languageUpdate, $languageDelete, $languageShow,$positionView,
+            $languageList, $languageCreate, $languageUpdate, $languageDelete, $languageShow, $positionView,
 
             $positionList, $positionCreate, $positionUpdate, $positionDelete, $positionShow, $rateView,
 
@@ -141,33 +141,33 @@ class RoleAndPermissionSeeder extends Seeder
 
 
         $admin->givePermissionTo([
-            $dashboardView,$userView,
-            $userList,  $userShow,$agencyView,
-            $agencyList,  $agencyShow,$candidateView,
+            $dashboardView, $userView,
+            $userList,  $userShow, $agencyView,
+            $agencyList,  $agencyShow, $candidateView,
             $candidateList,
             $candidateInterviewRateShow,
             $getAllCandidates, $getCandidateById, $candidatesAll,
-            $interviewList,$interviewView,
-            $interviewerList,$interviewerView,
-            $interviewerShow,$departmentView,
-            $departmentList, $departmentShow,$languageView,
+            $interviewList, $interviewView,
+            $interviewerList, $interviewerView,
+            $interviewerShow, $departmentView,
+            $departmentList, $departmentShow, $languageView,
             $languageList, $languageShow,
-            $positionList,  $positionShow,$positionView,
-            $rateList, $rateShow,$rateView,
-            $topicList,  $topicShow,$topicView,
+            $positionList,  $positionShow, $positionView,
+            $rateList, $rateShow, $rateView,
+            $topicList,  $topicShow, $topicView,
         ]);
 
         //moderator = interviwer
         $moderator->givePermissionTo([
             $dashboardView,
             $agencyList, $agencyShow,
-            $candidateList,$languageList,
-            $candidateInterviewRateShow,$interviewView,
-            $languageView,$positionView,$topicView,$rateView,
-            $departmentList,  $positionList,$rateList, $topicList,
+            $candidateList, $languageList,
+            $candidateInterviewRateShow, $interviewView,
+            $languageView, $positionView, $topicView, $rateView,
+            $departmentList,  $positionList, $rateList, $topicList,
 
-            $getAllCandidates, $getCandidateById, $candidatesAll,$interviewerList,
-            $interviewList,  $remarkAssessmentCreate,$interviewProcessSearchAssignId
+            $getAllCandidates, $getCandidateById, $candidatesAll, $interviewerList,
+            $interviewList,  $remarkAssessmentCreate, $interviewProcessSearchAssignId
         ]);
     }
 }

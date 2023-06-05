@@ -11,6 +11,8 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Gate;
 
 class AuthController extends Controller
 {
@@ -22,7 +24,7 @@ class AuthController extends Controller
             $interviewer = Interviewer::where('email', $request->email)->first();
             $interviewerId = $interviewer->id;
 
-            if ($interviewer && Auth::attempt(['interviewer_id' => $interviewerId, 'password' => $request->password,'status'=>1])) {
+            if ($interviewer && Auth::attempt(['interviewer_id' => $interviewerId, 'password' => $request->password, 'status' => 1])) {
                 $user = Auth::user();
                 $success['token'] =  $user->createToken('User API')->plainTextToken;
                 $success['id'] = $interviewer->id;

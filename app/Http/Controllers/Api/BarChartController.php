@@ -35,13 +35,7 @@ class BarChartController extends Controller
         };
     }
 
-    // public function candidateCountByStage()
-    // {
-    //     $candidateCount = Interview::select('interview_stage_id', DB::raw('COUNT(candidate_id) as count'))
-    //         ->groupBy('interview_stage_id')
-    //         ->get();
-    //     return $this->success(200, $candidateCount, 'success');
-    // }
+
 
     public function candidateCountByStage()
     {
@@ -82,4 +76,5 @@ class BarChartController extends Controller
         }
         return $count;
     }
+
 }

@@ -13,7 +13,8 @@ use App\Http\Requests\CandidateRequest;
 use App\Http\Resources\CandidateResource;
 use App\Services\Candidate\CandidateServiceInterface;
 use App\Repositories\Candidate\CandidateRepoInterface;
-
+use Illuminate\Support\Facades\Validator;
+use App\Rules\UniqueIntegerArrayRule;
 
 
 class CandidateController extends Controller
@@ -52,6 +53,45 @@ class CandidateController extends Controller
     public function store(Request $request)
     {
         try {
+
+
+            // $validatedData = Validator::make($request->all(), [
+            //     'name' => 'required',
+            //     'email' => 'required|email',
+            //     'gender' => 'required',
+            //     'phone_number' => 'required|regex:/^[0-9]{10,}$/',
+            //     'residential_address' => 'required',
+            //     'date_of_birth' => 'required|date|before_or_equal:2005-12-31',
+            //     'cv_path'  => 'required',
+            //     'willingness_to_travel' => '',
+            //     'expected_salary' => '',
+            //     'last_salary' => '',
+            //     'earliest_starting_date' => '',
+            //     'position_id' => 'required|exists:positions,id',
+            //     'agency_id' => 'required| exists:agencies,id',
+            //     'status' => '',
+            //     'data.*.experience.month' => 'required|integer',
+            //     'data.*.devlanguage_id' => ['required', new UniqueIntegerArrayRule],
+            // ]);
+
+            // if ($validatedData->fails()) {
+            //     $errors = $validatedData->errors()->toArray();
+            //     $errorResponse = [];
+
+            //     foreach ($errors as $field => $errorMessages) {
+            //         $errorResponse[$field] = $errorMessages;
+            //     }
+
+            //     $response = [
+            //         'status' => 'error',
+            //         'status_code' => 422,
+            //         'data' => (object) $errorResponse,
+            //         'err_msg' => 'Validation Error.',
+            //     ];
+
+            //     return response()->json($response, 422);
+            // }
+
             $response = $this->candidateService->store($request);
             return $this->success(201, $response, "New Candidate Created Successfully");
         } catch (Exception $e) {
