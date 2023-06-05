@@ -40,53 +40,21 @@ class AuthController extends Controller
         }
     }
 
-    // public function checkToken(Request $request)
-    // {
-    //     try {
-    //         $token = $request->bearerToken();
-
-    //         if (!$token) {
-    //             return response()->json(['valid' => false], 401);
-    //         }
-
-    //         $isValid = Auth::guard('sanctum')->check();
-
-
-    //         return response()->json(['valid' => $isValid], 200);
-    //     } catch (\Exception $e) {
-    //         return response()->json(['error' => $e->getMessage()], 500);
-    //     }
-    // }
-
     public function checkToken(Request $request)
     {
         try {
             $token = $request->bearerToken();
 
             if (!$token) {
-                return $this->error(401, ['valid' => false], 'Unauthorized');
+                return response()->json(['valid' => false], 401);
             }
 
             $isValid = Auth::guard('sanctum')->check();
-            $interviewer = Interviewer::where('email', $request->email)->first();
-            $interviewerId = $interviewer->id;
 
-            if ($interviewer && Auth::attempt(['interviewer_id' => $interviewerId, 'password' => $request->password, 'status' => 1])) {
-                $user = Auth::user();
-                $interviewerId = $user->interviewer_id;
-                $interviewer = Interviewer::findOrFail($interviewerId);
 
-                $success['id'] = $interviewer->id;
-                $success['name'] = $interviewer->name;
-                $success['role'] = $user->getRoleNames();
-                $success['permission'] = $user->getPermissionsViaRoles()->pluck('name');
-
-                return $this->success(200, $success, 'Token is valid.');
-            } else {
-                return $this->error(401, ['valid' => false], 'Token is invalid.');
-            }
-        } catch (Exception $e) {
-            return $this->error(500, $e->getMessage(), 'Internal Server Error.');
+            return response()->json(['valid' => $isValid], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 }
