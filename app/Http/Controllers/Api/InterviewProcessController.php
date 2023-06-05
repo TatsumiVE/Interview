@@ -61,7 +61,7 @@ class InterviewProcessController extends Controller
                 return response()->json($response, 422);
             }
 
-            $response = $this->interviewProcessService->store($request);
+            $response = $this->interviewProcessService->store($validator);
 
             // Clear the interviewer_id array from the request
             $request->merge(['interviewer_id' => []]);
