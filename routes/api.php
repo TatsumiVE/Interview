@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\CandidateSearchController;
 
 
 use App\Http\Controllers\Api\InterviewProcessController;
+use App\Http\Controllers\Api\InterviewStageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
   Route::apiResource('candidates', CandidateController::class);
   Route::apiResource('interviews', InterviewController::class);
   Route::apiResource('interviewers', InterviewerController::class);
+  Route::apiResource('interview-stages', InterviewStageController::class);
   Route::get('candidate-barchart', [BarChartController::class, 'index']);
   Route::get('candidate-piechart', [BarChartController::class, 'candidateCountByStage']);
 });
