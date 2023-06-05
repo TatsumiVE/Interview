@@ -52,7 +52,6 @@ class InterviewProcessService implements InterviewProcessServiceInterface
 
   public function interviewSummarize($request, $candidateId, $interviewId)
   {
-    
 
     $result = Interview::
       where('candidate_id', $candidateId)

@@ -22,8 +22,9 @@ class PositionController extends Controller
     {
         $this->positionRepo = $positionRepo;
         $this->positionService = $positionService;
-
         $this->middleware('permission:positionList', ['only' => ['index']]);
+        $this->middleware('permission:positionView', ['only' => ['index']]);
+
         $this->middleware('permission:positionCreate', ['only' => ['store']]);
         $this->middleware('permission:positionUpdate', ['only' => ['update']]);
         $this->middleware('permission:positionDelete', ['only' => ['destroy']]);

@@ -25,8 +25,9 @@ class AgencyController extends Controller
     {
         $this->agencyRepo = $agencyRepo;
         $this->agencyService = $agencyService;
-
         $this->middleware('permission:agencyList', ['only' => ['index']]);
+        $this->middleware('permission:agencyView', ['only' => ['index']]);
+
         $this->middleware('permission:agencyCreate', ['only' => ['store']]);
         $this->middleware('permission:agencyUpdate', ['only' => ['update']]);
         $this->middleware('permission:agencyDelete', ['only' => ['destroy']]);

@@ -29,8 +29,9 @@ class TopicController extends Controller
     {
         $this->topicRepo = $topicRepo;
         $this->topicService = $topicService;
-
         $this->middleware('permission:topicList', ['only' => ['index']]);
+        $this->middleware('permission:topicView', ['only' => ['index']]);
+
         $this->middleware('permission:topicCreate', ['only' => ['store']]);
         $this->middleware('permission:topicUpdate', ['only' => ['update']]);
         $this->middleware('permission:topicDelete', ['only' => ['destroy']]);

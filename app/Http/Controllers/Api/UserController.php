@@ -25,7 +25,7 @@ class UserController extends Controller
         $this->userRepo = $userRepo;
         $this->userService = $userService;
 
-
+        $this->middleware('permission:userView', ['only' => ['index']]);
         $this->middleware('permission:userList', ['only' => ['index']]);
         $this->middleware('permission:userCreate', ['only' => ['store']]);
         $this->middleware('permission:userUpdate', ['only' => ['update']]);
