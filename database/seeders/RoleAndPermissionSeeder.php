@@ -46,7 +46,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         $candidateInterviewRateShow = Permission::create(['name' => 'candidateInterviewRateShow']);
 
-        $getAllCandidates = Permission::create(['name' => 'getAllCandidates']);
+        $getAllCandidates = Permission::create(['name' => 'getAllCandidates']); //
         $getCandidateById = Permission::create(['name' => 'getCandidateById']);
         $candidatesAll = Permission::create(['name' => 'candidatesAll']);
 
@@ -156,7 +156,7 @@ class RoleAndPermissionSeeder extends Seeder
             $agencyList, $agencyShow,
             $candidateList, $candidateShow,
             $candidateInterviewRateShow,
-            $departmentList, $languageList,  $positionList,$rateList,  $topicList,  $agencyList,
+            $departmentList, $languageList,  $positionList, $rateList,  $topicList,  $agencyList,
             $getAllCandidates, $getCandidateById, $candidatesAll,
             $interviewList,  $remarkAssessmentCreate,
         ]);
