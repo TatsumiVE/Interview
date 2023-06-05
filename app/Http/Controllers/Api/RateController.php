@@ -29,8 +29,9 @@ class RateController extends Controller
     {
         $this->rateRepo = $rateRepo;
         $this->rateService = $rateService;
-
         $this->middleware('permission:rateList', ['only' => ['index']]);
+        $this->middleware('permission:rateView', ['only' => ['index']]);
+
         $this->middleware('permission:rateCreate', ['only' => ['store']]);
         $this->middleware('permission:rateUpdate', ['only' => ['update']]);
         $this->middleware('permission:rateDelete', ['only' => ['destroy']]);
