@@ -54,7 +54,6 @@ class InterviewController extends Controller
      public function store(Request $request)
      {
 
-         //assessment create
          try {
 
              $validator = Validator::make($request->all(), [
@@ -82,7 +81,7 @@ class InterviewController extends Controller
                  return response()->json($response, 422);
              }
              $response =  $this->interviewService->store($request->all());
-             // $request->merge(['data' => []]);
+            
              return $this->success(201,   $response, "New Interview-Candidate Assessment  Created");
          } catch (Exception $e) {
              Log::channel('web_daily_error')->error('Error creating Interview-Candidate Assessment: ' . $e->getMessage());
