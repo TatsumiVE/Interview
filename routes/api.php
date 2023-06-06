@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\CandidateSearchController;
 
 
 use App\Http\Controllers\Api\InterviewProcessController;
+use App\Http\Controllers\Api\InterviewStageController;
 
 /*
 |--------------------------------------------------------------------------

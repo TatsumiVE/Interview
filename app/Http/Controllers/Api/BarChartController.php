@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\InterviewStage;
 use Exception;
 
 use App\Models\Interview;
 use App\Traits\ApiResponser;
-use App\Models\InterviewStage;
 use App\Models\SpecificLanguage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -19,6 +19,8 @@ class BarChartController extends Controller
     public function __construct()
     {
         $this->middleware('permission:dashboardView', ['only' => ['index', 'candidateCountByStage']]);
+
+      
     }
     public function index()
     {
@@ -32,32 +34,6 @@ class BarChartController extends Controller
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
-
-    // public function candidateCountByStage()
-    // {
-    //     // $candidateCount = Interview::select('interview_stage_id', DB::raw('COUNT(candidate_id) as count'))
-    //     //     ->groupBy('interview_stage_id')
-    //     //     ->get();
-    //     // return $this->success(200, $candidateCount, 'success');
-
-
-    //     $candidateCount = Interview::select('interview_stage_id', DB::raw('COUNT(candidate_id) as count'))
-    //         ->groupBy('interview_stage_id')
-    //         ->get();
-
-    //     // Transform the data into the required format for the response
-    //     $responseData = [];
-    //     foreach ($candidateCount as $count) {
-    //         $stage = InterviewStage::find($count->interview_stage_id);
-    //         $responseData[] = [
-    //             'stage_name' => $stage->stage_name,
-    //             'count' => $count->count,
-    //         ];
-    //     }
-
-    //     return $this->success(200, $responseData, 'success');
-    // }
-
 
 
 
@@ -100,4 +76,5 @@ class BarChartController extends Controller
         }
         return $count;
     }
+
 }

@@ -10,13 +10,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Rules\UniqueIntegerArrayRule;
+use App\Rules\InterviewResultDateRule;
+use Illuminate\Support\Facades\Validator;
+
+use App\Rules\InterviewTimeRule;
 use App\Http\Requests\InterviewResultRequest;
 use App\Services\InterviewProcess\InterviewProcessServiceInterface;
 use App\Repositories\InterviewProcess\InterviewProcessRepoInterface;
-use Illuminate\Support\Facades\Validator;
-use App\Rules\UniqueIntegerArrayRule;
-use App\Rules\InterviewResultDateRule;
-use App\Rules\InterviewTimeRule;
 
 class InterviewProcessController extends Controller
 {
@@ -38,47 +39,6 @@ class InterviewProcessController extends Controller
     }
 
 
-    // public function store(Request $request)
-    // {
-    //     try {
-    //         $validatedData = $request->validate([
-    //             'stage_name' => 'required',
-    //             'interview_date' => 'required',
-    //             'interview_time' => 'required',
-    //             'location' => 'required|integer',
-    //             'candidate_id' => 'required',
-    //             'interviewer_id' => ['required', 'array', new UniqueIntegerArrayRule],
-    //         ]);
-
-    //         if ($validatedData->fails()) {
-    //             $errorResponse = $validatedData->errors()->toObject();
-
-    //             $response = [
-    //                 'status' => 'error',
-    //                 'status_code' => 422,
-    //                 'data' => $errorResponse,
-    //                 'err_msg' => 'Validation Error.',
-    //             ];
-
-    //             return response()->json($response, 422);
-    //         }
-
-
-
-    //         $response = $this->interviewProcessService->store($validatedData);
-
-    //         // Clear the interviewer_id array from the request
-    //         $request->merge(['interviewer_id' => []]);
-
-    //         return $this->success(201, $response, "New InterviewAssign Created");
-    //     } catch (Exception $e) {
-    //         Log::channel('web_daily_error')->error('Error creating InterviewAssign: ' . $e->getMessage());
-    //         return $this->error(500, $e->getMessage(), 'Internal Server Error');
-    //     }
-    // }
-
-
-    //updated code for error handling
     public function store(Request $request)
     {
         try {
@@ -90,7 +50,6 @@ class InterviewProcessController extends Controller
                 'candidate_id' => ['required', 'exists:interviewers,id'],
                 'interviewer_id' => ['required', 'array', new UniqueIntegerArrayRule, 'exists:interviewers,id'],
             ]);
-
             if ($validator->fails()) {
                 $errorResponse = $validator->errors();
 
@@ -104,7 +63,7 @@ class InterviewProcessController extends Controller
                 return response()->json($response, 422);
             }
 
-            $response = $this->interviewProcessService->store($validator);
+            $response = $this->interviewProcessService->store($request);
 
             // Clear the interviewer_id array from the request
             $request->merge(['interviewer_id' => []]);
@@ -115,11 +74,6 @@ class InterviewProcessController extends Controller
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
-
-
-
-
-
 
 
     public function searchInterviewAssignId($candidateId, $interviewerId)
@@ -133,30 +87,19 @@ class InterviewProcessController extends Controller
         };
     }
 
-    // public function showAssessment($showAssessment)
-    // {
-    //     try {
-    //         $data = $this->interviewProcessRepo->showAssessment($showAssessment);
-    //         return $this->success(200, $data, 'success ');
-    //     } catch (Exception $e) {
-    //         return $this->error(500, $e->getMessage(), 'Internal Server Error');
-    //     };
 
 
-    // }
 
 
-    //interview summarize 
     public function interviewSummarize(Request $request,  $candidateID, $stageID)
     {
         try {
             $validator = Validator::make($request->all(), [
                 'interview_summarize' => 'required',
-                'interview_result_date' => ['required', new InterviewResultDateRule],
+                'interview_result_date' => 'required',
                 'interview_result' => 'required',
-                'record_path' => 'required'
+                'record_path' => ['required', 'regex:/^https:\/\/drive\.google\.com\/file\/d\/[a-zA-Z0-9_-]+\/view\?usp=drivesdk$/'],
             ]);
-
             if ($validator->fails()) {
                 $errorResponse = $validator->errors();
 

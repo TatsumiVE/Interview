@@ -13,17 +13,6 @@ class InterviewService implements InterviewServiceInterface
     public function store($request)
     {
 
-        // $validatedData = $request->validate([
-        //     'interview_stage_id' => 'required|exists:interview_stages,id',
-        //     'comment' => 'required|string',
-        //     'grade' => 'required|integer',
-        //     'interview_assign_id' => 'required|exists:interview_assigns,id',
-        //     'candidate_id' => 'required|exists:candidates,id',
-        //     'data' => 'required|array',
-        //     'data.*.topic_id' => 'required|exists:topics,id',
-        //     'data.*.rate_id' => 'required|exists:rates,id',
-
-        // ]);
 
         return  DB::transaction(function () use ($request) {
             Remark::create([

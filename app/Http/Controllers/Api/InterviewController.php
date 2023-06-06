@@ -9,9 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\InterviewResource;
+use Illuminate\Support\Facades\Validator;
 use App\Services\Interview\InterviewServiceInterface;
 use App\Repositories\Interview\InterviewRepoInterface;
-use Illuminate\Support\Facades\Validator;
+
 // use App\Rules\UniqueIntegerArrayRule;
 
 class InterviewController extends Controller
@@ -65,7 +66,7 @@ class InterviewController extends Controller
                 'interview_assign_id' => 'required|exists:interview_assigns,id',
                 'candidate_id' => 'required|exists:candidates,id',
                 'data' => 'required | array',
-                // 'data' => ['required', 'array', new UniqueIntegerArrayRule],
+
                 'data.*.topic_id' => 'required|exists:topics,id',
                 'data.*.rate_id' => 'required|exists:rates,id',
             ]);
@@ -83,7 +84,7 @@ class InterviewController extends Controller
                 return response()->json($response, 422);
             }
             $response =  $this->interviewService->store($request->all());
-
+            // $request->merge(['data' => []]);
             return $this->success(201,   $response, "New Interview-Candidate Assessment  Created");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating Interview-Candidate Assessment: ' . $e->getMessage());

@@ -7,6 +7,16 @@ use Illuminate\Contracts\Validation\Rule;
 class InterviewTimeRule implements Rule
 {
     /**
+     * Create a new rule instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
      * Determine if the validation rule passes.
      *
      * @param  string  $attribute
@@ -33,6 +43,6 @@ class InterviewTimeRule implements Rule
      */
     public function message()
     {
-        return 'The interview time must be between 9 am and 4 pm.';
+        return 'The interview time from 9 am to 4 pm.';
     }
 }

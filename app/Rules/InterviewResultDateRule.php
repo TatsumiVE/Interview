@@ -2,11 +2,21 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use Carbon\Carbon;
+use Illuminate\Contracts\Validation\Rule;
 
 class InterviewResultDateRule implements Rule
 {
+    /**
+     * Create a new rule instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
     /**
      * Determine if the validation rule passes.
      *
@@ -16,13 +26,12 @@ class InterviewResultDateRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        $today = Carbon::today();
-        $tomorrow = Carbon::tomorrow();
-        $selectedDate = Carbon::parse($value);
-        return $selectedDate->isSameDay($today) || $selectedDate->isSameDay($tomorrow);
+        $today = Carbon::today()->format('m/d/y');
+        $tomorrow = Carbon::tomorrow()->format('m/d/y');
+        $selectedDate = Carbon::parse($value)->format('m/d/y');
+
+        return $selectedDate === $today || $selectedDate === $tomorrow;
     }
-
-
 
     /**
      * Get the validation error message.
@@ -31,6 +40,6 @@ class InterviewResultDateRule implements Rule
      */
     public function message()
     {
-        return 'The interview result date must be today or a future date.';
+        return 'The result date must be today or tomorrow.';
     }
 }
