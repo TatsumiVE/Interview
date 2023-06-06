@@ -7,16 +7,6 @@ use Illuminate\Contracts\Validation\Rule;
 class InterviewTimeRule implements Rule
 {
     /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Determine if the validation rule passes.
      *
      * @param  string  $attribute
@@ -25,14 +15,10 @@ class InterviewTimeRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        // Convert time to 24-hour format
-        $selectedTime = date('H:i', strtotime($value));
+        $start = strtotime('9:00 AM');
+        $end = strtotime('4:00 PM');
+        $selectedTime = strtotime($value);
 
-        // Define start and end times
-        $start = '09:00';
-        $end = '16:00';
-
-        // Check if selected time is between start and end times
         return ($selectedTime >= $start && $selectedTime <= $end);
     }
 
@@ -43,6 +29,6 @@ class InterviewTimeRule implements Rule
      */
     public function message()
     {
-        return 'The interview time from 9 am to 4 pm.';
+        return 'The interview time must be between 9 am and 4 pm.';
     }
 }
