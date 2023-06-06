@@ -59,6 +59,7 @@ class InterviewProcessService implements InterviewProcessServiceInterface
 
     $result = Interview::where('candidate_id', $candidateId)
       ->where('id', $interviewId)->first();
+
     return $result->update($request);
   }
 }

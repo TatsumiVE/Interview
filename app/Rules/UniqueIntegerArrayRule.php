@@ -12,7 +12,7 @@ class UniqueIntegerArrayRule implements Rule
             return false;
         }
 
-        $uniqueValues = array_unique($value);
+        $uniqueValues = array_unique(array_map('intval', $value));
 
         return count($uniqueValues) === count($value) && $this->validateIntegerValues($uniqueValues);
     }

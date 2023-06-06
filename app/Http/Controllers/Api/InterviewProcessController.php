@@ -15,6 +15,8 @@ use App\Services\InterviewProcess\InterviewProcessServiceInterface;
 use App\Repositories\InterviewProcess\InterviewProcessRepoInterface;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\UniqueIntegerArrayRule;
+use App\Rules\InterviewResultDateRule;
+use App\Rules\InterviewTimeRule;
 
 class InterviewProcessController extends Controller
 {
@@ -34,81 +36,89 @@ class InterviewProcessController extends Controller
         $this->middleware('permission:interviewSummarize', ['only' => ['interviewSummarize']]);
         $this->middleware('permission:interviewProcessTerminate', ['only' => ['terminateProcess']]);
     }
+
+
+    // public function store(Request $request)
+    // {
+    //     try {
+    //         $validatedData = $request->validate([
+    //             'stage_name' => 'required',
+    //             'interview_date' => 'required',
+    //             'interview_time' => 'required',
+    //             'location' => 'required|integer',
+    //             'candidate_id' => 'required',
+    //             'interviewer_id' => ['required', 'array', new UniqueIntegerArrayRule],
+    //         ]);
+
+    //         if ($validatedData->fails()) {
+    //             $errorResponse = $validatedData->errors()->toObject();
+
+    //             $response = [
+    //                 'status' => 'error',
+    //                 'status_code' => 422,
+    //                 'data' => $errorResponse,
+    //                 'err_msg' => 'Validation Error.',
+    //             ];
+
+    //             return response()->json($response, 422);
+    //         }
+
+
+
+    //         $response = $this->interviewProcessService->store($validatedData);
+
+    //         // Clear the interviewer_id array from the request
+    //         $request->merge(['interviewer_id' => []]);
+
+    //         return $this->success(201, $response, "New InterviewAssign Created");
+    //     } catch (Exception $e) {
+    //         Log::channel('web_daily_error')->error('Error creating InterviewAssign: ' . $e->getMessage());
+    //         return $this->error(500, $e->getMessage(), 'Internal Server Error');
+    //     }
+    // }
+
+
+    //updated code for error handling
     public function store(Request $request)
     {
-
         try {
-            $validatedData = Validator::make($request->all(), [
+            $validator = Validator::make($request->all(), [
                 'stage_name' => 'required',
                 'interview_date' => 'required',
-                'interview_time' => 'required',
+                'interview_time' => ['required', new InterviewTimeRule],
                 'location' => 'required|integer',
-                'candidate_id' => 'required',
+                'candidate_id' => ['required', 'exists:interviewers,id'],
                 'interviewer_id' => ['required', 'array', new UniqueIntegerArrayRule, 'exists:interviewers,id'],
             ]);
 
-            if ($validatedData->fails()) {
-                $errors = $validatedData->errors()->toArray();
-                $errorResponse = [];
-
-                foreach ($errors as $field => $errorMessages) {
-                    $errorResponse[$field] = $errorMessages;
-                }
+            if ($validator->fails()) {
+                $errorResponse = $validator->errors();
 
                 $response = [
                     'status' => 'error',
                     'status_code' => 422,
-                    'data' => (object) $errorResponse,
+                    'data' => $errorResponse,
                     'err_msg' => 'Validation Error.',
                 ];
 
                 return response()->json($response, 422);
             }
 
-            $response = $this->interviewProcessService->store($validatedData);
+            $response = $this->interviewProcessService->store($validator);
+
+            // Clear the interviewer_id array from the request
+            $request->merge(['interviewer_id' => []]);
 
             return $this->success(201, $response, "New InterviewAssign Created");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error creating InterviewAssign: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
-
-
-
-
-
-        // try {
-        //     $validatedData = Validator::make($request->all(), [
-        //         'stage_name' => 'required',
-        //         'interview_date' => 'required',
-        //         'interview_time' => 'required',
-        //         'location' => 'required|integer',
-        //         'candidate_id' => 'required',
-        //         'interviewer_id' => 'required|array|exists:interviewers,id',
-        //     ]);
-
-        //     if ($validatedData->fails()) {
-        //         $errors = $validatedData->errors()->all();
-
-        //         $response = [
-        //             'status' => 'error',
-        //             'status_code' => 422,
-        //             'data' =>  $errors,
-        //             'err_msg' => 'Validation Error.',
-        //         ];
-
-        //         return response()->json($response, 422);
-        //     }
-
-        //     $response = $this->interviewProcessService->store($validatedData);
-
-        //     return $this->success(201, $response, "New InterviewAssign Created");
-        // } catch (Exception $e) {
-
-        //     Log::channel('web_daily_error')->error('Error creating InterviewAssign: ' . $e->getMessage());
-        //     return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        // };
     }
+
+
+
+
 
 
 
@@ -137,15 +147,35 @@ class InterviewProcessController extends Controller
 
 
     //interview summarize 
-    public function interviewSummarize(InterviewResultRequest  $request,  $candidateID, $stageID)
+    public function interviewSummarize(Request $request,  $candidateID, $stageID)
     {
         try {
-            $data = $this->interviewProcessService->interviewSummarize($request->validated(), $candidateID, $stageID);
+            $validator = Validator::make($request->all(), [
+                'interview_summarize' => 'required',
+                'interview_result_date' => ['required', new InterviewResultDateRule],
+                'interview_result' => 'required',
+                'record_path' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                $errorResponse = $validator->errors();
+
+                $response = [
+                    'status' => 'error',
+                    'status_code' => 422,
+                    'data' => $errorResponse,
+                    'err_msg' => 'Validation Error.',
+                ];
+
+                return response()->json($response, 422);
+            }
+
+            $data = $this->interviewProcessService->interviewSummarize($request->all(), $candidateID, $stageID);
             return $this->success(200, $data, "Updated Success Interviews result");
         } catch (Exception $e) {
-            Log::channel('web_daily_error')->error('Error creating InterviewSummerize data: ' . $e->getMessage());
+            Log::channel('web_daily_error')->error('Error creating InterviewSummarize data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
-        };
+        }
     }
 
 
