@@ -13,6 +13,8 @@ use App\Http\Resources\AgencyResource;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\Agency\AgencyServiceInterface;
 use App\Repositories\Agency\AgencyRepoInterface;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AgencyController extends Controller
 {
@@ -70,11 +72,29 @@ class AgencyController extends Controller
     }
 
 
-    public function update(AgencyRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try {
+            $validator = Validator::make($request->all(), [
 
-            $data = $this->agencyService->update($request->validated(), $id);
+                'name' => ['required', 'string', Rule::unique('agencies')->ignore($id), 'regex:/^[^\d\W]+$/'],
+            ]);
+
+            if ($validator->fails()) {
+                $errorResponse = $validator->errors();
+
+                $response = [
+                    'status' => 'error',
+                    'status_code' => 422,
+                    'data' => $errorResponse,
+                    'err_msg' => 'Validation Error.',
+                ];
+
+                return response()->json($response, 422);
+            }
+
+
+            $data = $this->agencyService->update($request->all(), $id);
             return $this->success(200, $data, 'Agency updated successfully');
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error updating agency: ' . $e->getMessage());

@@ -13,6 +13,8 @@ use App\Http\Resources\PositionResource;
 use App\Http\Controllers\Api\BaseController;
 use App\Services\Position\PositionServiceInterface;
 use App\Repositories\Position\PositionRepoInterface;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class PositionController extends Controller
 {
@@ -72,11 +74,28 @@ class PositionController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $validateData = $request->validate([
-                'name' => 'required|string|unique:positions,name,' . $id,
+
+
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', Rule::unique('positions')->ignore($id),'regex:/^[^\d\W]+$/'],
             ]);
 
-            $data = $this->positionService->update($validateData, $id);
+            if ($validator->fails()) {
+                $errorResponse = $validator->errors();
+
+                $response = [
+                    'status' => 'error',
+                    'status_code' => 422,
+                    'data' => $errorResponse,
+                    'err_msg' => 'Validation Error.',
+                ];
+
+                return response()->json($response, 422);
+            }
+
+
+
+            $data = $this->positionService->update($request->all(), $id);
             return $this->success(200, $data, "Position updated successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error updating Position data: ' . $e->getMessage());

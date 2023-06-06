@@ -12,6 +12,8 @@ use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class DevLanguageController extends Controller
 {
@@ -90,9 +92,26 @@ class DevLanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DevLanguageRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try {
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', Rule::unique('devlanguages')->ignore($id),'regex:/^[^\d\W]+$/'],
+            ]);
+
+            if ($validator->fails()) {
+                $errorResponse = $validator->errors();
+
+                $response = [
+                    'status' => 'error',
+                    'status_code' => 422,
+                    'data' => $errorResponse,
+                    'err_msg' => 'Validation Error.',
+                ];
+
+                return response()->json($response, 422);
+            }
+
             $data = $this->DevLanguageService->update($request->all(), $id);
             return $this->success(200, $data, "Language updated successfully");
         } catch (Exception $e) {

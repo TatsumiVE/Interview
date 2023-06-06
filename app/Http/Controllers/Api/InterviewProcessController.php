@@ -44,7 +44,7 @@ class InterviewProcessController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'stage_name' => 'required',
-                'interview_date' => 'required',
+                'interview_date' => ['required',new InterviewResultDateRule],
                 'interview_time' => 'required',
                 'location' => 'required|integer',
                 'candidate_id' => ['required', 'exists:interviewers,id'],
@@ -97,7 +97,7 @@ class InterviewProcessController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'interview_summarize' => 'required',
-                'interview_result_date' => 'required',
+                'interview_result_date' => ['required',new InterviewResultDateRule],
                 'interview_result' => 'required',
                 'record_path' => ['required', 'regex:/^https:\/\/drive\.google\.com\/file\/d\/[a-zA-Z0-9_-]+\/view\?usp=drivesdk$/'],
             ]);

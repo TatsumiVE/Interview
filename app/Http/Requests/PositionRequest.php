@@ -24,7 +24,7 @@ class PositionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|string|unique:positions,name'           
+            'name' => ['required', 'string', 'unique:positions,name','regex:/^[^\d\W]+$/'],
         ];
     }
 }

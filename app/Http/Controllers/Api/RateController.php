@@ -6,10 +6,12 @@ use Exception;
 use App\Models\Rate;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Requests\RateRequest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RateResource;
+use Illuminate\Support\Facades\Validator;
 use App\Services\Rate\RateServiceInterface;
 use App\Repositories\Rate\RateRepoInterface;
 
@@ -96,12 +98,28 @@ class RateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RateRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
 
         try {
-            $data = $this->rateService->update($request->validated(), $id);
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', Rule::unique('rates')->ignore($id), 'regex:/^[^\d\W]+$/'],
+            ]);
+            if ($validator->fails()) {
+                $errorResponse = $validator->errors();
+
+                $response = [
+                    'status' => 'error',
+                    'status_code' => 422,
+                    'data' => $errorResponse,
+                    'err_msg' => 'Validation Error.',
+                ];
+
+                return response()->json($response, 422);
+            }
+
+            $data = $this->rateService->update($request->all(), $id);
             return $this->success(200, $data, "Rate Updated Successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error updating Rate data: ' . $e->getMessage());
