@@ -72,26 +72,6 @@ class InterviewerController extends Controller
     }
 
 
-
-    // public function update(Request $request, $id)
-    // {
-    //     try {
-    //         $validateData = $request->validate([
-    //             'name' => 'required',
-    //             'email' => 'required|email|unique:interviewers,email,' . $id,
-    //             'position_id' => 'required|exists:positions,id',
-    //             'department_id' => 'required|exists:departments,id',
-    //         ]);
-
-
-    //         $data = $this->interviewerService->update($validateData, $id);
-    //         return $this->success(200, $data, "Interviewer updated successfully.");
-    //     } catch (Exception $e) {
-
-    //         return $this->error(500, $e->getMessage(), 'Internal Server Error.');
-    //     }
-    // }
-
     public function update(Request $request, $id)
     {
         try {

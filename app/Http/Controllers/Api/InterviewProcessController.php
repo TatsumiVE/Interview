@@ -45,7 +45,7 @@ class InterviewProcessController extends Controller
             $validator = Validator::make($request->all(), [
                 'stage_name' => 'required',
                 'interview_date' => 'required',
-                'interview_time' => ['required', new InterviewTimeRule],
+                'interview_time' => 'required',
                 'location' => 'required|integer',
                 'candidate_id' => ['required', 'exists:interviewers,id'],
                 'interviewer_id' => ['required', 'array', new UniqueIntegerArrayRule, 'exists:interviewers,id'],
@@ -63,7 +63,7 @@ class InterviewProcessController extends Controller
                 return response()->json($response, 422);
             }
 
-            $response = $this->interviewProcessService->store($request);
+            $response = $this->interviewProcessService->store($request->all());
 
             // Clear the interviewer_id array from the request
             $request->merge(['interviewer_id' => []]);
@@ -130,9 +130,7 @@ class InterviewProcessController extends Controller
     public function terminateProcess($candidateId)
     {
         try {
-            // $data =  DB::table('candidates')->where('id', $id)->update([
-            //     'status' => 1
-            // ]);
+
             $candidate = Candidate::findOrFail($candidateId);
             $candidate->status = 1;
             $data = $candidate->save();
