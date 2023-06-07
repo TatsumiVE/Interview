@@ -24,7 +24,7 @@ class RateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'unique:rates,name', 'regex:/^[^\d]+$/'],
+            'name' => ['required', 'string', 'unique:rates,name', 'regex:/^[^\d\W]+$/'],
         ];
     }
 }

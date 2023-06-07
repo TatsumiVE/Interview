@@ -24,7 +24,7 @@ class TopicRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'unique:topics,name', 'regex:/^[^\d]+$/'],
+            'name' => ['required', 'string', 'unique:topics,name', 'regex:/^[^\d\W]+$/'],
         ];
     }
 }

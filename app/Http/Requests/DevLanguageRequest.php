@@ -25,7 +25,7 @@ class DevLanguageRequest extends FormRequest
     {
         return [
 
-            'name' => ['required', 'string', 'unique:devlanguages,name', 'regex:/^[^\d]+$/'],
+            'name' => ['required', 'string', 'unique:devlanguages,name', 'regex:/^[^\d\W]+$/'],
         ];
     }
 }

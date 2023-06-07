@@ -24,13 +24,13 @@ class InterviewResultDateRule implements Rule
      * @param  mixed  $value
      * @return bool
      */
+
+
     public function passes($attribute, $value)
     {
-        $today = Carbon::today()->format('m/d/y');
-        $tomorrow = Carbon::tomorrow()->format('m/d/y');
-        $selectedDate = Carbon::parse($value)->format('m/d/y');
-
-        return $selectedDate === $today || $selectedDate === $tomorrow;
+        $today = Carbon::today()->startOfDay();
+        $selectedDate = Carbon::createFromFormat('m d Y', $value)->startOfDay();
+        return $selectedDate->isSameDay($today) || $selectedDate->isFuture();
     }
 
     /**

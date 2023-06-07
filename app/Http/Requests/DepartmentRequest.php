@@ -24,7 +24,7 @@ class DepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'unique:departments,name', 'regex:/^[^\d]+$/'],
+            'name' => ['required', 'string', 'unique:departments,name', 'regex:/^[^\d\W]+$/']
         ];
     }
 }

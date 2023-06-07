@@ -12,6 +12,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\TopicResource;
 use App\Services\Topic\TopicServiceInterface;
 use App\Repositories\Topic\TopicRepoInterface;
+use Illuminate\Support\Facades\Validator;
+
+
+use Illuminate\Validation\Rule;
 
 class TopicController extends Controller
 {
@@ -97,10 +101,25 @@ class TopicController extends Controller
     {
 
         try {
-            $validateData = $request->validate([
-                'name'  => 'required|string|unique:topics,name,' . $id,
+
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', Rule::unique('topics')->ignore($id), 'regex:/^[^\d\W]+$/'],
             ]);
-            $data = $this->topicService->update($validateData, $id);
+
+            if ($validator->fails()) {
+                $errorResponse = $validator->errors();
+
+                $response = [
+                    'status' => 'error',
+                    'status_code' => 422,
+                    'data' => $errorResponse,
+                    'err_msg' => 'Validation Error.',
+                ];
+
+                return response()->json($response, 422);
+            }
+
+            $data = $this->topicService->update($request->all(), $id);
             return $this->success(200, $data, "Topic updated successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error updating topic: ' . $e->getMessage());

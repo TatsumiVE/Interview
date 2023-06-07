@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\DepartmentResource;
 use App\Services\Department\DepartmentServiceInterface;
 use App\Repositories\Department\DepartmentRepoInterface;
-
+use Illuminate\Validation\Rule;
 class DepartmentController extends Controller
 {
     use ApiResponser;
@@ -70,11 +71,26 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $validateData = $request->validate([
-                'name' => 'required|string|unique:departments,name,' . $id,
-            ]);
 
-            $data = $this->departmentService->update($validateData, $id);
+
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', Rule::unique('departments')->ignore($id), 'regex:/^[^\d\W]+$/'],
+            ]);
+            if ($validator->fails()) {
+                $errorResponse = $validator->errors();
+
+                $response = [
+                    'status' => 'error',
+                    'status_code' => 422,
+                    'data' => $errorResponse,
+                    'err_msg' => 'Validation Error.',
+                ];
+
+                return response()->json($response, 422);
+            }
+
+
+            $data = $this->departmentService->update($request->all(), $id);
             return $this->success(200, $data, "Department updated successfully.");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error updating department: ' . $e->getMessage());
