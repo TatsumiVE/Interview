@@ -19,7 +19,7 @@ class UniqueIntegerArrayRule implements Rule
 
     public function message()
     {
-        return 'The :attribute array must contain unique integer values.';
+        return 'The interviewer must be unique.';
     }
 
     private function validateIntegerValues($values)
