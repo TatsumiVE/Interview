@@ -22,12 +22,10 @@ class InterviewProcessService implements InterviewProcessServiceInterface
 
     return  DB::transaction(function () use ($request) {
 
-      $interviewDate = Carbon::createFromFormat('m-d-Y', $request['interview_date'])
-        ->format('Y-m-d');
-
+      // $interviewDate = Carbon::createFromFormat('Y-m-d', $request['interview_date']);
       $stage = InterviewStage::create([
         'stage_name' => $request['stage_name'],
-        'interview_date' =>  $interviewDate,
+        'interview_date' => $request['interview_date'],
         'interview_time' => $request['interview_time'],
         'location' => $request['location'],
       ]);

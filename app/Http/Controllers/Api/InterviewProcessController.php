@@ -39,7 +39,6 @@ class InterviewProcessController extends Controller
         $this->middleware('permission:interviewProcessTerminate', ['only' => ['terminateProcess']]);
     }
 
-
     public function store(Request $request)
     {
         try {
@@ -70,7 +69,7 @@ class InterviewProcessController extends Controller
 
             $response = $this->interviewProcessService->store($request->all());
 
-            // Clear the interviewer_id array from the request
+
             $request->merge(['interviewer_id' => []]);
 
             return $this->success(201, $response, "New InterviewAssign Created");
@@ -91,10 +90,6 @@ class InterviewProcessController extends Controller
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         };
     }
-
-
-
-
 
     public function interviewSummarize(Request $request,  $candidateID, $stageID)
     {
@@ -118,20 +113,13 @@ class InterviewProcessController extends Controller
                 return response()->json($response, 422);
             }
 
-
-
-            // $data = $this->interviewProcessService->interviewSummarize($request->all(), $candidateID, $stageID);
-            // return $this->success(200, $data, "Updated Success Interviews result");
-
-
             // Convert the interview_date to the desired format
-            $interviewDate = Carbon::createFromFormat('m d Y', $request->input('interview_result_date'))
-                ->format('Y-m-d');
+            // $interviewDate = Carbon::createFromFormat('Y-m-d', $request->input('interview_result_date'));
 
             // Prepare the data to be passed to the interviewSummarize method
             $data = [
                 'interview_summarize' => $request->input('interview_summarize'),
-                'interview_result_date' => $interviewDate,
+                'interview_result_date' => $request->input('interview_result_date'),
                 'interview_result' => $request->input('interview_result'),
                 'record_path' => $request->input('record_path'),
             ];
@@ -145,12 +133,6 @@ class InterviewProcessController extends Controller
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
         }
     }
-
-
-
-
-
-
 
     public function terminateProcess($candidateId)
     {
