@@ -2,11 +2,12 @@
 
 namespace App\Services\InterviewProcess;
 
+use Carbon\Carbon;
+
 use App\Models\Interview;
-
 use App\Models\InterviewStage;
-use App\Models\InterviewAssign;
 
+use App\Models\InterviewAssign;
 use Illuminate\Support\Facades\DB;
 use App\Services\InterviewProcess\InterviewProcessServiceInterface;
 
@@ -14,37 +15,40 @@ use App\Services\InterviewProcess\InterviewProcessServiceInterface;
 
 class InterviewProcessService implements InterviewProcessServiceInterface
 {
-    public function store($request)
-    {
+  public function store($request)
+  {
 
 
 
-      return  DB::transaction(function () use ($request) {
+    return  DB::transaction(function () use ($request) {
 
-        $stage = InterviewStage::create([
-          'stage_name' => $request['stage_name'],
-          'interview_date' => $request['interview_date'],
-          'interview_time' => $request['interview_time'],
-          'location' => $request['location'],
+      $interviewDate = Carbon::createFromFormat('m-d-Y', $request['interview_date'])
+        ->format('Y-m-d');
+
+      $stage = InterviewStage::create([
+        'stage_name' => $request['stage_name'],
+        'interview_date' =>  $interviewDate,
+        'interview_time' => $request['interview_time'],
+        'location' => $request['location'],
+      ]);
+
+      $interview = Interview::create([
+        'candidate_id' => $request['candidate_id'],
+        'interview_stage_id' => $stage->id,
+      ]);
+
+      $interviewAssigns = [];
+
+      foreach ($request['interviewer_id'] as $interviewer) {
+
+        $interviewAssign = InterviewAssign::create([
+          'interview_id' => $interview->id,
+          'interviewer_id' => $interviewer,
         ]);
-
-        $interview = Interview::create([
-          'candidate_id' => $request['candidate_id'],
-          'interview_stage_id' => $stage->id,
-        ]);
-
-        $interviewAssigns = [];
-
-        foreach ($request['interviewer_id'] as $interviewer) {
-
-          $interviewAssign = InterviewAssign::create([
-            'interview_id' => $interview->id,
-            'interviewer_id' => $interviewer,
-          ]);
-          $interviewAssigns[] = $interviewAssign;
-        }
-      });
-    }
+        $interviewAssigns[] = $interviewAssign;
+      }
+    });
+  }
 
 
   public function interviewSummarize($request, $candidateId, $interviewId)

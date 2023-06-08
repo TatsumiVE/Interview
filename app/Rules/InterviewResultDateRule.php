@@ -29,7 +29,7 @@ class InterviewResultDateRule implements Rule
     public function passes($attribute, $value)
     {
         $today = Carbon::today()->startOfDay();
-        $selectedDate = Carbon::createFromFormat('m d Y', $value)->startOfDay();
+        $selectedDate = Carbon::createFromFormat('m-d-Y', $value)->startOfDay();
         return $selectedDate->isSameDay($today) || $selectedDate->isFuture();
     }
 
