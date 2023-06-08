@@ -26,11 +26,15 @@ class InterviewResultDateRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        $today = Carbon::today()->format('m-d-Y');
-        $tomorrow = Carbon::tomorrow()->format('m-d-Y');
-        $selectedDate = Carbon::parse($value)->format('m-d-Y');
 
-        return $selectedDate === $today || $selectedDate === $tomorrow;
+
+
+            $today = Carbon::today()->format('m-d-Y');
+            $selectedDate = Carbon::parse($value)->startOfDay();
+
+            return $selectedDate->isSameDay($today) || $selectedDate->isFuture();
+
+
     }
 
     /**

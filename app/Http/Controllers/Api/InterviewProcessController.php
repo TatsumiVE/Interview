@@ -47,7 +47,7 @@ class InterviewProcessController extends Controller
                 'interview_date' => ['required',new InterviewResultDateRule],
                 'interview_time' => 'required',
                 'location' => 'required|integer',
-                'candidate_id' => ['required', 'exists:interviewers,id'],
+                'candidate_id' => 'required',
                 'interviewer_id' => ['required', 'array', new UniqueIntegerArrayRule, 'exists:interviewers,id'],
             ]);
             if ($validator->fails()) {
