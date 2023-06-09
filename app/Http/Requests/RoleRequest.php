@@ -24,8 +24,7 @@ class RoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string',  'unique:roles,name', 'regex:/^[^\d\W]+$/'],
-
+            'name' => ['required', 'string',  'unique:roles,name'],
         ];
     }
 }
