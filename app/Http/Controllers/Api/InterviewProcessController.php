@@ -63,10 +63,6 @@ class InterviewProcessController extends Controller
                 return response()->json($response, 422);
             }
 
-
-
-
-
             $response = $this->interviewProcessService->store($request->all());
 
 
@@ -140,8 +136,9 @@ class InterviewProcessController extends Controller
 
             $candidate = Candidate::findOrFail($candidateId);
             $candidate->status = 1;
-            $data = $candidate->save();
-            return $this->success(200, $data, "Candidate Terminate Successfully");
+            $candidate->save();
+            // $data = $candidate->save();
+            return $this->success(200, $candidate, "Candidate Terminate Successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error terminate Candidate data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');
