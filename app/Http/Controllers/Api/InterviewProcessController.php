@@ -130,15 +130,13 @@ class InterviewProcessController extends Controller
         }
     }
 
-    public function terminateProcess($candidateId)
+    public function terminateProcess($candidateId, $checkstatus)
     {
         try {
-
             $candidate = Candidate::findOrFail($candidateId);
-            $candidate->status = 1;
+            $candidate->status = $checkstatus;
             $candidate->save();
-            // $data = $candidate->save();
-            return $this->success(200, $candidate, "Candidate Terminate Successfully");
+            return $this->success(200, $candidate, "Candidate Process Successfully");
         } catch (Exception $e) {
             Log::channel('web_daily_error')->error('Error terminate Candidate data: ' . $e->getMessage());
             return $this->error(500, $e->getMessage(), 'Internal Server Error');

@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\CandidateSearchController;
 
 use App\Http\Controllers\Api\InterviewProcessController;
 use App\Http\Controllers\Api\InterviewStageController;
+use App\Http\Controllers\Api\LocalizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +52,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
   Route::post('interview-process/result/{candiateId}/{stageId}', [InterviewProcessController::class, 'interviewSummarize']);
   //find AssignI
   Route::get('interview-process/{candiateId}/{interviewerId}', [InterviewProcessController::class, 'searchInterviewAssignId']);
-  Route::post('interview-process/terminate/{candidateId}', [InterviewProcessController::class, 'terminateProcess']);
+  Route::post('interview-process/terminate/{candidateId}/{status}', [InterviewProcessController::class, 'terminateProcess']);
   Route::post('user/{userId}', [UserController::class, 'userStatus']);
   Route::apiResource('users', UserController::class);
   Route::apiResource('roles', RoleController::class);
@@ -68,4 +69,5 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
   Route::apiResource('interviewers', InterviewerController::class);
   Route::get('candidate-barchart', [BarChartController::class, 'index']);
   Route::get('candidate-piechart', [BarChartController::class, 'candidateCountByStage']);
+  Route::apiResource('localize', LocalizationController::class);
 });
