@@ -8,12 +8,16 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 {
   public function get()
   {
-    $candidates = Candidate::with('specificLanguages.devlanguage', 'position', 'agency')->where('status', 0)->get();
+    $candidates = Candidate::with('specificLanguages.devlanguage', 'position', 'agency')
+    ->where('status', 0)
+    ->orderBy('id', 'desc')
+    ->get();
 
     $result = [];
     foreach ($candidates as $candidate) {
       $interviewStages = Interview::with('interviewStage', 'interviewAssign.interviewer.position', 'interviewAssign.interviewer.department', 'interviewAssign.assessment.assessmentResult', 'interviewAssign.remarks')
         ->where('candidate_id', $candidate->id)
+
         ->get();
 
       $candidateData = [
@@ -28,7 +32,9 @@ class CandidateDetailRepository implements CandidateDetailRepoInterface
 
   public function candidatesAll()
   {
-    $candidates = Candidate::with('specificLanguages.devlanguage', 'position', 'agency')->get();
+    $candidates = Candidate::with('specificLanguages.devlanguage', 'position', 'agency')
+    ->orderBy('id', 'desc')
+    ->get();
 
     $result = [];
     foreach ($candidates as $candidate) {
