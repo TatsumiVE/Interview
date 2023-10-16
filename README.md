@@ -34,3 +34,4 @@
 <br/>**Password:** password
 
 - CV path  **https://docs.google.com/document/d/1E_GwNV_AaLKuLpwcXVS7BesdoOk5CIdyj-1knJcHQrY/edit**
+- IMS powerpoint **https://drive.google.com/file/d/1ojqiafqDjRxItM5pqHOOI3TUg7Tl1Mic/view?usp=sharing**
